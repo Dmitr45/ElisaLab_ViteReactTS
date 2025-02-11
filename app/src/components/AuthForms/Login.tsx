@@ -1,4 +1,4 @@
-import styles from "./styles.module.scss";
+import styles from "@/components/AuthForms/styles.module.scss";
 import { NavAuth } from "@/components/NavAuth";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useAppContext } from "@/context/ContextProvider"

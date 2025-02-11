@@ -1,0 +1,141 @@
+@import url("./fonts/font.scss");
+.section {
+  --background: #ffffff;
+  --color: #171717;
+  --antiColor: #ffeaea;
+  --highColor: #cf2069;
+  --silver: #707070;
+  --textSize: 25px;
+  background-color: var(--background);
+}
+.section .logo, .section p {
+  color: var(--color);
+}
+.section .logo span, .section p span {
+  color: var(--highColor);
+}
+.section .podLogo {
+  color: var(--color);
+}
+.section input {
+  height: 50px;
+  margin-top: 25px;
+  padding-left: 15px;
+  line-height: 50px;
+  border-bottom: var(--highColor) solid 2px;
+  border-radius: 15px;
+  background-color: var(--antiColor);
+  color: var(--color);
+  font-size: var(--textSize);
+  font-family: "Courier New", Courier, monospace;
+}
+.section .inputRange {
+  /* Removes default focus */
+  /******** Chrome, Safari, Opera and Edge Chromium styles ********/
+  /* slider track */
+  /* slider thumb */
+  /*********** Firefox styles ***********/
+  /* slider track */
+  /* slider thumb */
+}
+.section .inputRange input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 350px;
+  border: none;
+  margin: 20px auto;
+  padding-left: 0px;
+}
+.section .inputRange input[type=range]:focus {
+  outline: none;
+}
+.section .inputRange input[type=range]::-webkit-slider-runnable-track {
+  background-color: var(--antiColor);
+  opacity: 1;
+  border-radius: 5px;
+  height: 5px;
+}
+.section .inputRange input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -4px; /* Centers thumb on the track */
+  background-color: var(--highColor);
+  border-radius: 7px;
+  height: 15px;
+  width: 15px;
+  opacity: 1;
+}
+.section .inputRange input[type=range]:focus::-webkit-slider-thumb {
+  outline: 3px solid var(--antiColor);
+  outline-offset: 0.125rem;
+}
+.section .inputRange input[type=range]::-moz-range-track {
+  background-color: var(--antiColor);
+  opacity: 1;
+  border-radius: 5px;
+  height: 5px;
+}
+.section .inputRange input[type=range]::-moz-range-thumb {
+  appearance: none;
+  margin-top: -4px; /* Centers thumb on the track */
+  background-color: var(--highColor);
+  border-radius: 7px;
+  height: 15px;
+  width: 15px;
+  opacity: 1;
+}
+.section .inputRange input[type=range]:focus::-moz-range-thumb {
+  outline: 3px solid var(--antiColor);
+  outline-offset: 0.125rem;
+}
+.section button {
+  height: 50px;
+  margin-top: 25px;
+  padding-left: 15px;
+  line-height: 15px;
+  border: var(--antiColor) solid 2px;
+  border-radius: 50px;
+  background-color: var(--antiColor);
+  color: var(--color);
+  font-size: var(--textSize);
+  font-family: "Courier New", Courier, monospace;
+}
+.section button:hover {
+  background-color: var(--color);
+  color: var(--background);
+  border: var(--background) solid 2px;
+}
+.section .startButton {
+  font-family: "Courier New", Courier, monospace;
+  color: var(--color);
+}
+.section .burger div {
+  filter: invert(0);
+}
+.section .footerSect div div {
+  filter: invert(0);
+}
+.section .navAuth {
+  font-family: "Courier New", Courier, monospace;
+}
+.section .navAuth div div {
+  height: 100%;
+  opacity: 0.7;
+  filter: invert(0);
+  border: 2px solid transparent;
+}
+.section .navAuth div div:hover {
+  box-sizing: border-box;
+  border-bottom: var(--highColor) 2px solid;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.section .timerBox {
+  justify-content: space-around;
+  font-family: "Courier New", Courier, monospace;
+}
+.section .timerBox .time {
+  color: var(--color);
+}
