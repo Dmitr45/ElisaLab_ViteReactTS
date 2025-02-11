@@ -1,14 +1,13 @@
 'use client'
 import style from './styles.module.scss';
-import { useSound } from 'use-sound';
+// import { useSound } from 'use-sound';
 import { useAppContext } from "@/context/ContextProvider";
-import { NameAppType, NameObjType, themeActiveType } from "@/context/types";
+import { themeActiveType } from "@/context/types";
 
 
 export function Alarm(){
-    const  {themeActive, NameApp } : {themeActive: themeActiveType, NameApp: NameAppType} =  useAppContext(); 
-    const Title:NameObjType = {"name" : NameApp.name, "span" : NameApp.span, "slogan": NameApp.slogan};
-    const [play] = useSound("@/components/sound/Finish.mp3");
+    const  {themeActive} : {themeActive: themeActiveType} =  useAppContext(); 
+    // const [play] = useSound("@/components/sound/Finish.mp3");
     
 
 return (    

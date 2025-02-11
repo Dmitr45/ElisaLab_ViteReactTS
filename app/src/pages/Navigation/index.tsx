@@ -1,12 +1,12 @@
 import style from './styles.module.scss';
 import { useAppContext } from "@/context/ContextProvider";
-import { NameObjType, togglePageActiveType, NameAppType, themeActiveType } from "../../context/types";
+import { togglePageActiveType, themeActiveType } from "../../context/types";
 import { Link } from 'react-router-dom';
 
 
 export function Navigation(){
-    const  {themeActive, NameApp, togglePageActive }:{togglePageActive:togglePageActiveType; NameApp:NameAppType, themeActive:themeActiveType } =  useAppContext(); 
-    const Title:NameObjType = { "name" : NameApp.name, "span" : NameApp.span, "slogan": NameApp.slogan}
+    const  {themeActive, togglePageActive }:{togglePageActive:togglePageActiveType, themeActive:themeActiveType } =  useAppContext(); 
+    // const Title:NameObjType = { "name" : NameApp.name, "span" : NameApp.span, "slogan": NameApp.slogan}
 
 
 return (    

@@ -1,14 +1,6 @@
 import styles from "./styles.module.scss";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { useAppContext } from "@/context/ContextProvider";
 import { togglePageActiveType } from '@/context/types';
-
-interface IFormInput{
-    login: string,
-    email: string,
-    password: string,
-
-}
 
 
 export function RegistrationForm(){

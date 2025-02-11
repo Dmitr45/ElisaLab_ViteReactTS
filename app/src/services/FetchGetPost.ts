@@ -1,12 +1,3 @@
-import { useAppContext } from "../context/ContextProvider";
-
-const data = { username: "example" };
-
-interface ResponseType {
-
-
-};
-
 
 
 export async function RequestPOSTApi(baseURL:string, paramsURL:string):Promise<ResponseType>{

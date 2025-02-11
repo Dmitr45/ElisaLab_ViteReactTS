@@ -4,7 +4,7 @@ import { NameObjType } from './types';
 import DarckTheme from "@/components/Theme/DarkTheme.module.scss";
 import LightTheme from "@/components/Theme/LightTheme.module.scss";
 
-
+// eslint-disable-next-line 
 export const useCreateAppContext = function(props:any) {
 
 // Входные данные: ============================================================================================================
@@ -61,7 +61,7 @@ const authURL = "https://pletnevd.com/auth/"
             case "" :
                 {
                     if (localStorage.getItem("TokenAuth")) {
-                        //@ts-expect-error
+                        //@ts-expect-error ошибка
                         setAddTokenAuth(localStorage.getItem("TokenAuth"));
                         console.log("Вы авторизованы!");
                     } else {
@@ -78,7 +78,7 @@ const authURL = "https://pletnevd.com/auth/"
 
 
 //Контекст для SimpleTimer =============================================================================
-    const startTime_simpleTimer:string =  "startTime_simpleTimer";
+    // const startTime_simpleTimer:string =  "startTime_simpleTimer";
     //localStorage.setItem(startTime_simpleTimer, Date.now().toString() );
 
 
@@ -91,9 +91,9 @@ const authURL = "https://pletnevd.com/auth/"
     const [timeSimpleRender, setTimeSimpleRenred] = useState<number>(props.timeSimpleRender || 0); // мин
     const toggTimeSimpleRenred = useCallback((min:number):void  => {setTimeSimpleRenred(min);}, []);
 
-    const [timerNow, setTimerNow] = useState<number>(0);
+    // const [timerNow, setTimerNow] = useState<number>(0);
 
-    const [startedTime, setStartedTime] = useState<number>(0);
+    // const [startedTime, setStartedTime] = useState<number>(0);
 
 
 

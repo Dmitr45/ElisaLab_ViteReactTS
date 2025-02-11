@@ -45,7 +45,7 @@ function Render(): JSX.Element{
 const Completionist = ():JSX.Element =>  {  return (<span>Время вышло!</span>) };
 
 // Renderer callback with condition
-const renderer = ({total, hours, minutes, seconds, completed }: StartTimer) => {
+const renderer = ({/*total, */ hours, minutes, seconds, completed }: StartTimer) => {
   if (completed) {
     togglePageActive(8);
     TimeDelLocal("simpleTimerStart")

@@ -1,12 +1,12 @@
 import { useAppContext } from "@/context/ContextProvider";
 import { useState, useEffect } from "react";
 import styles from "./header.module.scss"
-import { NameAppType, NameObjType, themeActiveType, pageActiveType } from "@/context/types";
+import { NameAppType, NameObjType, pageActiveType } from "@/context/types";
 import { Link } from "react-router-dom";
 
 
 export function Header(){
-const  {toggleDarkThemeContext, darkThemeContext, themeActive, NameApp, pageActive,  togglePageActive }:{
+const  {toggleDarkThemeContext, darkThemeContext, themeActive, NameApp, pageActive}:{
     themeActive:{readonly [key: string]: string},
     pageActive: pageActiveType, 
     toggleDarkThemeContext: {(bool: boolean): string}, 

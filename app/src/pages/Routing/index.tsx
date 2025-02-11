@@ -16,7 +16,7 @@ import { Test } from  "../Test/index";
 
 
 export function Routing(){
-const  {themeActive, pageActive, localStorageRefresh }:{themeActive:  themeActiveType, pageActive:number, localStorageRefresh: localStorageRefreshType} =  useAppContext(); 
+const  {themeActive, pageActive }:{themeActive:  themeActiveType, pageActive:number, localStorageRefresh: localStorageRefreshType} =  useAppContext(); 
 const pagesArr:pagesType= [Start, // 0
                             Authorization, // 1
                             Registration, // 2

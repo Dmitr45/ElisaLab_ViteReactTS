@@ -1,14 +1,14 @@
 import { useAppContext } from "@/context/ContextProvider"
-import { NameAppType, NameObjType, themeActiveType } from "../../context/types";
+import {themeActiveType } from "../../context/types";
 import { RegistrationForm } from "@/components/AuthForms/Registration";
 import style from './styles.module.scss';
 
 
 export function Registration(){
-const  {themeActive, NameApp  } : {themeActive: themeActiveType,  NameApp: NameAppType} =  useAppContext();
+const  {themeActive, } : {themeActive: themeActiveType} =  useAppContext();
 
 
-const Title:NameObjType = { "name" : NameApp.name, "span" : NameApp.span, "slogan": NameApp.slogan}
+// const Title:NameObjType = { "name" : NameApp.name, "span" : NameApp.span, "slogan": NameApp.slogan}
 
 return (
 <div className={themeActive.section}>

@@ -1,6 +1,5 @@
 'use client'
 import style from './styles.module.scss';
-import { useState, useEffect, useRef } from 'react';
 import { useAppContext } from "@/context/ContextProvider";
 import { deltaSimpleTimeType} from "@/context/types";
 import { TimerService } from "@/components/Timer/Timer.service";

@@ -1,4 +1,3 @@
-'use client'
 import style from './styles.module.scss';
 import { useEffect } from 'react';
 import { useAppContext } from "@/context/ContextProvider";
