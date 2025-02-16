@@ -1,4 +1,3 @@
-'use client'
 import { useAppContext } from "../../context/ContextProvider";
 import styles from "./footer.module.scss"
 import { themeActiveType, togglePageActiveType } from "../../context/types";
@@ -6,7 +5,7 @@ import { themeActiveType, togglePageActiveType } from "../../context/types";
 
 
 
-export default function Header(){
+export function Footer(){
 const  { themeActive,  togglePageActive}: {themeActive: themeActiveType, togglePageActive: togglePageActiveType } =  useAppContext(); // Переключение темы
 
 

@@ -1,11 +1,10 @@
-'use client'
 import { useAppContext } from "../../context/ContextProvider";
 import { useState, useEffect } from "react";
 import styles from "./header.module.scss"
 import { NameAppType, NameObjType, pageActiveType } from "../../context/types";
 
 
-export default function Header(){
+export function Header(){
 const  {toggleDarkThemeContext, darkThemeContext, themeActive, NameApp, pageActive,  togglePageActive }:{
     themeActive:{readonly [key: string]: string},
     pageActive: pageActiveType, 

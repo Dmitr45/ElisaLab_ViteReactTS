@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { useAppContext } from "../../context/ContextProvider";
 import { NameAppType, themeActiveType, togglePageActiveType} from "../../context/types";
 import Countdown from 'react-countdown'; //https://www.npmjs.com/package/react-countdown
@@ -24,7 +24,7 @@ export function TimerService(props: Props){
 
 const  {themeActive, togglePageActive} : {themeActive: themeActiveType,  NameApp: NameAppType, togglePageActive: togglePageActiveType} =  useAppContext();
 const [ deltaTime, setDeltaTime ] = useState<number>(600000);
-const [RenderJSX, setRenderJSX] = useState<JSX.Element>(<></>);
+const [RenderJSX, setRenderJSX] = useState<React.ReactElement>(<></>);
 
 useEffect(()=>{
   console.log("Запуск TimerService на " + props.deltaMin/60000 + " .мин");
@@ -36,13 +36,13 @@ useEffect(()=>{
 }, [themeActive, deltaTime]);
 
 
-function Render(): JSX.Element{
+function Render(): React.ReactElement{
   return RenderJSX
 }
 
 
 // Random component
-const Completionist = ():JSX.Element =>  {  return (<span>Время вышло!</span>) };
+const Completionist = ():React.ReactElement =>  {  return (<span>Время вышло!</span>) };
 
 // Renderer callback with condition
 const renderer = ({ /*total*/ hours, minutes, seconds, completed }: StartTimer) => {

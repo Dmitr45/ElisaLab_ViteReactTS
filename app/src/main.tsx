@@ -1,9 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { AppContextProvider } from "./context/ContextProvider.tsx";
-import './index.css'
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
+import './index.scss'
+import { Header } from "./components/Header/Header";
+import { Footer } from "./components/Footer/Footer.tsx";
+import { Routing } from "./pages/Routing/index.tsx";
 
 
 createRoot(document.getElementById('root')!).render(
@@ -13,7 +14,7 @@ createRoot(document.getElementById('root')!).render(
             <Header/>
           </header>
           <main>
-              {/* <Routing/> */}
+              <Routing/>
           </main>
           <footer>
             <Footer/>

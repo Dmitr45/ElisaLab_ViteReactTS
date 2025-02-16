@@ -6,7 +6,7 @@ export type NameObjType = { // Тип для названия приложени
 };
 
 
-export type    pagesType = (()=>JSX.Element)[];
+export type    pagesType = (()=>React.ReactElement)[];
 export type    darkThemeContextType = boolean;
 export type    toggleDarkThemeContextType = {(bool: boolean): string};
 export type    themeActiveType = {readonly [key: string]: string};
