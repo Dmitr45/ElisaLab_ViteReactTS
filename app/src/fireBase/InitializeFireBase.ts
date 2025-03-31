@@ -14,17 +14,16 @@ import { initializeApp } from "firebase/app"; // https://firebase.google.com/doc
 //   measurementId: string;
 // }
 
-export async function fireBaseInitial(
-  link_config_json: string
-): Promise<boolean> {
+export async function fireBaseInitial(link_config_json: string): Promise<any> {
+  let fireBaseApp;
   try {
     await fetch(link_config_json)
       .then((response) => response.json()) // Обращаемся к серверу в формате, читаем ответ в формате JSON
-      .then((response) => initializeApp(response));
+      .then((response) => (fireBaseApp = initializeApp(response)));
     console.log("Подключение к базе данных fireBase: OK");
-    return true;
+    return fireBaseApp;
   } catch (err) {
     console.log("Подключение к базе данных fireBase с ошибкой: " + err);
-    return false;
+    return fireBaseApp;
   }
 }
