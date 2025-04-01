@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { NameObjType } from "./types";
 import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
-import { FireBase } from "../fireBase";
+import { Log } from "../fireBase/";
 import { userUidI } from "./types";
 
 export const useCreateAppContext = function (props: any) {
@@ -21,7 +21,7 @@ export const useCreateAppContext = function (props: any) {
   const authURL = "https://pletnevd.com/auth/";
 
   //Base initiation
-  FireBase.fireBaseApp;
+  Log();
 
   // Контекст для приложения ====================================================================================================
   const [darkThemeContext, setDarkThemeContext] = useState<boolean>(
