@@ -5,48 +5,10 @@
 
 import { loadFireBaseConfig } from "./LoadConfFireBase";
 import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const LINK: string = "https://pletnevd.com/api/json/?file=firebaseConfig";
-export const FireConfig = await loadFireBaseConfig(LINK); // Загрузка конфигурации FireBase
+const FireConfig = await loadFireBaseConfig(LINK); // Загрузка конфигурации FireBase
 
-export const Log = () =>
-  console.log("Конфигурация FireBase: " + FireConfig.authDomain);
-
-const appFireBase = initializeApp(FireConfig); // Инициализация FireBase
-
-// Аунтетификации
-const auth = getAuth(appFireBase); // Инициализация Аунтетификации
-
-export async function SingIn(email: string, password: string) {
-  // Вход в аккаунт
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
-}
-
-// Состояние пользователя
-export async function AuthState(params: type) {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      // ...
-    } else {
-      // User is signed out
-      // ...
-    }
-  });
-}
+export const appFireBase = initializeApp(FireConfig); // Инициализация FireBase
+export const authFireBase = getAuth(appFireBase); // Инициализация Аунтетификации

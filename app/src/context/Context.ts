@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { NameObjType } from "./types";
 import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
-import { Log } from "../fireBase/";
+import { appFireBase, authFireBase } from "../fireBase/"; // Компоненты сервиса FireBase
 import { userUidI } from "./types";
 
 export const useCreateAppContext = function (props: any) {
@@ -19,9 +19,6 @@ export const useCreateAppContext = function (props: any) {
   // API
   const apiURL = "https://pletnevd.com/api/";
   const authURL = "https://pletnevd.com/auth/";
-
-  //Base initiation
-  Log();
 
   // Контекст для приложения ====================================================================================================
   const [darkThemeContext, setDarkThemeContext] = useState<boolean>(
@@ -63,49 +60,6 @@ export const useCreateAppContext = function (props: any) {
   }, []);
 
   //Контекст для авторизации =============================================================================
-  const [tokenAuth, setTokenAuth] = useState<userUidI>({ uid: "" });
-  const toggleTokenAuth = useCallback((obj: userUidI) => {
-    setTokenAuth(obj);
-  }, []);
-
-  useEffect(() => {
-    //setTokenAuth(FireBase.authState("user"));
-    console.log("Токен авторизации: " + tokenAuth.uid);
-  }, []);
-
-  // const [controllerTokenAuth, setControllerTokenAuth] = useState<string>("");
-  // const toggleControllerTokenAuth = useCallback((token: string) => {
-  //   setControllerTokenAuth(token);
-  //   return "Ok";
-  // }, []);
-
-  // useEffect(() => {
-  //   switch (controllerTokenAuth) {
-  //     case "exit":
-  //       {
-  //         localStorage.removeItem("TokenAuth");
-  //         setTokenAuth("");
-  //         console.log("Выход из аккаунта!");
-  //       }
-  //       break;
-  //     case "":
-  //       {
-  //         if (localStorage.getItem("TokenAuth")) {
-  //           //@ts-expect-error
-  //           setAddTokenAuth(localStorage.getItem("TokenAuth"));
-  //           console.log("Вы авторизованы!");
-  //         } else {
-  //           console.log("Вы не авторизованы!");
-  //         }
-  //       }
-  //       break;
-  //     default: {
-  //       localStorage.setItem("TokenAuth", controllerTokenAuth);
-  //       setTokenAuth(controllerTokenAuth);
-  //       console.log("Вы авторизованы!");
-  //     }
-  //   }
-  // }, [controllerTokenAuth]);
 
   //Контекст для SimpleTimer =============================================================================
   //localStorage.setItem(startTime_simpleTimer, Date.now().toString() );
@@ -139,9 +93,7 @@ export const useCreateAppContext = function (props: any) {
     NameApp,
     pageActive,
     togglePageActive,
-    //====авторизация====
-    tokenAuth,
-    toggleTokenAuth,
+    //====Authentication====
 
     //=====SimpleTimer
     deltaSimpleTime,
