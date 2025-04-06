@@ -14,6 +14,7 @@ export type darkThemeContextType = boolean;
 export type toggleDarkThemeContextType = { (bool: boolean): string };
 export type themeActiveType = { readonly [key: string]: string };
 export type togglePageActiveType = { (page: number): string };
+export type toggleErrorMessageType = { (err: string): string };
 export type NameAppType = NameObjType;
 export type pageActiveType = number;
 export type tokenAuth = string;

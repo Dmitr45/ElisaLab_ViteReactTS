@@ -1,24 +1,26 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { AppContextProvider } from "./context/ContextProvider.tsx";
-import './index.scss'
+import { AuthProvider } from "./fireBase/AuthProvider.tsx";
+import "./index.scss";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer.tsx";
-import { Routing } from "./pages/Routing/index.tsx";
+import { Routing } from "./context/Routing/index.tsx";
 
-
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AppContextProvider>
-          <header>
-            <Header/>
-          </header>
-          <main>
-              <Routing/>
-          </main>
-          <footer>
-            <Footer/>
-          </footer>
+      <AuthProvider>
+        <header>
+          <Header />
+        </header>
+        <main>
+          <Routing />
+        </main>
+        <footer>
+          <Footer />
+        </footer>
+      </AuthProvider>
     </AppContextProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);

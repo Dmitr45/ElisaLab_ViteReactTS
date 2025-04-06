@@ -2,8 +2,6 @@ import { useState, useCallback, useEffect } from "react";
 import { NameObjType } from "./types";
 import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
-import { appFireBase, authFireBase } from "../fireBase/"; // Компоненты сервиса FireBase
-import { userUidI } from "./types";
 
 export const useCreateAppContext = function (props: any) {
   // Входные данные: ============================================================================================================
@@ -59,7 +57,21 @@ export const useCreateAppContext = function (props: any) {
     return "Ok";
   }, []);
 
-  //Контекст для авторизации =============================================================================
+  // Ошибки и сообщения =============================================================================
+  const [errorMessage, setErrorMessage] = useState<string>(
+    props.errorMessage || ""
+  );
+  const toggleErrorMessage = useCallback((err: string): void => {
+    setErrorMessage(err);
+  }, []);
+
+  useEffect(() => {
+    if (errorMessage.length > 1) {
+      setTimeout(() => {
+        toggleErrorMessage("");
+      }, 2500);
+    }
+  }, [errorMessage]);
 
   //Контекст для SimpleTimer =============================================================================
   //localStorage.setItem(startTime_simpleTimer, Date.now().toString() );
@@ -93,8 +105,9 @@ export const useCreateAppContext = function (props: any) {
     NameApp,
     pageActive,
     togglePageActive,
-    //====Authentication====
-
+    //====Error====
+    errorMessage,
+    toggleErrorMessage,
     //=====SimpleTimer
     deltaSimpleTime,
     toggleDeltaSimpleTime, // На какое время запущен таймер,  мин
