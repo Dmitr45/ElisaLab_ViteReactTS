@@ -6,9 +6,11 @@
 import { loadFireBaseConfig } from "./LoadConfFireBase";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
 const LINK: string = "https://pletnevd.com/api/json/?file=firebaseConfig";
 const FireConfig = await loadFireBaseConfig(LINK); // Загрузка конфигурации FireBase
 
 export const appFireBase = initializeApp(FireConfig); // Инициализация FireBase
 export const authFireBase = getAuth(appFireBase); // Инициализация Аунтетификации
+export const dataFireBase = getDatabase(appFireBase); // Инициализация Базы данных

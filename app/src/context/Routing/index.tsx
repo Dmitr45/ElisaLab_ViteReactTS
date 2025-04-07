@@ -11,6 +11,7 @@ import { Alarm } from "../../pages/AlarmFinish";
 import { TimeTrueLocal } from "../../logics/deltaTimeLogic";
 import { Test } from "../../pages/Test";
 import { useAuth } from "../../fireBase/AuthProvider";
+import { About } from "../../pages/AboutApp";
 
 export function Routing() {
   const {
@@ -32,6 +33,7 @@ export function Routing() {
     SimpleTimerPage, // 7
     Alarm, // 8
     Test, // 9
+    About, //10
   ];
 
   return <div className={themeActive.section}>{pagesArr[pageActive]()}</div>;

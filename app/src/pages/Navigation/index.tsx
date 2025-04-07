@@ -24,7 +24,7 @@ export function Navigation() {
         </div>
         <div
           onClick={() => {
-            togglePageActive(0);
+            togglePageActive(10);
           }}
           className={themeActive.podLogo}
         >

@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { NameObjType } from "./types";
 import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
+import { UsersDATA } from "../fireBase/UsersProfileData/users";
 
 export const useCreateAppContext = function (props: any) {
   // Входные данные: ============================================================================================================
@@ -17,7 +18,7 @@ export const useCreateAppContext = function (props: any) {
   // API
   const apiURL = "https://pletnevd.com/api/";
   const authURL = "https://pletnevd.com/auth/";
-
+  UsersDATA();
   // Контекст для приложения ====================================================================================================
   const [darkThemeContext, setDarkThemeContext] = useState<boolean>(
     props.darkThemeContext ||
@@ -41,13 +42,13 @@ export const useCreateAppContext = function (props: any) {
       setThemeActive(DarkTheme);
       localStorage.setItem("DarkTheme", "Active");
       localStorage.removeItem("LightTheme");
-      console.log("DarkTheme:  " + localStorage.getItem("DarkTheme"));
+      //console.log("DarkTheme:  " + localStorage.getItem("DarkTheme"));
     }
     if (darkThemeContext === false) {
       setThemeActive(LightTheme);
       localStorage.setItem("LightTheme", "Active");
       localStorage.removeItem("DarkTheme");
-      console.log("LightTheme:  " + localStorage.getItem("LightTheme"));
+      //console.log("LightTheme:  " + localStorage.getItem("LightTheme"));
     }
   }, [darkThemeContext]);
 
