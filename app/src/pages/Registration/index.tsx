@@ -2,7 +2,7 @@
 import { useAppContext } from "../../context/ContextProvider";
 import { NameAppType, themeActiveType } from "../../context/types";
 import { RegistrationForm } from "../../fireBase/AuthForms/Registration";
-import style from "./styles.module.scss";
+import style from "../styles.module.scss";
 
 export function Registration() {
   const {

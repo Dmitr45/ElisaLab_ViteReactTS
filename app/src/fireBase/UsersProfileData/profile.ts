@@ -1,15 +1,17 @@
 import { getDatabase, ref, onValue } from "firebase/database";
 import { dataFireBase } from "../index";
 
-export interface user {
+export interface userIType {
+  email?: string;
   name?: string;
   github?: string;
-  phone?: number;
+  phone?: string;
   telegram?: string;
   groups?: {
     PletnevD?: string;
     ElisaLab?: string;
   };
+  text?: string;
 }
 
 export async function UsersDATA() {

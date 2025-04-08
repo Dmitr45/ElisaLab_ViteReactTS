@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { NameObjType } from "./types";
 import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
-import { UsersDATA } from "../fireBase/UsersProfileData/users";
+import { UsersDATA } from "../fireBase/UsersProfileData/profile";
 
 export const useCreateAppContext = function (props: any) {
   // Входные данные: ============================================================================================================
@@ -18,7 +18,7 @@ export const useCreateAppContext = function (props: any) {
   // API
   const apiURL = "https://pletnevd.com/api/";
   const authURL = "https://pletnevd.com/auth/";
-  UsersDATA();
+
   // Контекст для приложения ====================================================================================================
   const [darkThemeContext, setDarkThemeContext] = useState<boolean>(
     props.darkThemeContext ||

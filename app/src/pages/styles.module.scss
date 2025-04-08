@@ -20,7 +20,7 @@
 
 .logo {
   font-family: "Incompleeta";
-  font-size: 3rem;
+  font-size: 5rem;
   font-weight: 500;
   text-align: center;
   @media (width < 500px) {
@@ -30,6 +30,49 @@
 }
 
 .podLogo {
+  padding-top: 20px;
   font-family: "Courier New", Courier, monospace;
   font-size: 1rem;
+}
+
+.container1200 {
+  display: flex;
+  flex-direction: column;
+  width: 1200px;
+  @media (width < 1200px) {
+    width: 900px;
+  }
+  @media (width < 900px) {
+    width: 600px;
+  }
+  @media (width < 600px) {
+    width: 250px;
+  }
+}
+
+.container900 {
+  display: flex;
+  flex-direction: column;
+  width: 900px;
+  @media (width < 900px) {
+    width: 600px;
+  }
+  @media (width < 600px) {
+    width: 250px;
+  }
+}
+
+.container600 {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  @media (width < 600px) {
+    width: 250px;
+  }
+}
+
+.container300 {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
 }

@@ -1,8 +1,7 @@
-"use client";
 import { useAppContext } from "../../context/ContextProvider";
 import { themeActiveType } from "../../context/types";
 import { LoginForm } from "../../fireBase/AuthForms/Login";
-import style from "./styles.module.scss";
+import style from "../styles.module.scss";
 
 export function Authorization() {
   const { themeActive }: { themeActive: themeActiveType } = useAppContext();

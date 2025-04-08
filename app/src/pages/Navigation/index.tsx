@@ -1,5 +1,4 @@
-"use client";
-import style from "./styles.module.scss";
+import style from "../styles.module.scss";
 import { useAppContext } from "../../context/ContextProvider";
 import { togglePageActiveType, themeActiveType } from "../../context/types";
 
