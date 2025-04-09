@@ -20,63 +20,70 @@ import { userIType } from "../../fireBase/UsersProfileData/profile";
 
 export function Profile() {
   //@ts-expect-error  ???
-  const { currentUser } = useAuth();
+  const { currentUser, userData }: { userData: userIType; currentUser: any } =
+    useAuth();
   const { themeActive }: { themeActive: themeActiveType } = useAppContext();
   const { register, handleSubmit } = useForm<userIType>();
 
-  const [email, setEmail] = useState<string>("Your email");
-  const [name, setName] = useState<string>("Your Name");
-  const [github, setGithub] = useState<string>("Your link github");
-  const [phone, setPhone] = useState<string>("Phone: +79998887766");
-  const [telegram, setTelegram] = useState<string>("Your @telegram");
+  const [name, setName] = useState<string>("");
+  const [github, setGithub] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [telegram, setTelegram] = useState<string>("");
   const [groups, setGroups] = useState<string[]>([
     "PletnevD.com",
     "ElisaLab.ru",
   ]);
-  const [note, setNote] = useState<string>("Your text");
+  const [note, setNote] = useState<string>("");
 
   useEffect(() => {
-    setEmail(currentUser.email);
+    setName(userData !== null ? String(userData.name) : "");
+    setGithub(userData !== null ? String(userData.github) : "");
+    setPhone(userData !== null ? String(userData.phone) : "");
+    setTelegram(userData !== null ? String(userData.telegram) : "");
+    setNote(userData !== null ? String(userData.note) : "");
   }, []);
 
   return (
     <div className={themeActive.section}>
       <div className={style.page}>
         <div className={style.container}>
-          <p>
-            <div className={style.pageTitle}>Личный кабинет</div>
-            <input
-              type="text"
-              disabled
-              placeholder={email}
-              style={{ border: "none", textAlign: "center", width: "100%" }}
-            />
-          </p>
+          <div className={style.pageTitle}>Личный кабинет</div>
+          <input
+            type="text"
+            disabled
+            placeholder={currentUser.email}
+            style={{ border: "none", textAlign: "center", width: "100%" }}
+          />
+
           <br />
           {/* <form onSubmit={handleSubmit(onSubmit)}> */}
           <form className={style.flexForm}>
             <div className={style.inputContainer}>
               <input
                 type="text"
-                placeholder={name}
+                placeholder="Your Name"
+                value={name}
                 {...register("name", { required: true, maxLength: 15 })}
               />
               <br />
               <input
                 type="text"
-                placeholder={github}
+                placeholder="Your link github"
+                value={github}
                 {...register("github", { required: true, maxLength: 15 })}
               />
               <br />
               <input
                 type="tel"
-                placeholder={phone}
+                placeholder="Phone: +79998887766"
+                value={phone}
                 {...register("phone", { required: true, maxLength: 15 })}
               />
               <br />
               <input
                 type="text"
-                placeholder={telegram}
+                placeholder="Your @telegram"
+                value={telegram}
                 {...register("telegram", { required: true, maxLength: 15 })}
               />
               <br />
@@ -88,6 +95,7 @@ export function Profile() {
             <div className={style.inputContainer}>
               <textarea
                 placeholder="Your note text"
+                value={note}
                 {...register("note", { required: true, maxLength: 500 })}
               />
             </div>
