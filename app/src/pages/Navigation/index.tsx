@@ -19,7 +19,7 @@ export function Navigation() {
           }}
           className={themeActive.podLogo}
         >
-          Профайл
+          Account
         </div>
         <div
           onClick={() => {
@@ -27,7 +27,7 @@ export function Navigation() {
           }}
           className={themeActive.podLogo}
         >
-          О приложении
+          About the application
         </div>
       </div>
     </div>

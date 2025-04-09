@@ -7,11 +7,8 @@ export interface userIType {
   github?: string;
   phone?: string;
   telegram?: string;
-  groups?: {
-    PletnevD?: string;
-    ElisaLab?: string;
-  };
-  text?: string;
+  groups?: string[];
+  note?: string;
 }
 
 export async function UsersDATA() {

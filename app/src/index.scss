@@ -32,6 +32,9 @@
   section,
   main {
     display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
   }
 
   h1,
@@ -41,10 +44,13 @@
   h5,
   h6,
   p {
+    margin-top: 20px;
     font-size: inherit;
     font-weight: inherit;
   }
-
+  p {
+    text-align: justify;
+  }
   ul,
   ul li {
     list-style: none;
@@ -72,6 +78,11 @@
   select {
     color: inherit;
     background-color: transparent;
+    box-sizing: border-box;
+    vertical-align: bottom;
+  }
+  textarea::-webkit-scrollbar {
+    display: none; /* Прячем полосу прокрутки */
   }
 
   input::-ms-clear {
@@ -95,7 +106,8 @@
   input:focus,
   input:active,
   button:focus,
-  button:active {
+  button:active,
+  textarea {
     outline: none;
   }
 
