@@ -37,7 +37,7 @@ export function Profile() {
   });
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isSave, setIsSave] = useState<boolean>(false);
+  //const [isSave, setIsSave] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<userIType> = async (data) => {
     if (!isEdit) {
@@ -46,7 +46,7 @@ export function Profile() {
         // await doSignInWithEmailAndPassword(data.login, data.password);
         toggleMessage({
           type: "success",
-          message: "Profile successfully changed ",
+          message: "Profile successfully changed " + data.name,
         });
       } catch (err) {
         console.log("Profile : " + err);
