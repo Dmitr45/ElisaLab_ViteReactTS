@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from "react";
 import { NameObjType } from "./types";
 import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
-import { UsersDATA } from "../fireBase/UsersProfileData/profile";
 
 export const useCreateAppContext = function (props: any) {
   // Входные данные: ============================================================================================================

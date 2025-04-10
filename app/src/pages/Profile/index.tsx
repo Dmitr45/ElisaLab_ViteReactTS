@@ -1,6 +1,6 @@
 //https://toxigon.com/create-social-media-app-with-firebase-and-react
 import { useState, useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useAppContext } from "../../context/ContextProvider";
 import { themeActiveType } from "../../context/types";
 import style from "../styles.module.scss";
@@ -23,16 +23,16 @@ export function Profile() {
   const { currentUser, userData }: { userData: userIType; currentUser: any } =
     useAuth();
   const { themeActive }: { themeActive: themeActiveType } = useAppContext();
-  const { register, handleSubmit } = useForm<userIType>();
+  const { register } = useForm<userIType>(); // handleSubmit
 
   const [name, setName] = useState<string>("");
   const [github, setGithub] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [telegram, setTelegram] = useState<string>("");
-  const [groups, setGroups] = useState<string[]>([
-    "PletnevD.com",
-    "ElisaLab.ru",
-  ]);
+  // const [groups, setGroups] = useState<string[]>([
+  //   "PletnevD.com",
+  //   "ElisaLab.ru",
+  // ]);
   const [note, setNote] = useState<string>("");
 
   useEffect(() => {
