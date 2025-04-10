@@ -11,7 +11,7 @@ export function Registration() {
 
   return (
     <div className={themeActive.section}>
-      <div className={style.page}>
+      <div className={style.page + " " + themeActive.page}>
         <div className={style.logo}>
           {/* <div className={themeActive.logo}>{Title.name}<span>{Title.span}</span></div> */}
           <RegistrationForm />

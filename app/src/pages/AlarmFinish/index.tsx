@@ -9,7 +9,7 @@ export function Alarm() {
   // const [play] = useSound("../../components/sound/Finish.mp3");
 
   return (
-    <div className={style.page}>
+    <div className={style.page + " " + themeActive.page}>
       <div className={style.logo}>
         <div className={themeActive.logo}>
           На один <br />

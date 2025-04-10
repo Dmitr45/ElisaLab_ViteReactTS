@@ -14,9 +14,22 @@
   --antiColor: #ffeaea;
   --highColor: #cf2069;
   --silver: #707070;
-  --textSize: 25px;
+  --textSize: 20px;
 
   background-color: var(--background);
+  .page {
+    color: var(--color);
+    background-color: var(--background);
+  }
+
+  .link {
+    cursor: pointer;
+    border-bottom: 1px solid var(--background);
+  }
+  .link:hover {
+    border-bottom: 1px solid var(--color);
+  }
+
   .logo,
   p {
     color: var(--color);
@@ -32,7 +45,7 @@
     height: 50px;
     margin-top: 25px;
     padding-left: 15px;
-    line-height: 50px;
+    line-height: 25px;
     border-bottom: var(--highColor) solid 2px;
     border-radius: 15px;
     background-color: var(--antiColor);

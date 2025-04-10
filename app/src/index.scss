@@ -36,6 +36,11 @@
     overflow-x: hidden;
     -ms-overflow-style: none;
   }
+  main {
+    height: calc(
+      100vh - 200px
+    ); /* 200px is the height of the header and footer */
+  }
 
   h1,
   h2,
@@ -101,6 +106,7 @@
   button {
     padding-right: 25px;
     padding-left: 25px;
+    margin-bottom: 10px;
   }
 
   input:focus,

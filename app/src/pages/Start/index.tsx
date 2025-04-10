@@ -14,7 +14,7 @@ export function Start() {
   };
 
   return (
-    <div className={style.page}>
+    <div className={style.page + " " + themeActive.page}>
       <div className={style.logo}>
         <div className={themeActive.logo}>
           {Title.name}

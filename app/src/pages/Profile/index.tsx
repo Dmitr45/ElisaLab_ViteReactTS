@@ -45,9 +45,9 @@ export function Profile() {
 
   return (
     <div className={themeActive.section}>
-      <div className={style.page}>
+      <div className={style.page + " " + themeActive.page}>
         <div className={style.container}>
-          <div className={style.pageTitle}>Личный кабинет</div>
+          <div className={style.pageTitle}>Account</div>
           <input
             type="text"
             disabled

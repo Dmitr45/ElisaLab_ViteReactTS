@@ -10,7 +10,7 @@
 
 .page {
   width: 100vw;
-  height: calc(100vh - 200px);
+  min-height: calc(100vh - 200px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,6 +45,7 @@
 .container {
   margin: 0 auto;
   padding-top: 0px;
+  padding-bottom: 10px;
   display: flex;
   flex-direction: column;
   width: 1200px;
@@ -53,7 +54,7 @@
   }
   @media (width < 900px) {
     width: 600px;
-    padding-top: 200px;
+    //padding-top: 200px;
   }
   @media (width < 600px) {
     width: 250px;

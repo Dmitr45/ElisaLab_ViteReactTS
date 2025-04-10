@@ -14,7 +14,7 @@ export function About() {
   };
 
   return (
-    <div className={style.page}>
+    <div className={style.page + " " + themeActive.page}>
       <div className={style.container}>
         <div className={style.logo}>
           <div className={themeActive.logo}>
