@@ -4,10 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { doSignInWithEmailAndPassword } from "../../fireBase/auth";
 import { useEffect, useState } from "react";
 import { useAppContext } from "../../context/ContextProvider";
-import {
-  togglePageActiveType,
-  toggleErrorMessageType,
-} from "../../context/types";
+import { togglePageActiveType, toggleMessageType } from "../../context/types";
 
 interface IFormInput {
   login: string;
@@ -19,21 +16,24 @@ export function LoginForm() {
   const { register, handleSubmit } = useForm<IFormInput>();
   const [isSingningIn, setIsSingningIn] = useState<boolean>(false); // отправлен ли запрос на авторизацию
   const {
-    toggleErrorMessage,
+    toggleMessage,
   }: {
     togglePageActive: togglePageActiveType;
-    toggleErrorMessage: toggleErrorMessageType;
+    toggleMessage: toggleMessageType;
   } = useAppContext();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     if (!isSingningIn) {
-      console.log("Отправлен запрос на авторизацию с логином: " + data.login);
       try {
         setIsSingningIn(true);
         await doSignInWithEmailAndPassword(data.login, data.password);
+        toggleMessage({
+          type: "success",
+          message: "You have successfully logged in " + data.login,
+        });
       } catch (err) {
         console.log("Ошибка авторизации: " + err);
-        toggleErrorMessage(String(err));
+        toggleMessage({ type: "error", message: String(err) });
       }
     }
   };

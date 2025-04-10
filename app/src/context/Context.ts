@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { NameObjType } from "./types";
+import { NameObjType, MessageIType } from "./types";
 import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
 
@@ -58,20 +58,20 @@ export const useCreateAppContext = function (props: any) {
   }, []);
 
   // Ошибки и сообщения =============================================================================
-  const [errorMessage, setErrorMessage] = useState<string>(
-    props.errorMessage || ""
+  const [messageSend, setMessage] = useState<MessageIType>(
+    props.messageSend || { type: "none", message: "none" }
   );
-  const toggleErrorMessage = useCallback((err: string): void => {
-    setErrorMessage(err);
+  const toggleMessage = useCallback((obj: MessageIType): void => {
+    setMessage(obj);
   }, []);
 
   useEffect(() => {
-    if (errorMessage.length > 1) {
+    if (messageSend.message.length > 1) {
       setTimeout(() => {
-        toggleErrorMessage("");
-      }, 2500);
+        toggleMessage({ type: "none", message: "none" });
+      }, 5000);
     }
-  }, [errorMessage]);
+  }, [messageSend]);
 
   //Контекст для SimpleTimer =============================================================================
   //localStorage.setItem(startTime_simpleTimer, Date.now().toString() );
@@ -106,8 +106,8 @@ export const useCreateAppContext = function (props: any) {
     pageActive,
     togglePageActive,
     //====Error====
-    errorMessage,
-    toggleErrorMessage,
+    messageSend,
+    toggleMessage,
     //=====SimpleTimer
     deltaSimpleTime,
     toggleDeltaSimpleTime, // На какое время запущен таймер,  мин

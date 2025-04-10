@@ -1,7 +1,12 @@
 import { useAppContext } from "../../context/ContextProvider";
 import { useState, useEffect } from "react";
 import styles from "./header.module.scss";
-import { NameAppType, NameObjType, pageActiveType } from "../../context/types";
+import {
+  NameAppType,
+  NameObjType,
+  pageActiveType,
+  MessageIType,
+} from "../../context/types";
 
 export function Header() {
   const {
@@ -11,7 +16,7 @@ export function Header() {
     NameApp,
     pageActive,
     togglePageActive,
-    errorMessage,
+    messageSend,
   }: {
     themeActive: { readonly [key: string]: string };
     pageActive: pageActiveType;
@@ -19,7 +24,7 @@ export function Header() {
     darkThemeContext: boolean;
     togglePageActive: { (page: number): string };
     NameApp: NameAppType;
-    errorMessage: string;
+    messageSend: MessageIType;
   } = useAppContext(); // Переключение темы
 
   const Title: NameObjType = {
@@ -33,6 +38,19 @@ export function Header() {
   useEffect(() => {
     toggleDarkThemeContext(onchegeTheme);
   }, [onchegeTheme, darkThemeContext]);
+
+  const messageRunStyle = (obj: MessageIType) => {
+    switch (obj.type) {
+      case "none":
+        return { opacity: 0, background: "#fff" };
+      case "error":
+        return { opacity: 1, background: "#cf2069" };
+      case "success":
+        return { opacity: 1, background: "green" };
+      case "warning":
+        return { opacity: 1, background: "#fce883" };
+    }
+  };
 
   return (
     <div className={themeActive.section}>
@@ -68,11 +86,8 @@ export function Header() {
           ></div>
         </div>
       </div>
-      <div
-        className={styles.error}
-        style={errorMessage.length > 1 ? { opacity: 1 } : { opacity: 0 }}
-      >
-        {errorMessage}
+      <div className={styles.error} style={messageRunStyle(messageSend)}>
+        {messageSend.message}
       </div>
     </div>
   );

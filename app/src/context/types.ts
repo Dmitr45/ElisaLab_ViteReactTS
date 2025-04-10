@@ -9,12 +9,17 @@ export interface userUidI {
   uid: string;
 }
 
+export interface MessageIType {
+  type: "success" | "error" | "warning" | "none";
+  message: string;
+}
+
 export type pagesType = (() => React.ReactElement)[];
 export type darkThemeContextType = boolean;
 export type toggleDarkThemeContextType = { (bool: boolean): string };
 export type themeActiveType = { readonly [key: string]: string };
 export type togglePageActiveType = { (page: number): string };
-export type toggleErrorMessageType = { (err: string): string };
+export type toggleMessageType = { (obj: MessageIType): MessageIType };
 export type NameAppType = NameObjType;
 export type pageActiveType = number;
 export type tokenAuth = string;

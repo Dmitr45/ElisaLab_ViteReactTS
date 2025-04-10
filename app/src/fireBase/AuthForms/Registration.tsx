@@ -6,10 +6,7 @@ import {
 } from "../../fireBase/auth";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../context/ContextProvider";
-import {
-  togglePageActiveType,
-  toggleErrorMessageType,
-} from "../../context/types";
+import { togglePageActiveType, toggleMessageType } from "../../context/types";
 
 interface IFormInput {
   login: string;
@@ -23,34 +20,36 @@ export function RegistrationForm() {
   const [isSingningIn, setIsSingningIn] = useState<boolean>(false); // отправлен ли запрос на авторизацию
   const {
     togglePageActive,
-    toggleErrorMessage,
+    toggleMessage,
   }: {
     togglePageActive: togglePageActiveType;
-    toggleErrorMessage: toggleErrorMessageType;
+    toggleMessage: toggleMessageType;
   } = useAppContext();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     if (data.password !== data.password2) {
-      console.log("Error: Passwords don't match");
-      toggleErrorMessage("Passwords don't match");
+      toggleMessage({
+        type: "error",
+        message: String("Passwords don't match"),
+      });
     }
     if (!isSingningIn && data.password === data.password2) {
-      console.log(
-        "Отправлен запрос на регистрацию пользователя с логином: " + data.login
-      );
       setIsSingningIn(true);
       try {
         await doCreateUserWithEmailAndPassword(data.login, data.password);
         await doSignInWithEmailAndPassword(data.login, data.password);
-        console.log(
-          "Отправлен запрос на авторизацию пользователя с логином: " +
-            data.login
-        );
-        console.log("Вы успешно авторизовались в системе как: " + data.login);
         togglePageActive(4);
+        toggleMessage({
+          type: "success",
+          message:
+            "Registration: You have successfully logged in " + data.login,
+        });
       } catch (err) {
-        console.log("Ошибка регистрации: " + err);
-        toggleErrorMessage(String(err));
+        console.log("Registration: " + err);
+        toggleMessage({
+          type: "error",
+          message: String(err),
+        });
       }
     }
   };
