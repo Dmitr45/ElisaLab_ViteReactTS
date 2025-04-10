@@ -6,7 +6,10 @@ import { themeActiveType, toggleMessageType } from "../../context/types";
 import style from "../styles.module.scss";
 import { useAuth } from "../../fireBase/AuthProvider";
 import { doSignOut } from "../../fireBase/auth";
-import { userIType } from "../../fireBase/UsersProfileData/profile";
+import {
+  setUserAccount,
+  userIType,
+} from "../../fireBase/UsersProfileData/profile";
 
 // userIType {
 //  email?: string;
@@ -43,14 +46,18 @@ export function Profile() {
     if (!isEdit) {
       try {
         setIsEdit(true);
-        // await doSignInWithEmailAndPassword(data.login, data.password);
+        await setUserAccount(currentUser.email, {
+          ...data,
+        });
         toggleMessage({
           type: "success",
-          message: "Profile successfully changed " + data.name,
+          message: "Profile successfully changed " + currentUser.email,
         });
+        setIsEdit(false);
       } catch (err) {
-        console.log("Profile : " + err);
+        console.log("Profile : " + currentUser.email + "  Error: " + err);
         toggleMessage({ type: "error", message: String(err) });
+        setIsEdit(false);
       }
     }
   };
@@ -106,7 +113,7 @@ export function Profile() {
               />
             </div>
             <button type="submit" style={{ width: "100%" }}>
-              Edit
+              Update account
             </button>
           </form>
 
