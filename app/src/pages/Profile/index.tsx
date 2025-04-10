@@ -41,7 +41,7 @@ export function Profile() {
     setPhone(userData !== null ? String(userData.phone) : "");
     setTelegram(userData !== null ? String(userData.telegram) : "");
     setNote(userData !== null ? String(userData.note) : "");
-  }, []);
+  }, [userData]);
 
   return (
     <div className={themeActive.section}>
