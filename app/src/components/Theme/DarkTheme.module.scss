@@ -7,7 +7,6 @@
   font-weight: 300;
   font-style: normal;
 }
-
 .section {
   --background: #000000;
   --color: #ffffff;
@@ -15,11 +14,9 @@
   --highColor: #cf2069;
   --negativHigh: #30df96;
   --silver: #707070;
-
-  --textSize: 25px;
-  font-family: "Courier New", Courier, monospace;
-
+  --textSize: 20px;
   background-color: var(--background);
+  font-family: "Courier New", Courier, monospace;
 
   .page {
     color: var(--color);

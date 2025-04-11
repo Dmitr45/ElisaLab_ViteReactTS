@@ -25,11 +25,14 @@ export async function loadFireBaseConfig(
     await fetch(link_config_json)
       .then((response) => response.json()) // Обращаемся к серверу в формате, читаем ответ в формате JSON
       .then((response) => (conf = response));
-    console.log("Загрузили данные конфигурации firebase с сервера");
+    console.log(
+      "loadFireBaseConfig загрузил данные конфигурации firebase с сервера"
+    );
     return conf;
   } catch (err) {
     console.log(
-      "НЕ загрузили данные конфигурации firebase с сервера, ошибка: " + err
+      "loadFireBaseConfig НЕ загрузил данные конфигурации firebase с сервера, ошибка: " +
+        err
     );
     return conf;
   }

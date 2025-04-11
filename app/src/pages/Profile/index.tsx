@@ -84,9 +84,9 @@ export function Profile() {
               />
               <br />
               <input
-                type="text"
-                placeholder="Your link github"
-                {...register("github", { required: false, maxLength: 15 })}
+                type=""
+                placeholder="Your link http:/"
+                {...register("link", { required: false, maxLength: 50 })}
               />
               <br />
               <input

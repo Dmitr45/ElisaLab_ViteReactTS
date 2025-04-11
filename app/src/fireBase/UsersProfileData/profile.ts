@@ -2,11 +2,12 @@
 //https://www.youtube.com/watch?v=YpuyxBfYRT8&list=PLqFvlDFoiZ-2SAX7YXCYtb28K4IooCIlS&index=2
 import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { dataFireBase } from "../index";
+import { docSelection } from "../funcDocSelection";
 
 export interface userIType {
   email?: string;
   name?: string;
-  github?: string;
+  link?: string;
   phone?: string;
   telegram?: string;
   groups?: string[];
@@ -15,23 +16,26 @@ export interface userIType {
 
 export async function getUser(email: string) {
   let userData: userIType | null = null;
-
+  let userDoc: userIType | null = null;
   try {
     const users = await getDocs(collection(dataFireBase, "users"));
-    console.log("getUser : Загрузили профиль пользователя " + email);
-    users.docs.filter((file): userIType | null =>
-      file.id === email
-        ? (userData = {
-            name: String(file.data().name),
-            email: String(file.data().email),
-            github: String(file.data().github),
-            phone: String(file.data().phone),
-            telegram: String(file.data().telegram),
-            groups: file.data().groups,
-            note: String(file.data().note),
-          })
-        : (userData = null)
-    );
+    console.log("getUser загрузил данные с сервера и ищет ваш профиль");
+
+    userDoc = docSelection(
+      users.docs.map((doc) => doc),
+      email
+    ) as userIType;
+
+    userData = {
+      name: String(userDoc.name),
+      email: String(userDoc.email),
+      link: String(userDoc.link),
+      phone: String(userDoc.phone),
+      telegram: String(userDoc.telegram),
+      groups: userDoc.groups,
+      note: String(userDoc.note),
+    };
+
     console.log(userData);
     return userData;
   } catch {

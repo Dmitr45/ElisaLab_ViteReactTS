@@ -7,16 +7,17 @@
   font-weight: 300;
   font-style: normal;
 }
-
 .section {
   --background: #ffffff;
   --color: #171717;
   --antiColor: #ffeaea;
   --highColor: #cf2069;
+  --negativHigh: #30df96;
   --silver: #707070;
   --textSize: 20px;
-
   background-color: var(--background);
+  font-family: "Courier New", Courier, monospace;
+
   .page {
     color: var(--color);
     background-color: var(--background);
