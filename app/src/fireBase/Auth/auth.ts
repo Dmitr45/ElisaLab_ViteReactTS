@@ -1,4 +1,4 @@
-import { authFireBase } from "./index";
+import { authFireBase } from "../index";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,

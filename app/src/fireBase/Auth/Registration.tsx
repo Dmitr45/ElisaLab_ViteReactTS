@@ -1,21 +1,25 @@
 import styles from "./styles.module.scss";
-import { NavAuth } from "../../components/NavAuth";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { doSignInWithEmailAndPassword } from "../../fireBase/auth";
-import { useEffect, useState } from "react";
+import {
+  doCreateUserWithEmailAndPassword,
+  doSignInWithEmailAndPassword,
+} from "./auth";
+import { useState, useEffect } from "react";
 import { useAppContext } from "../../context/ContextProvider";
 import { togglePageActiveType, toggleMessageType } from "../../context/types";
 
 interface IFormInput {
   login: string;
   password: string;
+  password2: string;
 }
 
-export function LoginForm() {
+export function RegistrationForm() {
   // useForm ============================================================================
   const { register, handleSubmit } = useForm<IFormInput>();
   const [isSingningIn, setIsSingningIn] = useState<boolean>(false); // отправлен ли запрос на авторизацию
   const {
+    togglePageActive,
     toggleMessage,
   }: {
     togglePageActive: togglePageActiveType;
@@ -23,17 +27,29 @@ export function LoginForm() {
   } = useAppContext();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    if (!isSingningIn) {
+    if (data.password !== data.password2) {
+      toggleMessage({
+        type: "error",
+        message: String("Passwords don't match"),
+      });
+    }
+    if (!isSingningIn && data.password === data.password2) {
+      setIsSingningIn(true);
       try {
-        setIsSingningIn(true);
+        await doCreateUserWithEmailAndPassword(data.login, data.password);
         await doSignInWithEmailAndPassword(data.login, data.password);
+        togglePageActive(4);
         toggleMessage({
           type: "success",
-          message: "You have successfully logged in " + data.login,
+          message:
+            "Registration: You have successfully logged in " + data.login,
         });
       } catch (err) {
-        console.log("Ошибка авторизации: " + err);
-        toggleMessage({ type: "error", message: String(err) });
+        console.log("Registration: " + err);
+        toggleMessage({
+          type: "error",
+          message: String(err),
+        });
       }
     }
   };
@@ -64,8 +80,12 @@ export function LoginForm() {
           placeholder="Password"
           {...register("password", { required: true, maxLength: 20 })}
         />
-        <NavAuth />
-        <button type="submit">Sign in</button>
+        <input
+          type="password"
+          placeholder="Repeat password"
+          {...register("password2", { required: true, maxLength: 20 })}
+        />
+        <button type="submit">Sign up</button>
       </div>
     </form>
   );

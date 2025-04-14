@@ -3,7 +3,7 @@
 // После инициализации объекта приложения Firebase в своем коде вы можете добавить службы Firebase и начать использовать их.
 // https://firebase.google.com/docs/web/setup?hl=ru
 
-import { loadFireBaseConfig } from "./LoadConfFireBase";
+import { loadFireBaseConfig } from "./functions/LoadConfFireBase";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";

@@ -2,7 +2,7 @@
 //https://www.youtube.com/watch?v=YpuyxBfYRT8&list=PLqFvlDFoiZ-2SAX7YXCYtb28K4IooCIlS&index=2
 import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { dataFireBase } from "../index";
-import { docSelection } from "../funcDocSelection";
+import { docSelection } from "../functions/funcDocSelection";
 
 export interface userIType {
   email?: string;

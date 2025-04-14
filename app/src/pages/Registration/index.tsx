@@ -1,7 +1,7 @@
 "use client";
 import { useAppContext } from "../../context/ContextProvider";
 import { NameAppType, themeActiveType } from "../../context/types";
-import { RegistrationForm } from "../../fireBase/AuthForms/Registration";
+import { RegistrationForm } from "../../fireBase/Auth/Registration";
 import style from "../styles.module.scss";
 
 export function Registration() {

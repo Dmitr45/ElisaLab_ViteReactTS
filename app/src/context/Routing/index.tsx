@@ -10,7 +10,7 @@ import { FormSimpleTimer } from "../../pages/SimpleTimer/Form";
 import { Alarm } from "../../pages/AlarmFinish";
 import { TimeTrueLocal } from "../../logics/deltaTimeLogic";
 import { Test } from "../../pages/Test";
-import { useAuth } from "../../fireBase/AuthProvider";
+import { useAuth } from "../../fireBase/FireBaseProvider";
 import { About } from "../../pages/AboutApp";
 
 export function Routing() {

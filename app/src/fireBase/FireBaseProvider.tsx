@@ -1,8 +1,8 @@
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState, useContext } from "react";
 import { authFireBase } from "./index";
-import { userIType } from "../fireBase/UsersProfileData/profile";
-import { getUser } from "../fireBase/UsersProfileData/profile";
+import { userIType } from "./UsersProfileData/profile";
+import { getUser } from "./UsersProfileData/profile";
 
 //@ts-expect-error ???
 const AuthContext = React.createContext();
@@ -13,7 +13,7 @@ export function useAuth() {
 }
 
 //@ts-expect-error ???
-export function AuthProvider({ children }) {
+export function FireBaseProvider({ children }) {
   // создадим контекст авторизации
   const [currentUser, setCurrentUser] = useState();
   const [userLoggedIn, setUserLoggedIn] = useState<boolean>(false);

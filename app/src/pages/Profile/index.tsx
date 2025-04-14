@@ -4,8 +4,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useAppContext } from "../../context/ContextProvider";
 import { themeActiveType, toggleMessageType } from "../../context/types";
 import style from "../styles.module.scss";
-import { useAuth } from "../../fireBase/AuthProvider";
-import { doSignOut } from "../../fireBase/auth";
+import { useAuth } from "../../fireBase/FireBaseProvider";
+import { doSignOut } from "../../fireBase/Auth/auth";
 import {
   setUserAccount,
   userIType,
