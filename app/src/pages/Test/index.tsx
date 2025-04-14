@@ -1,14 +1,10 @@
-"use client";
 import style from "../styles.module.scss";
 import { useAppContext } from "../../context/ContextProvider";
-import { apiURLType, themeActiveType } from "../../context/types";
-import { RequestPOSTApi } from "../../logics/FetchGetPost";
+import { themeActiveType } from "../../context/types";
+import { upperText } from "../../api/upperText/";
 
 export function Test() {
-  const {
-    themeActive,
-    apiURL,
-  }: { themeActive: themeActiveType; apiURL: apiURLType } = useAppContext();
+  const { themeActive }: { themeActive: themeActiveType } = useAppContext();
 
   return (
     <div className={style.page + " " + themeActive.page}>
@@ -18,7 +14,7 @@ export function Test() {
         </div>
         <button
           onClick={() => {
-            RequestPOSTApi(apiURL, "upperText");
+            console.log(upperText("gdgdgdfgdgdfg"));
           }}
         >
           ---Request---
