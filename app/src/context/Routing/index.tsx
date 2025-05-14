@@ -10,8 +10,9 @@ import { FormSimpleTimer } from "../../pages/SimpleTimer/Form";
 import { Alarm } from "../../pages/AlarmFinish";
 import { TimeTrueLocal } from "../../logics/deltaTimeLogic";
 import { Test } from "../../pages/Test";
-import { useAuth } from "../../fireBase/FireBaseProvider";
+import { useAuth } from "../../fireBase/Auth/AuthProvider";
 import { About } from "../../pages/AboutApp";
+import { Methods } from "../../pages/Methods";
 
 export function Routing() {
   const {
@@ -34,6 +35,7 @@ export function Routing() {
     Alarm, // 8
     Test, // 9
     About, //10
+    Methods, //11
   ];
 
   return <div className={themeActive.section}>{pagesArr[pageActive]()}</div>;

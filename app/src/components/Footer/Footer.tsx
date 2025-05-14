@@ -16,7 +16,7 @@ export function Footer() {
           <div
             className={styles.addMetod}
             onClick={() => {
-              togglePageActive(4);
+              togglePageActive(11);
             }}
           >
             {" "}
@@ -24,7 +24,7 @@ export function Footer() {
           <div
             className={styles.editMetod}
             onClick={() => {
-              togglePageActive(9);
+              togglePageActive(4);
             }}
           >
             {" "}

@@ -1,8 +1,8 @@
 import style from "../styles.module.scss";
 import { useAppContext } from "../../context/ContextProvider";
 import { themeActiveType } from "../../context/types";
-import { upperText } from "../../api/upperText/";
-
+//import { upperText } from "../../api/upperText/";
+import { getStandardMethods } from "../../fireBase/MetodsData/methods";
 export function Test() {
   const { themeActive }: { themeActive: themeActiveType } = useAppContext();
 
@@ -14,7 +14,7 @@ export function Test() {
         </div>
         <button
           onClick={() => {
-            console.log(upperText("gdgdgdfgdgdfg"));
+            getStandardMethods();
           }}
         >
           ---Request---
