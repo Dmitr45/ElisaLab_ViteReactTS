@@ -188,3 +188,12 @@
     }
   }
 }
+
+.methodButton {
+  border: 1px solid var(--color);
+  &:hover,
+  &:active {
+    border: 1px solid var(--highColor);
+    color: var(--highColor);
+  }
+}

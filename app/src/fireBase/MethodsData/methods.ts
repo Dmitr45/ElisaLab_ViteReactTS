@@ -2,28 +2,26 @@ import { collection, getDocs } from "firebase/firestore";
 import { dataFireBase } from "../index";
 import { docSelection } from "../functions/funcDocSelection";
 
-export interface IMetod {
+export interface IMethod {
   id: string;
   name: string;
-  stage: object[];
+  stage?: object[];
 }
 //===========================================================================================================
 export async function getStandardMethods() {
-  const standardMethods: IMetod[] = [];
+  const standardMethods: IMethod[] = [];
   try {
     const methods = await getDocs(collection(dataFireBase, "methods"));
     console.log(
-      `getMethods загрузил папки методов с сервера, Всего папок с документами:  ${methods.docs.length}`
+      `getStandardMethods: Загрузил папки методов с сервера, всего папок с документами:  ${methods.docs.length}`
     );
-    const standard = docSelection(
-      methods.docs.map((doc) => doc),
-      "standardMethods"
-    ) as IMetod[];
-    standardMethods.push(...standard);
+    const standard = docSelection(methods.docs, "standardMethods");
+    //@ts-expect-error ?&&
+    standardMethods.push(...standard.method);
 
     return standardMethods;
   } catch {
-    console.log(`getMethods : Стандартные методы не найдены`);
+    console.log(`getStandardMethods: Стандартные методы не найдены`);
     return null;
   }
 }

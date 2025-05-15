@@ -8,35 +8,36 @@ import { Profile } from "../../pages/Profile";
 import { SimpleTimerPage } from "../../pages/SimpleTimer";
 import { FormSimpleTimer } from "../../pages/SimpleTimer/Form";
 import { Alarm } from "../../pages/AlarmFinish";
-import { TimeTrueLocal } from "../../logics/deltaTimeLogic";
+//import { TimeTrueLocal } from "../../logics/deltaTimeLogic";
 import { Test } from "../../pages/Test";
 import { useAuth } from "../../fireBase/Auth/AuthProvider";
 import { About } from "../../pages/AboutApp";
 import { Methods } from "../../pages/Methods";
+import { EditMethod } from "../../pages/EditMethod";
 
 export function Routing() {
+  //@ts-expect-error ???
+  const { userLoggedIn } = useAuth();
   const {
     themeActive,
     pageActive,
   }: { themeActive: themeActiveType; pageActive: number } = useAppContext();
-  //@ts-expect-error ???
-  const { userLoggedIn } = useAuth();
-  //console.log("userLoggedIn: " + userLoggedIn);
 
   const pagesArr: pagesType = [
-    Start, // 0
-    Authorization, // 1
-    Registration, // 2
-    Navigation, // 3
-    userLoggedIn ? Profile : Authorization, // 4
-    TimeTrueLocal("simpleTimerStart") ? SimpleTimerPage : FormSimpleTimer, // 5
-    FormSimpleTimer, // 6
-    SimpleTimerPage, // 7
-    Alarm, // 8
-    Test, // 9
-    About, //10
-    Methods, //11
+    <Start />, // 0
+    <Authorization />, // 1
+    <Registration />, // 2
+    <Navigation />, // 3
+    userLoggedIn ? <Profile /> : <Authorization />, // 4
+    <SimpleTimerPage />, // 5
+    <FormSimpleTimer />, // 6
+    <SimpleTimerPage />, // 7
+    <Alarm />, // 8
+    <Test />, // 9
+    <About />, //10
+    <Methods />, //11
+    <EditMethod />, //12
   ];
 
-  return <div className={themeActive.section}>{pagesArr[pageActive]()}</div>;
+  return <div className={themeActive.section}>{pagesArr[pageActive]}</div>;
 }

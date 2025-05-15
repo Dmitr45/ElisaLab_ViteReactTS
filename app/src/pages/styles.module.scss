@@ -37,6 +37,8 @@
 
 .pageTitle {
   font-size: 32px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   //font-family: "Courier New", Courier, monospace;
   text-align: center;
   font-weight: 700;
@@ -44,8 +46,7 @@
 
 .container {
   margin: 0 auto;
-  padding-top: 0px;
-  padding-bottom: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   width: 1200px;
@@ -58,6 +59,7 @@
   }
   @media (width < 600px) {
     width: 250px;
+    padding: 10px;
   }
 }
 
@@ -72,4 +74,17 @@
 .inputContainer {
   flex: 1 1 300px;
   text-align: center;
+}
+
+.methodButton {
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 10px;
+  position: relative;
+  cursor: pointer;
+  &::after {
+    position: absolute;
+    right: 20px;
+    content: ">";
+  }
 }

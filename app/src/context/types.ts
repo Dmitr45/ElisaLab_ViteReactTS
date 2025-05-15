@@ -14,7 +14,7 @@ export interface MessageIType {
   message: string;
 }
 
-export type pagesType = (() => React.ReactElement)[];
+export type pagesType = React.ReactElement[];
 export type darkThemeContextType = boolean;
 export type toggleDarkThemeContextType = { (bool: boolean): string };
 export type themeActiveType = { readonly [key: string]: string };

@@ -21,6 +21,7 @@
   .page {
     color: var(--color);
     background-color: var(--background);
+    border-color: var(--highColor);
   }
 
   .link {
@@ -184,5 +185,13 @@
     .time {
       color: var(--color);
     }
+  }
+}
+
+.methodButton {
+  border: 1px solid var(--color);
+  &:hover {
+    border: 1px solid var(--highColor);
+    color: var(--highColor);
   }
 }

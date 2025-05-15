@@ -7,8 +7,7 @@ export function Footer() {
     themeActive,
     togglePageActive,
   }: { themeActive: themeActiveType; togglePageActive: togglePageActiveType } =
-    useAppContext(); // Переключение темы
-
+    useAppContext();
   return (
     <div className={themeActive.section}>
       <div className={themeActive.footerSect}>
@@ -24,7 +23,7 @@ export function Footer() {
           <div
             className={styles.editMetod}
             onClick={() => {
-              togglePageActive(4);
+              togglePageActive(12);
             }}
           >
             {" "}
@@ -32,7 +31,7 @@ export function Footer() {
           <div
             className={styles.startMetod}
             onClick={() => {
-              togglePageActive(5);
+              togglePageActive(6);
             }}
           >
             {" "}
@@ -40,7 +39,7 @@ export function Footer() {
           <div
             className={styles.history}
             onClick={() => {
-              togglePageActive(4);
+              togglePageActive(9);
             }}
           >
             {" "}

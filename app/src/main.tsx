@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { AppContextProvider } from "./context/ContextProvider.tsx";
 import { AuthProvider } from "./fireBase/Auth/AuthProvider.tsx";
-import { MethodsProvider } from "./fireBase/MetodsData/MethodsProvider.tsx";
+import { MethodsProvider } from "./fireBase/MethodsData/MethodsProvider.tsx";
 import "./index.scss";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer.tsx";
