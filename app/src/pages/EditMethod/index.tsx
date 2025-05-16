@@ -5,11 +5,22 @@ import {
   togglePageActiveType,
 } from "../../context/types";
 import style from "../styles.module.scss";
-import { useEffect, useState } from "react";
-
+import {
+  IMethod,
+  TypeToggleMethodSelected,
+} from "../../fireBase/MethodsData/types";
+import { RenderFormsMethod } from "../../components/RenderFormsMethod";
+import { useEffect } from "react";
+//====================================================================================
 export function EditMethod() {
-  ////@ts-expect-error  ???
-  //const { standardMethods }: { standardMethods: IMethod[] } = useMethods();
+  const {
+    methodSelected,
+  }: //toggleMethodSelected,
+  {
+    methodSelected: IMethod;
+    toggleMethodSelected: TypeToggleMethodSelected;
+  } = useAppContext();
+
   ////@ts-expect-error &&&
   // const {
   //   userLoggedIn,
@@ -17,39 +28,25 @@ export function EditMethod() {
   // }: { userData: userIType; userLoggedIn: boolean } = useAuth();
   const {
     themeActive,
-    togglePageActive,
-    toggleMessage,
-  }: {
+  }: //togglePageActive,
+  // toggleMessage,
+  {
     themeActive: themeActiveType;
     toggleMessage: toggleMessageType;
     togglePageActive: togglePageActiveType;
   } = useAppContext();
 
-  const [clicked, setClicked] = useState<number>(-1);
-
   useEffect(() => {
-    setClicked(-1);
-    if (clicked !== -1) {
-      toggleMessage({
-        type: "success",
-        message: "The method chosen: ",
-      });
-      togglePageActive(5);
-    }
-  }, [clicked]);
-
-  const RenderFormsMethod = () => {
-    return <div>Метод скоро....</div>;
-  };
+    console.log("new: " + methodSelected);
+  }, [methodSelected]);
 
   return (
     <div className={themeActive.section}>
       <div className={style.page + " " + themeActive.page}>
         <div className={style.container}>
           <div className={style.pageTitle}>Method preparation</div>
-          <RenderFormsMethod />
+          <RenderFormsMethod method={methodSelected} />
         </div>
-        <button>Start method</button>
       </div>
     </div>
   );

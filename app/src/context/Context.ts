@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { NameObjType, MessageIType } from "./types";
 import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
+import { IMethod } from "../fireBase/MethodsData/types";
 
 export const useCreateAppContext = function (props: any) {
   // Входные данные: ============================================================================================================
@@ -55,6 +56,18 @@ export const useCreateAppContext = function (props: any) {
   const togglePageActive = useCallback((page: number) => {
     setPageActive(page);
     return "Ok";
+  }, []);
+  // ===Methods==========================================================================
+  const [methodSelected, setMethodSelected] = useState<IMethod>(
+    props.methodSelected || {
+      id: "none",
+      name: "The method is not selected. Please select the standard or your method.",
+      type: "",
+      stage: [],
+    }
+  );
+  const toggleMethodSelected = useCallback((method: IMethod): void => {
+    setMethodSelected(method);
   }, []);
 
   // Ошибки и сообщения =============================================================================
@@ -115,6 +128,11 @@ export const useCreateAppContext = function (props: any) {
     toggTimeSimpleRenred, // Оставшееся время на таймере Simple
     localStorageRefresh,
     toggLocalStorageRefresh, // Дата последнего изменения  LocalStorage
+
+    // Methods
+
+    methodSelected,
+    toggleMethodSelected,
 
     //=====API
     apiURL,

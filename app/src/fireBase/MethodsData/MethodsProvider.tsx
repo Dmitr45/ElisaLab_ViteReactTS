@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { getStandardMethods, IMethod } from "./methods";
+import { getStandardMethods } from "./methods";
+import { IMethod } from "./types";
 
 //@ts-expect-error ???
 const MethodsContext = React.createContext();

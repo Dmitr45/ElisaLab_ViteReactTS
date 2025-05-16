@@ -1,12 +1,8 @@
 import { collection, getDocs } from "firebase/firestore";
 import { dataFireBase } from "../index";
 import { docSelection } from "../functions/funcDocSelection";
+import { IMethod } from "./types";
 
-export interface IMethod {
-  id: string;
-  name: string;
-  stage?: object[];
-}
 //===========================================================================================================
 export async function getStandardMethods() {
   const standardMethods: IMethod[] = [];

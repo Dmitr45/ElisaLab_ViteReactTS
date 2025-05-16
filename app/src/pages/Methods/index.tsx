@@ -8,14 +8,21 @@ import {
 } from "../../context/types";
 import style from "../styles.module.scss";
 import { useMethods } from "../../fireBase/MethodsData/MethodsProvider";
-import { IMethod } from "../../fireBase/MethodsData/methods";
+import {
+  IMethod,
+  TypeToggleMethodSelected,
+} from "../../fireBase/MethodsData/types";
 import { useAuth } from "../../fireBase/Auth/AuthProvider";
 import { userIType } from "../../fireBase/UsersProfileData/profile";
 import { useCallback, useEffect, useState } from "react";
 
 export function Methods() {
   //@ts-expect-error  ???
-  const { standardMethods }: { standardMethods: IMethod[] } = useMethods();
+  const {
+    standardMethods,
+  }: {
+    standardMethods: IMethod[];
+  } = useMethods();
   //@ts-expect-error &&&
   const {
     userLoggedIn,
@@ -25,23 +32,28 @@ export function Methods() {
     themeActive,
     togglePageActive,
     toggleMessage,
+    toggleMethodSelected,
+    methodSelected,
   }: {
     themeActive: themeActiveType;
     toggleMessage: toggleMessageType;
     togglePageActive: togglePageActiveType;
+    toggleMethodSelected: TypeToggleMethodSelected;
+    methodSelected: IMethod;
   } = useAppContext();
 
-  const [clicked, setClicked] = useState<number>(-1);
+  const [click, setClick] = useState(false);
 
   useEffect(() => {
-    if (clicked !== -1) {
+    if (methodSelected !== null && click === true) {
       toggleMessage({
         type: "success",
-        message: "The method chosen: " + standardMethods[clicked].name,
+        message: "The method chosen: " + methodSelected.name,
       });
+      setClick(false);
       togglePageActive(12);
     }
-  }, [clicked]);
+  }, [click]);
 
   const RenderTableStandard = useCallback(() => {
     return standardMethods.map((method, index) => (
@@ -50,10 +62,12 @@ export function Methods() {
         tabIndex={index}
         className={style.methodButton + " " + themeActive.methodButton}
         onClick={() => {
-          setClicked(index);
+          toggleMethodSelected(method);
+          setClick(true);
+          console.log("Selected method: " + method.name);
         }}
       >
-        {method.name}
+        {method.name + " (" + method.type + ")"}
       </div>
     ));
   }, [standardMethods]);
