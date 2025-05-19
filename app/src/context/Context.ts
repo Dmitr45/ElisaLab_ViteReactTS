@@ -3,10 +3,50 @@ import { NameObjType, MessageIType } from "./types";
 import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
 import { IMethod } from "../fireBase/MethodsData/types";
+import { IRouteMap } from "../fireBase/RouteMaps/types";
+import { getHistoryMaps } from "../fireBase/RouteMaps/historyData";
+import { authFireBase } from "../fireBase/index";
+import { onAuthStateChanged } from "firebase/auth";
+import { userIType } from "../fireBase/UsersProfileData/profile";
+import { getUser } from "../fireBase/UsersProfileData/profile";
 
 export const useCreateAppContext = function (props: any) {
   // Входные данные: ============================================================================================================
 
+  //====Users=============================================
+
+  // Cоздаем контекст авторизации
+  const [currentUser, setCurrentUser] = useState();
+  const [userLoggedIn, setUserLoggedIn] = useState<boolean>(false);
+  const [loadingAuth, setLoadingAuth] = useState<boolean>(true);
+  const [userData, setUserData] = useState<userIType | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(authFireBase, initializeUser);
+    return unsubscribe;
+  }, []);
+  //@ts-expect-error ???
+  async function initializeUser(user) {
+    if (user) {
+      setCurrentUser({ ...user });
+      setUserLoggedIn(true);
+      setUserData(await getUser(user.email));
+    } else {
+      //@ts-expect-error ???
+      setCurrentUser(null);
+      setUserLoggedIn(false);
+    }
+    setLoadingAuth(false);
+  }
+
+  useEffect(() => {
+    if (userLoggedIn) {
+      console.clear();
+      console.log(`Добрый день, ${userData?.name}!`);
+    }
+  }, [userLoggedIn, userData]);
+
+  //=======================================================
   //localStorage.clear();
 
   const NameApp: NameObjType = {
@@ -70,6 +110,42 @@ export const useCreateAppContext = function (props: any) {
     setMethodSelected(method);
   }, []);
 
+  //===RouteMaps===========================================================================
+  const [seriesMaps, setSeriesMaps] = useState<IRouteMap[]>(
+    props.seriesMaps || [
+      {
+        series: 0,
+        idMethod: "none",
+        methodName: "none",
+        type: "none",
+        stage: [],
+      },
+    ]
+  );
+  const toggleSeriesMaps = useCallback((seriesMaps: IRouteMap[]): void => {
+    setSeriesMaps(seriesMaps);
+  }, []);
+
+  const [historyMaps, setHistoryMaps] = useState<IRouteMap[]>(
+    props.historyMaps || [
+      {
+        series: 0,
+        idMethod: "none",
+        methodName: "none",
+        type: "none",
+        stage: [],
+      },
+    ]
+  );
+  const toggleHistoryMaps = useCallback((historyMaps: IRouteMap[]): void => {
+    setHistoryMaps(historyMaps);
+  }, []);
+  useEffect(() => {
+    // if (getHistoryMaps("dmitr45@yandex.ru") !== null) {
+    getHistoryMaps("dmitr45@yandex.ru");
+    // }
+  }, []);
+
   // Ошибки и сообщения =============================================================================
   const [messageSend, setMessage] = useState<MessageIType>(
     props.messageSend || { type: "none", message: "none" }
@@ -112,6 +188,12 @@ export const useCreateAppContext = function (props: any) {
 
   //======================================================================================================
   return {
+    //==Users=========================
+    currentUser,
+    userLoggedIn,
+    loadingAuth,
+    userData,
+    //================================
     darkThemeContext,
     toggleDarkThemeContext,
     themeActive,
@@ -133,6 +215,9 @@ export const useCreateAppContext = function (props: any) {
 
     methodSelected,
     toggleMethodSelected,
+    seriesMaps,
+    toggleSeriesMaps,
+    historyMaps,
 
     //=====API
     apiURL,

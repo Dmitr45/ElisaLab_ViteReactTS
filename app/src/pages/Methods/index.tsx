@@ -12,7 +12,7 @@ import {
   IMethod,
   TypeToggleMethodSelected,
 } from "../../fireBase/MethodsData/types";
-import { useAuth } from "../../fireBase/Auth/AuthProvider";
+
 import { userIType } from "../../fireBase/UsersProfileData/profile";
 import { useCallback, useEffect, useState } from "react";
 
@@ -23,12 +23,10 @@ export function Methods() {
   }: {
     standardMethods: IMethod[];
   } = useMethods();
-  //@ts-expect-error &&&
+
   const {
     userLoggedIn,
     userData,
-  }: { userData: userIType; userLoggedIn: boolean } = useAuth();
-  const {
     themeActive,
     togglePageActive,
     toggleMessage,
@@ -40,6 +38,8 @@ export function Methods() {
     togglePageActive: togglePageActiveType;
     toggleMethodSelected: TypeToggleMethodSelected;
     methodSelected: IMethod;
+    userData: userIType;
+    userLoggedIn: boolean;
   } = useAppContext();
 
   const [click, setClick] = useState(false);

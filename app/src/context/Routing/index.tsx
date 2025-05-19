@@ -8,16 +8,14 @@ import { Profile } from "../../pages/Profile";
 import { SimpleTimerPage } from "../../pages/SimpleTimer";
 import { FormSimpleTimer } from "../../pages/SimpleTimer/Form";
 import { Alarm } from "../../pages/AlarmFinish";
-//import { TimeTrueLocal } from "../../logics/deltaTimeLogic";
 import { Test } from "../../pages/Test";
-import { useAuth } from "../../fireBase/Auth/AuthProvider";
 import { About } from "../../pages/AboutApp";
 import { Methods } from "../../pages/Methods";
 import { EditMethod } from "../../pages/EditMethod";
+import { History } from "../../pages/History";
 
 export function Routing() {
-  //@ts-expect-error ???
-  const { userLoggedIn } = useAuth();
+  const { userLoggedIn } = useAppContext();
   const {
     themeActive,
     pageActive,
@@ -37,6 +35,7 @@ export function Routing() {
     <About />, //10
     <Methods />, //11
     <EditMethod />, //12
+    <History />, //13
   ];
 
   return <div className={themeActive.section}>{pagesArr[pageActive]}</div>;

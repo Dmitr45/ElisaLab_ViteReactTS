@@ -1,3 +1,41 @@
 .methodTitle {
   font-size: 18px;
 }
+
+.stage {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: 70px;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+
+  &Title {
+    flex: 0 0 200px;
+  }
+  &Temperature {
+    flex: 1 1 200px;
+    text-align: center;
+  }
+  &Time {
+    flex: 1 1 200px;
+    text-align: center;
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  align-content: center;
+  .button {
+    max-width: 350px;
+    flex: 0 1 350px;
+    .buttonStart {
+    }
+  }
+}

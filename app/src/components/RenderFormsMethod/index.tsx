@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { IMethod, IStage } from "../../fireBase/MethodsData/types";
-import style from "./styles.module.scss";
+import styles from "./styles.module.scss";
 import { useAppContext } from "../../context/ContextProvider";
 import {
   themeActiveType,
   toggleMessageType,
   togglePageActiveType,
 } from "../../context/types";
+import { RxRocket } from "react-icons/rx";
 
 type PropsMethod = {
   method: IMethod;
@@ -45,7 +46,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
       {" "}
       {id === "none" ? (
         <div>
-          <div className={style.methodTitle}>{name}</div>
+          <div className={styles.methodTitle}>{name}</div>
           <button
             onClick={() => {
               togglePageActive(11);
@@ -56,42 +57,70 @@ export function RenderFormsMethod({ method }: PropsMethod) {
         </div>
       ) : (
         <div>
-          <div className={style.methodTitle}>
+          <div className={styles.methodTitle}>
             <input
+              key={name}
               style={{ height: 30, width: 100 + "%" }}
               value={name}
+              readOnly
             ></input>
           </div>
           <br />({type})
           <br />
           {stage.map((stage, index) => {
             return (
-              <p>
-                Stage{index + 1}: <b>{stage.nameStage}</b> || Temperature:{" "}
-                <input
-                  style={{ height: 30, width: 120 }}
-                  value={stage.temperature}
-                ></input>
-                {" С "}
-                || Time:{" "}
-                <input
-                  style={{ height: 30, width: 90 }}
-                  value={stage.time}
-                ></input>
-                {" min "}
-              </p>
+              <div className={styles.stage}>
+                <div className={styles.stageTitle}>
+                  Stage{index + 1}: <br /> <b>{stage.nameStage}</b>
+                </div>
+                <div className={styles.stageTemperature}>
+                  <input
+                    key={index + "1000"}
+                    style={{
+                      height: 30,
+                      width: 100 + "%",
+                      textAlign: "center",
+                    }}
+                    value={stage.temperature}
+                    readOnly
+                  ></input>
+                  <br />
+                  Temperature, °C
+                </div>
+                <div className={styles.stageTime}>
+                  <input
+                    key={index + "2000"}
+                    style={{
+                      height: 30,
+                      width: 100 + "%",
+                      textAlign: "center",
+                    }}
+                    value={stage.time}
+                    readOnly
+                  ></input>
+                  <br />
+                  Time, min
+                </div>
+              </div>
             );
           })}
           <br />
-          <button>Save new method</button>
-          <span>\ /</span>
-          <button
-            onClick={() => {
-              togglePageActive(6);
-            }}
-          >
-            Start method
-          </button>
+          <div className={styles.buttonsContainer}>
+            <div className={styles.button}>
+              <button style={{ width: 100 + "%" }}>Save new method</button>
+            </div>
+            <div className={styles.button}>
+              <button
+                className={styles.buttonStart}
+                style={{ width: 100 + "%" }}
+                onClick={() => {
+                  togglePageActive(6);
+                }}
+              >
+                Start method <RxRocket />
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

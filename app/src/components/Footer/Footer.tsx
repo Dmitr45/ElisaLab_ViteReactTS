@@ -39,7 +39,7 @@ export function Footer() {
           <div
             className={styles.history}
             onClick={() => {
-              togglePageActive(9);
+              togglePageActive(13);
             }}
           >
             {" "}
