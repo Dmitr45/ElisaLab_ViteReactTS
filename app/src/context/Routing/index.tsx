@@ -13,6 +13,7 @@ import { About } from "../../pages/AboutApp";
 import { Methods } from "../../pages/Methods";
 import { EditMethod } from "../../pages/EditMethod";
 import { History } from "../../pages/History";
+import { LoaderPD } from "../../pages/Loader";
 
 export function Routing() {
   const { userLoggedIn } = useAppContext();
@@ -36,6 +37,7 @@ export function Routing() {
     <Methods />, //11
     <EditMethod />, //12
     <History />, //13
+    <LoaderPD />, //14
   ];
 
   return <div className={themeActive.section}>{pagesArr[pageActive]}</div>;

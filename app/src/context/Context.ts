@@ -7,8 +7,8 @@ import { IRouteMap } from "../fireBase/RouteMaps/types";
 import { getHistoryMaps } from "../fireBase/RouteMaps/historyData";
 import { authFireBase } from "../fireBase/index";
 import { onAuthStateChanged } from "firebase/auth";
-import { userIType } from "../fireBase/UsersProfileData/profile";
-import { getUser } from "../fireBase/UsersProfileData/profile";
+
+import { getUser, userIType } from "../fireBase/UsersProfileData/profile";
 
 export const useCreateAppContext = function (props: any) {
   // Входные данные: ============================================================================================================
@@ -41,7 +41,7 @@ export const useCreateAppContext = function (props: any) {
 
   useEffect(() => {
     if (userLoggedIn) {
-      console.clear();
+      //console.clear();
       console.log(`Добрый день, ${userData?.name}!`);
     }
   }, [userLoggedIn, userData]);
@@ -137,6 +137,8 @@ export const useCreateAppContext = function (props: any) {
       },
     ]
   );
+
+  //=====HistoryMaps=========================================================
   const toggleHistoryMaps = useCallback((historyMaps: IRouteMap[]): void => {
     setHistoryMaps(historyMaps);
   }, []);

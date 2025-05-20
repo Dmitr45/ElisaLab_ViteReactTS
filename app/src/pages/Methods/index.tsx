@@ -1,5 +1,5 @@
 //https://toxigon.com/create-social-media-app-with-firebase-and-react
-
+import { LoaderPD } from "../Loader";
 import { useAppContext } from "../../context/ContextProvider";
 import {
   themeActiveType,
@@ -56,28 +56,24 @@ export function Methods() {
   }, [click]);
 
   const RenderTableStandard = useCallback(() => {
-    return standardMethods.map((method, index) => (
-      <div
-        key={index}
-        tabIndex={index}
-        className={style.methodButton + " " + themeActive.methodButton}
-        onClick={() => {
-          toggleMethodSelected(method);
-          setClick(true);
-          console.log("Selected method: " + method.name);
-        }}
-      >
-        {method.name + " (" + method.type + ")"}
-      </div>
-    ));
-  }, [standardMethods]);
-
-  return (
-    <div className={themeActive.section}>
-      <div className={style.page + " " + themeActive.page}>
+    if (standardMethods.length > 0) {
+      return (
         <div className={style.container}>
           <div className={style.pageTitle}>Standard methods</div>
-          <RenderTableStandard />
+          {standardMethods.map((method, index) => (
+            <div
+              key={index}
+              tabIndex={index}
+              className={style.methodButton + " " + themeActive.methodButton}
+              onClick={() => {
+                toggleMethodSelected(method);
+                setClick(true);
+                console.log("Selected method: " + method.name);
+              }}
+            >
+              {method.name + " (" + method.type + ")"}
+            </div>
+          ))}
           <div className={style.pageTitle}>
             {userLoggedIn ? userData.name : "Users"}'s methods
           </div>
@@ -89,6 +85,14 @@ export function Methods() {
             </div>
           </div>
         </div>
+      );
+    } else return <LoaderPD />;
+  }, [standardMethods]);
+
+  return (
+    <div className={themeActive.section}>
+      <div className={style.page + " " + themeActive.page}>
+        <RenderTableStandard />
       </div>
     </div>
   );

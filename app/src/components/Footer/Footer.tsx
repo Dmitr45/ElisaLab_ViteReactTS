@@ -31,7 +31,7 @@ export function Footer() {
           <div
             className={styles.startMetod}
             onClick={() => {
-              togglePageActive(6);
+              togglePageActive(14);
             }}
           >
             {" "}

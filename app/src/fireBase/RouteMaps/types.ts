@@ -6,7 +6,7 @@ export interface IStageRouteMap {
   temperature: number;
   time: number;
   start: Timestamp;
-  end: Timestamp;
+  end?: Timestamp;
   pause: number;
   isFinished: boolean;
 }
