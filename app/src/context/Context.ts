@@ -4,7 +4,6 @@ import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
 import { IMethod } from "../fireBase/MethodsData/types";
 import { IRouteMap } from "../fireBase/RouteMaps/types";
-import { getHistoryMaps } from "../fireBase/RouteMaps/historyData";
 import { authFireBase } from "../fireBase/index";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -82,7 +81,6 @@ export const useCreateAppContext = function (props: any) {
       setThemeActive(DarkTheme);
       localStorage.setItem("DarkTheme", "Active");
       localStorage.removeItem("LightTheme");
-      //console.log("DarkTheme:  " + localStorage.getItem("DarkTheme"));
     }
     if (darkThemeContext === false) {
       setThemeActive(LightTheme);
@@ -124,28 +122,6 @@ export const useCreateAppContext = function (props: any) {
   );
   const toggleSeriesMaps = useCallback((seriesMaps: IRouteMap[]): void => {
     setSeriesMaps(seriesMaps);
-  }, []);
-
-  const [historyMaps, setHistoryMaps] = useState<IRouteMap[]>(
-    props.historyMaps || [
-      {
-        series: 0,
-        idMethod: "none",
-        methodName: "none",
-        type: "none",
-        stage: [],
-      },
-    ]
-  );
-
-  //=====HistoryMaps=========================================================
-  const toggleHistoryMaps = useCallback((historyMaps: IRouteMap[]): void => {
-    setHistoryMaps(historyMaps);
-  }, []);
-  useEffect(() => {
-    // if (getHistoryMaps("dmitr45@yandex.ru") !== null) {
-    getHistoryMaps("dmitr45@yandex.ru");
-    // }
   }, []);
 
   // Ошибки и сообщения =============================================================================
@@ -219,7 +195,6 @@ export const useCreateAppContext = function (props: any) {
     toggleMethodSelected,
     seriesMaps,
     toggleSeriesMaps,
-    historyMaps,
 
     //=====API
     apiURL,

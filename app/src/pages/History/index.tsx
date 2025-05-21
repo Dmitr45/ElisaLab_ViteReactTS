@@ -24,6 +24,7 @@ export function History() {
     userLoggedIn: boolean;
   } = useAppContext();
 
+  //@ts-expect-error &&&
   const { historyArr }: { historyArr: IRouteMap[] } = useHistory();
 
   return (

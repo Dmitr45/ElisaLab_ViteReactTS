@@ -189,10 +189,10 @@
   }
 }
 
-.methodButton {
+.borderWishHover {
   border: 1px solid var(--color);
-  &:hover,
-  &:active {
+  cursor: pointer;
+  &:hover {
     border: 1px solid var(--highColor);
     color: var(--highColor);
   }

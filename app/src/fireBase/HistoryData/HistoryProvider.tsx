@@ -1,9 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { getHistory } from "./history";
 import { IRouteMap } from "../RouteMaps/types";
 import { useAppContext } from "../../context/ContextProvider";
 import { userIType } from "../UsersProfileData/profile";
 import { togglePageActiveType } from "../../context/types";
+import { collection, getDocs } from "firebase/firestore";
+import { dataFireBase } from "../index";
+import { docSelection } from "../functions/funcDocSelection";
 //@ts-expect-error ???
 const HistoryContext = React.createContext();
 
@@ -12,10 +14,9 @@ export function useHistory() {
   return useContext(HistoryContext);
 }
 
-//@ts-expect-error ???
+//@ts-expect-error ??? ======================================================================================
 export function HistoryProvider({ children }) {
   const {
-    userData,
     currentUser,
     userLoggedIn,
   }: //togglePageActive,
@@ -29,44 +30,30 @@ export function HistoryProvider({ children }) {
   // создадим контекст истории
   const [historyArr, setHistoryArr] = useState<IRouteMap[]>([]);
 
-  async function HistoryLoad(email: string): Promise<IRouteMap[]> {
+  //===========================================================================================================
+  async function getHistory(email: string) {
     try {
-      //console.log(`Вызвали функцию getHistory с email: ${email}`);
-
-      console.log("getHistory: " + getHistory(email));
-      setHistoryArr([
-        {
-          series: 1225,
-          idMethod: "dgdsgdg",
-          methodName: "gddfgdg",
-          type: "gdgsdgd",
-          stage: [],
-        },
-        {
-          series: 534543,
-          idMethod: "dgdsgdg",
-          methodName: "gddfgdg",
-          type: "gdgsdgd",
-          stage: [],
-        },
-        {
-          series: 5345,
-          idMethod: "dgdsgdg",
-          methodName: "gddfgdg",
-          type: "gdgsdgd",
-          stage: [],
-        },
-      ]);
-      return [];
+      const history = await getDocs(
+        collection(dataFireBase, "historySeriesMaps")
+      );
+      console.log(
+        `getHistory: Загрузил папки с законченными маршрутками:  ${history.docs.length}`
+      );
+      const usersHistory = docSelection(history.docs, email);
+      //@ts-expect-error &&&
+      const historyArr: IRouteMap[] = usersHistory.maps.map((doc) => doc);
+      console.log("getHistory:" + historyArr);
+      setHistoryArr(historyArr);
+      return historyArr;
     } catch {
-      console.error("Error");
-      return [];
+      console.log(`getHistory: Истории работ нет или вы не авторизованы`);
+      return null;
     }
   }
 
   useEffect(() => {
     if (userLoggedIn) {
-      HistoryLoad(currentUser.email);
+      getHistory(currentUser.email);
     } else {
       console.log("Вы не авторизованы");
     }

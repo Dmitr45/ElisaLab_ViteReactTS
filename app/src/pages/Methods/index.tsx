@@ -64,7 +64,7 @@ export function Methods() {
             <div
               key={index}
               tabIndex={index}
-              className={style.methodButton + " " + themeActive.methodButton}
+              className={style.methodButton + " " + themeActive.borderWishHover}
               onClick={() => {
                 toggleMethodSelected(method);
                 setClick(true);
