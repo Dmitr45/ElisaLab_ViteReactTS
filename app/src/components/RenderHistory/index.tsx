@@ -7,7 +7,7 @@ import {
   toggleMessageType,
   togglePageActiveType,
 } from "../../context/types";
-import { TimestampToLine } from "../../logics/momentJs";
+import { TimestampToLine } from "../../logics/timestampToDate";
 
 type propsHistory = {
   historyArr: IRouteMap[];
@@ -51,8 +51,8 @@ export function RenderHistory({ historyArr }: propsHistory): JSX.Element {
                 <p>Temperature: {eSt.temperature}°C</p>
                 <p>Time: {eSt.time} min</p>
                 <p>Pause: {eSt.pause} min</p>
-                <p>Start work: {TimestampToLine(eSt.start)}</p>
-                <p>Finish work: {TimestampToLine(eSt.end)}</p>
+                <p>Start work: {eSt.start ? TimestampToLine(eSt.start) : ""}</p>
+                <p>Finish work: {eSt.end ? TimestampToLine(eSt.end) : ""}</p>
               </>
             ))}
           </div>

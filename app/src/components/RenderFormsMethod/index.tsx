@@ -38,11 +38,19 @@ export function RenderFormsMethod({ method }: PropsMethod) {
     setName(newName);
   }, [newName]);
 
-  const [timersArr, setTimersArr] = useState<[number, number][]>([]); // Массив таймеров [[temperature, time],[temperature, time],[temperature, time]]
-  const [newTimerArr, toggleTimerArr] = useState<[number, number][]>(timersArr);
+  const [timerArr, setTimerArr] = useState<number[]>([]); // Массив таймеров [time],[time], [time]
+  const [newTimerArr, toggleTimerArr] = useState<number[]>(timerArr);
+  const [temperatureArr, setTemperatureArr] = useState<number[]>([]); // Массив таймеров [time],[time], [time]
+  const [newTemperatureArr, toggleTemperatureArr] =
+    useState<number[]>(temperatureArr);
+  const [isEnabledArr, setIsEnabledArr] = useState<boolean[]>([]); // Массив таймеров [time],[time], [time]
+  const [newIsEnabledArr, toggleIsEnabledArr] =
+    useState<boolean[]>(isEnabledArr);
   useEffect(() => {
-    setTimersArr(newTimerArr);
-  }, [newTimerArr]);
+    setTimerArr(newTimerArr);
+    setTemperatureArr(newTemperatureArr);
+    setIsEnabledArr(newIsEnabledArr);
+  }, [newTimerArr, newTemperatureArr, newIsEnabledArr]);
 
   const [type, setType] = useState<string>("");
   const [stage, setStag] = useState<IStage[]>([]);
@@ -53,13 +61,24 @@ export function RenderFormsMethod({ method }: PropsMethod) {
       setName(method.name);
       setType(method.type);
       setStag(method.stage);
-      setTimersArr(
-        // Соберем все [time, temperature] в один массив
+      setTimerArr(
+        // Соберем все time в один массив
         method.stage.map((stage) => {
-          return [stage.temperature, stage.time];
+          return stage.time;
         })
       );
-      //console.log("id, name, type, stage", id, name, type, stage);
+      setTemperatureArr(
+        // Соберем все temperature в один массив
+        method.stage.map((stage) => {
+          return stage.temperature;
+        })
+      );
+      setIsEnabledArr(
+        // Соберем все isEnabled в один массив
+        method.stage.map((stage) => {
+          return stage.isEnabled;
+        })
+      );
     }
   }, [method]);
 
@@ -106,11 +125,18 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                       width: 100 + "%",
                       textAlign: "center",
                     }}
-                    value={timersArr[index][0]}
+                    value={temperatureArr[index]}
                     onChange={(event) => {
-                      const arr = timersArr;
-                      arr[index][1] = Number(event.target.value);
-                      toggleTimerArr(arr);
+                      const arr = temperatureArr.map(
+                        (elem: number, i: number) => {
+                          if (i === index) {
+                            return Number(event.target.value);
+                          } else {
+                            return Number(elem);
+                          }
+                        }
+                      );
+                      toggleTemperatureArr(arr);
                     }}
                   ></input>
                   <br />
@@ -125,15 +151,41 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                       width: 100 + "%",
                       textAlign: "center",
                     }}
-                    value={timersArr[index][1]}
+                    value={timerArr[index]}
                     onChange={(event) => {
-                      const arr = timersArr;
-                      arr[index][1] = Number(event.target.value);
+                      const arr = timerArr.map((elem: number, i: number) => {
+                        if (i === index) {
+                          return Number(event.target.value);
+                        } else {
+                          return Number(elem);
+                        }
+                      });
                       toggleTimerArr(arr);
                     }}
                   ></input>
                   <br />
                   Time, min
+                </div>
+                <div className={styles.isEnabled}>
+                  <input
+                    type="checkbox"
+                    key={index + "3000"}
+                    checked={isEnabledArr[index]}
+                    onChange={(event) => {
+                      const arr = isEnabledArr.map(
+                        (elem: boolean, i: number) => {
+                          if (i === index) {
+                            return Boolean(event.target.checked);
+                          } else {
+                            return Boolean(elem);
+                          }
+                        }
+                      );
+                      toggleIsEnabledArr(arr);
+                    }}
+                  ></input>
+                  <br />
+                  Is enabled
                 </div>
               </div>
             );

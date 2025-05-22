@@ -4,6 +4,7 @@ export type IStage = {
   nameStage: string;
   temperature: number;
   time: number;
+  isEnabled: boolean;
 };
 export interface IMethod {
   id: string;
