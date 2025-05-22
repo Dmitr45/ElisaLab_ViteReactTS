@@ -7,7 +7,8 @@ import { IRouteMap } from "../fireBase/RouteMaps/types";
 import { authFireBase } from "../fireBase/index";
 import { onAuthStateChanged } from "firebase/auth";
 
-import { getUser, userIType } from "../fireBase/UsersProfileData/profile";
+import { getUser } from "../fireBase/UsersProfileData/profile";
+import { userIType } from "../fireBase/UsersProfileData/types";
 
 export const useCreateAppContext = function (props: any) {
   // Входные данные: ============================================================================================================
@@ -113,6 +114,7 @@ export const useCreateAppContext = function (props: any) {
     props.seriesMaps || [
       {
         series: 0,
+        isClosed: false,
         idMethod: "none",
         methodName: "none",
         type: "none",
@@ -134,9 +136,10 @@ export const useCreateAppContext = function (props: any) {
 
   useEffect(() => {
     if (messageSend.message.length > 1) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         toggleMessage({ type: "none", message: "none" });
-      }, 5000);
+        clearTimeout(timer);
+      }, 7000);
     }
   }, [messageSend]);
 

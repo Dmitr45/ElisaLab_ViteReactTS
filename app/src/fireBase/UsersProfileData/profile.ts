@@ -3,16 +3,7 @@
 import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { dataFireBase } from "../index";
 import { docSelection } from "../functions/funcDocSelection";
-
-export interface userIType {
-  email?: string;
-  name?: string;
-  link?: string;
-  phone?: string;
-  telegram?: string;
-  groups?: string[];
-  note?: string;
-}
+import { userIType } from "./types";
 
 export async function getUser(email: string) {
   let userData: userIType | null = null;

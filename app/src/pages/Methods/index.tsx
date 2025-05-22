@@ -12,8 +12,9 @@ import {
   IMethod,
   TypeToggleMethodSelected,
 } from "../../fireBase/MethodsData/types";
+import { RiFolderUserLine } from "react-icons/ri";
 
-import { userIType } from "../../fireBase/UsersProfileData/profile";
+import { userIType } from "../../fireBase/UsersProfileData/types";
 import { useCallback, useEffect, useState } from "react";
 
 export function Methods() {
@@ -78,11 +79,31 @@ export function Methods() {
             {userLoggedIn ? userData.name : "Users"}'s methods
           </div>
           <div>
-            <div>
-              There's nothing here yet!
-              <br />
-              Select a standard method, modify it, and save it as your own.
-            </div>
+            {userLoggedIn ? (
+              <>
+                <div>
+                  There's nothing here yet!
+                  <br />
+                  Select a standard method, modify it, and save it as your own.
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  There's nothing here yet!
+                  <br />
+                  Log in to see your saved methods.
+                </div>
+                <button
+                  onClick={() => {
+                    togglePageActive(1);
+                  }}
+                >
+                  Log in for download&nbsp;
+                  <RiFolderUserLine />
+                </button>
+              </>
+            )}
           </div>
         </div>
       );

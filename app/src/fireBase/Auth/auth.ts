@@ -7,11 +7,13 @@ import {
   sendPasswordResetEmail,
   updatePassword,
 } from "firebase/auth";
+import { AddDocNewUser } from "../UsersProfileData/setNew";
 
 export const doCreateUserWithEmailAndPassword = async (
   email: string,
   password: string
 ) => {
+  await AddDocNewUser(email);
   return createUserWithEmailAndPassword(authFireBase, email, password);
 };
 

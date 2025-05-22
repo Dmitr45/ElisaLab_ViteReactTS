@@ -14,7 +14,12 @@ export interface IStageRouteMap {
 export interface IRouteMap {
   series: number;
   idMethod: string;
+  isClosed: boolean;
   methodName: string;
   type: string;
   stage: IStageRouteMap[];
+}
+
+export interface ILastSeries {
+  lastSeries: number;
 }

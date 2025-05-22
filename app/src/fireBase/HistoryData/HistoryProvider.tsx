@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { IRouteMap } from "../RouteMaps/types";
 import { useAppContext } from "../../context/ContextProvider";
-import { userIType } from "../UsersProfileData/profile";
+import { userIType } from "../UsersProfileData/types";
 import { togglePageActiveType } from "../../context/types";
 import { collection, getDocs } from "firebase/firestore";
 import { dataFireBase } from "../index";

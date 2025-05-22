@@ -14,14 +14,6 @@ export function Navigation() {
       {/* <div onClick={()=>{togglePageActive(0)}} className={themeActive.logo}>{Title.name}<span>{Title.span}</span></div> */}
       <div
         onClick={() => {
-          togglePageActive(4);
-        }}
-        className={style.pageTitle + " " + themeActive.link}
-      >
-        Account
-      </div>
-      <div
-        onClick={() => {
           togglePageActive(10);
         }}
         className={style.pageTitle + " " + themeActive.link}
