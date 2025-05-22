@@ -5,11 +5,8 @@ import { useAppContext } from "../../context/ContextProvider";
 import { themeActiveType, toggleMessageType } from "../../context/types";
 import style from "../styles.module.scss";
 import { doSignOut } from "../../fireBase/Auth/auth";
-import {
-  setUserAccount,
-  userIType,
-} from "../../fireBase/UsersProfileData/profile";
-
+import { setUserAccount } from "../../fireBase/UsersProfileData/profile";
+import { userIType } from "../../fireBase/UsersProfileData/types";
 // userIType {
 //  email?: string;
 //   name?: string;

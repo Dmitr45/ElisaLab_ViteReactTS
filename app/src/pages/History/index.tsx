@@ -4,7 +4,7 @@ import {
   toggleMessageType,
   togglePageActiveType,
 } from "../../context/types";
-import { userIType } from "../../fireBase/UsersProfileData/profile";
+import { userIType } from "../../fireBase/UsersProfileData/types";
 import style from "../styles.module.scss";
 import { RenderHistory } from "../../components/RenderHistory";
 // import { useEffect } from "react";
