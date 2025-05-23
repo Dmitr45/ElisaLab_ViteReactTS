@@ -21,8 +21,10 @@ export function Methods() {
   //@ts-expect-error  ???
   const {
     standardMethods,
+    userMethods,
   }: {
     standardMethods: IMethod[];
+    userMethods: IMethod[];
   } = useMethods();
 
   const {
@@ -75,45 +77,74 @@ export function Methods() {
               {method.name + " (" + method.type + ")"}
             </div>
           ))}
-          <div className={style.pageTitle}>
-            {userLoggedIn ? userData.name : "Users"}'s methods
-          </div>
-          <div>
-            {userLoggedIn ? (
-              <>
-                <div>
-                  There's nothing here yet!
-                  <br />
-                  Select a standard method, modify it, and save it as your own.
-                </div>
-              </>
-            ) : (
-              <>
-                <div>
-                  There's nothing here yet!
-                  <br />
-                  Log in to see your saved methods.
-                </div>
-                <button
-                  onClick={() => {
-                    togglePageActive(1);
-                  }}
-                >
-                  Log in for download&nbsp;
-                  <RiFolderUserLine />
-                </button>
-              </>
-            )}
-          </div>
         </div>
       );
     } else return <LoaderPD />;
   }, [standardMethods]);
+  //===================================================================================================
+
+  const RenderTableUser = useCallback(() => {
+    if (userLoggedIn) {
+      if (userMethods) {
+        return (
+          <div className={style.container}>
+            <div className={style.pageTitle}>{userData.name}'s methods</div>
+            {userMethods.map((method, index) => (
+              <div
+                key={index}
+                tabIndex={index}
+                className={
+                  style.methodButton + " " + themeActive.borderWishHover
+                }
+                onClick={() => {
+                  toggleMethodSelected(method);
+                  setClick(true);
+                  console.log("Selected method: " + method.name);
+                }}
+              >
+                {method.name + " (" + method.type + ")"}
+              </div>
+            ))}
+          </div>
+        );
+      } else {
+        return (
+          <>
+            <div className={style.pageTitle}>{userData.name}'s methods</div>
+            <div>
+              There's nothing here yet!
+              <br />
+            </div>
+          </>
+        );
+      }
+    } else {
+      return (
+        <>
+          <div className={style.pageTitle}>Users's methods</div>
+          <div>
+            There's nothing here yet!
+            <br />
+            Log in to see your saved methods.
+          </div>
+          <button
+            onClick={() => {
+              togglePageActive(1);
+            }}
+          >
+            Log in for download&nbsp;
+            <RiFolderUserLine />
+          </button>
+        </>
+      );
+    }
+  }, [userMethods]);
 
   return (
     <div className={themeActive.section}>
       <div className={style.page + " " + themeActive.page}>
         <RenderTableStandard />
+        <RenderTableUser />
       </div>
     </div>
   );

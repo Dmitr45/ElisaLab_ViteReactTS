@@ -11,6 +11,7 @@ import { RxRocket } from "react-icons/rx";
 import { VscSaveAs } from "react-icons/vsc";
 import { TbMessageQuestion } from "react-icons/tb";
 import { RiFolderUserLine } from "react-icons/ri";
+import { setUserMethod } from "../../fireBase/MethodsData/methods";
 
 type PropsMethod = {
   method: IMethod;
@@ -21,12 +22,14 @@ export function RenderFormsMethod({ method }: PropsMethod) {
     //themeActive,
     togglePageActive,
     userLoggedIn,
-  }: // toggleMessage,
-  {
+    currentUser,
+    toggleMessage,
+  }: {
     themeActive: themeActiveType;
     toggleMessage: toggleMessageType;
     togglePageActive: togglePageActiveType;
     userLoggedIn: boolean;
+    currentUser: any;
   } = useAppContext();
 
   const [id, setId] = useState<string>("none");
@@ -112,9 +115,52 @@ export function RenderFormsMethod({ method }: PropsMethod) {
           <br />
           {stage.map((stage, index) => {
             return (
-              <div className={styles.stage}>
+              <div key={index} className={styles.stage}>
                 <div className={styles.stageTitle}>
                   Stage{index + 1}: <br /> <b>{stage.nameStage}</b>
+                </div>
+                <div className={styles.isEnabled}>
+                  <input
+                    type="checkbox"
+                    key={index + "3000"}
+                    checked={isEnabledArr[index]}
+                    onChange={(event) => {
+                      const arr = isEnabledArr.map(
+                        (elem: boolean, i: number) => {
+                          if (i === index) {
+                            return Boolean(event.target.checked);
+                          } else {
+                            return Boolean(elem);
+                          }
+                        }
+                      );
+                      toggleIsEnabledArr(arr);
+                    }}
+                  ></input>
+                </div>
+                <div className={styles.stageTime}>
+                  <input
+                    type="number"
+                    key={index + "2000"}
+                    style={{
+                      height: 30,
+                      width: 100 + "%",
+                      textAlign: "center",
+                    }}
+                    value={timerArr[index]}
+                    onChange={(event) => {
+                      const arr = timerArr.map((elem: number, i: number) => {
+                        if (i === index) {
+                          return Number(event.target.value);
+                        } else {
+                          return Number(elem);
+                        }
+                      });
+                      toggleTimerArr(arr);
+                    }}
+                  ></input>
+                  <br />
+                  Time, min
                 </div>
                 <div className={styles.stageTemperature}>
                   <input
@@ -142,51 +188,6 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                   <br />
                   Temperature, °C
                 </div>
-                <div className={styles.stageTime}>
-                  <input
-                    type="number"
-                    key={index + "2000"}
-                    style={{
-                      height: 30,
-                      width: 100 + "%",
-                      textAlign: "center",
-                    }}
-                    value={timerArr[index]}
-                    onChange={(event) => {
-                      const arr = timerArr.map((elem: number, i: number) => {
-                        if (i === index) {
-                          return Number(event.target.value);
-                        } else {
-                          return Number(elem);
-                        }
-                      });
-                      toggleTimerArr(arr);
-                    }}
-                  ></input>
-                  <br />
-                  Time, min
-                </div>
-                <div className={styles.isEnabled}>
-                  <input
-                    type="checkbox"
-                    key={index + "3000"}
-                    checked={isEnabledArr[index]}
-                    onChange={(event) => {
-                      const arr = isEnabledArr.map(
-                        (elem: boolean, i: number) => {
-                          if (i === index) {
-                            return Boolean(event.target.checked);
-                          } else {
-                            return Boolean(elem);
-                          }
-                        }
-                      );
-                      toggleIsEnabledArr(arr);
-                    }}
-                  ></input>
-                  <br />
-                  Is enabled
-                </div>
               </div>
             );
           })}
@@ -194,7 +195,14 @@ export function RenderFormsMethod({ method }: PropsMethod) {
           <div className={styles.buttonsContainer}>
             <div className={styles.button}>
               {userLoggedIn ? (
-                <button style={{ width: 100 + "%" }}>
+                <button
+                  style={{ width: 100 + "%" }}
+                  onClick={() => {
+                    setUserMethod(currentUser.email, method).then((result) => {
+                      toggleMessage(result);
+                    });
+                  }}
+                >
                   Save new method&nbsp;
                   <VscSaveAs />
                 </button>

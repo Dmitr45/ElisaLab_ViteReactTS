@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { getStandardMethods } from "./methods";
+import { useAppContext } from "../../context/ContextProvider";
+import { getStandardMethods, getUserMethods } from "./methods";
 import { IMethod } from "./types";
 
 //@ts-expect-error ???
@@ -12,8 +13,17 @@ export function useMethods() {
 
 //@ts-expect-error ???
 export function MethodsProvider({ children }) {
+  const {
+    currentUser,
+    userLoggedIn,
+  }: {
+    currentUser: any;
+    userLoggedIn: any;
+  } = useAppContext();
+
   // создадим контекст методов
   const [standardMethods, setStandardMethods] = useState<IMethod[]>([]);
+  const [userMethods, setUserMethods] = useState<IMethod[]>([]);
 
   const methodsST = async (): Promise<IMethod[]> => {
     const methods = (await getStandardMethods()) as IMethod[];
@@ -21,13 +31,24 @@ export function MethodsProvider({ children }) {
     return methods;
   };
 
+  const methodsUS = async (email: string): Promise<IMethod[]> => {
+    const methodsU = (await getUserMethods(email)) as IMethod[];
+    setUserMethods(methodsU);
+    return methodsU;
+  };
+
   useEffect(() => {
+    //console.log("userLoggedIn: " + userLoggedIn);
     methodsST();
-  }, []);
+    if (userLoggedIn === true) {
+      methodsUS(currentUser.email);
+      //console.log("user current: " + currentUser.email);
+    }
+  }, [userLoggedIn]);
 
   const value = {
     standardMethods,
-    setStandardMethods,
+    userMethods,
   };
   return (
     <MethodsContext.Provider value={value}>{children}</MethodsContext.Provider>
