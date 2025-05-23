@@ -98,10 +98,6 @@ export function Profile() {
                 {...register("telegram", { required: false, maxLength: 15 })}
               />
               <br />
-              {/* Вам доступна авторизация на сайтах:
-              {groups.map((site: string) => {
-                return <span> {" https://" + site + "     "} </span>;
-              })} */}
             </div>
             <div className={style.inputContainer}>
               <textarea

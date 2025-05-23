@@ -32,6 +32,22 @@ export function RenderFormsMethod({ method }: PropsMethod) {
     currentUser: any;
   } = useAppContext();
 
+  //====New Method===================================================================
+  const [EDITEDmethod, setEDITEDmethod] = useState<IMethod>({
+    id: "",
+    name: "",
+    type: "",
+    stage: [
+      {
+        id: "",
+        isEnabled: false,
+        nameStage: "",
+        temperature: 0,
+        time: 0,
+      },
+    ],
+  });
+  // Options of the method=========================================================================
   const [id, setId] = useState<string>("none");
   const [name, setName] = useState<string>(
     "The method is not selected. Please select the standard or your method."
@@ -40,51 +56,94 @@ export function RenderFormsMethod({ method }: PropsMethod) {
   useEffect(() => {
     setName(newName);
   }, [newName]);
+  const [type, setType] = useState<string>("");
+  const [stage, setStage] = useState<IStage[]>([]);
+
+  // Stages of the method=====================================================================
+  const [idArr, setIdArr] = useState<string[]>([]); // Массив id [id],[id], [id]
+  //const [newIdArr] = useState<string[]>(idArr);
+
+  const [isEnabledArr, setIsEnabledArr] = useState<boolean[]>([]); // Массив чекбоксов включения [isEnabled],[isEnabled], [isEnabled]
+  const [newIsEnabledArr, toggleIsEnabledArr] =
+    useState<boolean[]>(isEnabledArr);
+
+  const [nameStageArr, setNameStageArr] = useState<string[]>([]); // Массив nameStage [nameStage],[nameStage], [nameStage]
+  //const [newNameStageArr] = useState<string[]>(nameStageArr);
+
+  const [temperatureArr, setTemperatureArr] = useState<number[]>([]); // Массив температуры [temperature],[temperature], [temperature]
+  const [newTemperatureArr, toggleTemperatureArr] =
+    useState<number[]>(temperatureArr);
 
   const [timerArr, setTimerArr] = useState<number[]>([]); // Массив таймеров [time],[time], [time]
   const [newTimerArr, toggleTimerArr] = useState<number[]>(timerArr);
-  const [temperatureArr, setTemperatureArr] = useState<number[]>([]); // Массив таймеров [time],[time], [time]
-  const [newTemperatureArr, toggleTemperatureArr] =
-    useState<number[]>(temperatureArr);
-  const [isEnabledArr, setIsEnabledArr] = useState<boolean[]>([]); // Массив таймеров [time],[time], [time]
-  const [newIsEnabledArr, toggleIsEnabledArr] =
-    useState<boolean[]>(isEnabledArr);
-  useEffect(() => {
-    setTimerArr(newTimerArr);
-    setTemperatureArr(newTemperatureArr);
-    setIsEnabledArr(newIsEnabledArr);
-  }, [newTimerArr, newTemperatureArr, newIsEnabledArr]);
 
-  const [type, setType] = useState<string>("");
-  const [stage, setStag] = useState<IStage[]>([]);
-
+  //=========================================================================================
+  // Получаем метод из props
   useEffect(() => {
     if (method !== undefined) {
       setId(method.id);
       setName(method.name);
       setType(method.type);
-      setStag(method.stage);
-      setTimerArr(
-        // Соберем все time в один массив
+      setStage(method.stage);
+      setIdArr(
+        // Соберем все id в один массив
         method.stage.map((stage) => {
-          return stage.time;
+          return stage.id;
         })
       );
-      setTemperatureArr(
-        // Соберем все temperature в один массив
-        method.stage.map((stage) => {
-          return stage.temperature;
-        })
-      );
-      setIsEnabledArr(
+      toggleIsEnabledArr(
         // Соберем все isEnabled в один массив
         method.stage.map((stage) => {
           return stage.isEnabled;
         })
       );
+      setNameStageArr(
+        // Соберем все nameStage в один массив
+        method.stage.map((stage) => {
+          return stage.nameStage;
+        })
+      );
+      toggleTemperatureArr(
+        // Соберем все temperature в один массив
+        method.stage.map((stage) => {
+          return stage.temperature;
+        })
+      );
+      toggleTimerArr(
+        // Соберем все time в один массив
+        method.stage.map((stage) => {
+          return stage.time;
+        })
+      );
     }
   }, [method]);
 
+  //===Отслеживаем изменения======================================================================================
+
+  useEffect(() => {
+    setIsEnabledArr(newIsEnabledArr);
+    setTemperatureArr(newTemperatureArr);
+    setTimerArr(newTimerArr);
+    setStage(
+      idArr.map((id, index) => {
+        return {
+          id: idArr[index],
+          isEnabled: isEnabledArr[index],
+          nameStage: nameStageArr[index],
+          temperature: temperatureArr[index],
+          time: timerArr[index],
+        };
+      })
+    );
+    setEDITEDmethod({
+      id: id,
+      name: name,
+      type: type,
+      stage: stage,
+    });
+  }, [newIsEnabledArr, newTemperatureArr, newTimerArr, stage, EDITEDmethod]);
+  //=========================================================================================
+  // Сохраняем метод в EDITEDmethod
   return (
     <div>
       {" "}
@@ -113,7 +172,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
           </div>
           <br />({type})
           <br />
-          {stage.map((stage, index) => {
+          {method.stage.map((stage, index) => {
             return (
               <div key={index} className={styles.stage}>
                 <div className={styles.stageTitle}>
@@ -198,9 +257,11 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                 <button
                   style={{ width: 100 + "%" }}
                   onClick={() => {
-                    setUserMethod(currentUser.email, method).then((result) => {
-                      toggleMessage(result);
-                    });
+                    setUserMethod(currentUser.email, EDITEDmethod).then(
+                      (result) => {
+                        toggleMessage(result);
+                      }
+                    );
                   }}
                 >
                   Save new method&nbsp;
