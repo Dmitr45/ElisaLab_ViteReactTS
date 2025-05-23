@@ -42,7 +42,7 @@ export const useCreateAppContext = function (props: any) {
   useEffect(() => {
     if (userLoggedIn) {
       //console.clear();
-      console.log(`Добрый день, ${userData?.name}!`);
+      console.log(`Вы авторизовались. Добрый день, ${userData?.name}!`);
     }
   }, [userLoggedIn, userData]);
 
@@ -146,27 +146,38 @@ export const useCreateAppContext = function (props: any) {
   //Контекст для SimpleTimer =============================================================================
   //localStorage.setItem(startTime_simpleTimer, Date.now().toString() );
 
-  const [deltaSimpleTime, setDeltaSimpleTime] = useState<number>(
-    props.deltaTime || 5
-  ); // на сколько минут таймер
-  const toggleDeltaSimpleTime = useCallback((minut: number): void => {
-    setDeltaSimpleTime(minut);
-  }, []);
+  // const [deltaSimpleTime, setDeltaSimpleTime] = useState<number>(
+  //   props.deltaTime || 5
+  // ); // на сколько минут таймер
+  // const toggleDeltaSimpleTime = useCallback((minut: number): void => {
+  //   setDeltaSimpleTime(minut);
+  // }, []);
 
-  const [localStorageRefresh, setLocalStorageRefresh] = useState<number>(
-    props.localStorageRefresh || 0
-  ); // на сколько минут таймер
-  const toggLocalStorageRefresh = useCallback((msec: number): void => {
-    setLocalStorageRefresh(msec);
-  }, []);
+  // const [localStorageRefresh, setLocalStorageRefresh] = useState<number>(
+  //   props.localStorageRefresh || 0
+  // ); // на сколько минут таймер
+  // const toggLocalStorageRefresh = useCallback((msec: number): void => {
+  //   setLocalStorageRefresh(msec);
+  // }, []);
 
-  const [timeSimpleRender, setTimeSimpleRenred] = useState<number>(
-    props.timeSimpleRender || 0
-  ); // мин
-  const toggTimeSimpleRenred = useCallback((min: number): void => {
-    setTimeSimpleRenred(min);
-  }, []);
+  // const [timeSimpleRender, setTimeSimpleRenred] = useState<number>(
+  //   props.timeSimpleRender || 0
+  // ); // мин
+  // const toggTimeSimpleRenred = useCallback((min: number): void => {
+  //   setTimeSimpleRenred(min);
+  // }, []);
 
+  //======Updating api data===============================================================================
+  const [rebootUsersMethods, setRebootUsersMethods] = useState<boolean>(false);
+  const toggleRebootUsersMethods = useCallback((bool: boolean): void => {
+    setRebootUsersMethods(bool);
+  }, []);
+  // const [rebootUsersHistory, setRebootUsersHistory] = useState<boolean>(false);
+  // const toggleRebootUsersHistory = useCallback((bool: boolean): void => {setRebootUsersHistory(bool);}, []);
+  // const [rebootUsersRouteMaps, setRebootUsersRouteMaps] = useState<boolean>(false);
+  // const toggleRebootUsersRouteMaps = useCallback((bool: boolean): void => {setRebootUsersRouteMaps(bool);}, []);
+  // const [rebootUsersProfile, setRebootUsersProfile] = useState<boolean>(false);
+  // const toggleRebootUsersProfile = useCallback((bool: boolean): void => {setRebootUsersProfile(bool);}, []);
   //======================================================================================================
   return {
     //==Users=========================
@@ -185,19 +196,16 @@ export const useCreateAppContext = function (props: any) {
     messageSend,
     toggleMessage,
     //=====SimpleTimer
-    deltaSimpleTime,
-    toggleDeltaSimpleTime, // На какое время запущен таймер,  мин
-    timeSimpleRender,
-    toggTimeSimpleRenred, // Оставшееся время на таймере Simple
-    localStorageRefresh,
-    toggLocalStorageRefresh, // Дата последнего изменения  LocalStorage
 
     // Methods
-
     methodSelected,
     toggleMethodSelected,
     seriesMaps,
     toggleSeriesMaps,
+
+    // RebootData
+    rebootUsersMethods,
+    toggleRebootUsersMethods,
 
     //=====API
     apiURL,

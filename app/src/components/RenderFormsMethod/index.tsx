@@ -6,6 +6,7 @@ import {
   themeActiveType,
   toggleMessageType,
   togglePageActiveType,
+  toggleRebootUsersMethodsType,
 } from "../../context/types";
 import { RxRocket } from "react-icons/rx";
 import { VscSaveAs } from "react-icons/vsc";
@@ -24,12 +25,14 @@ export function RenderFormsMethod({ method }: PropsMethod) {
     userLoggedIn,
     currentUser,
     toggleMessage,
+    toggleRebootUsersMethods,
   }: {
     themeActive: themeActiveType;
     toggleMessage: toggleMessageType;
     togglePageActive: togglePageActiveType;
     userLoggedIn: boolean;
     currentUser: any;
+    toggleRebootUsersMethods: toggleRebootUsersMethodsType;
   } = useAppContext();
 
   //====New Method===================================================================
@@ -260,6 +263,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                     setUserMethod(currentUser.email, EDITEDmethod).then(
                       (result) => {
                         toggleMessage(result);
+                        toggleRebootUsersMethods(true);
                       }
                     );
                   }}

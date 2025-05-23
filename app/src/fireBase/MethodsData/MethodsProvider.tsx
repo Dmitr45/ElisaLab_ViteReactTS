@@ -2,6 +2,10 @@ import React, { useState, useContext, useEffect } from "react";
 import { useAppContext } from "../../context/ContextProvider";
 import { getStandardMethods, getUserMethods } from "./methods";
 import { IMethod } from "./types";
+import {
+  rebootUsersMethodsType,
+  toggleRebootUsersMethodsType,
+} from "../../context/types";
 
 //@ts-expect-error ???
 const MethodsContext = React.createContext();
@@ -16,9 +20,13 @@ export function MethodsProvider({ children }) {
   const {
     currentUser,
     userLoggedIn,
+    rebootUsersMethods,
+    toggleRebootUsersMethods,
   }: {
     currentUser: any;
     userLoggedIn: any;
+    rebootUsersMethods: rebootUsersMethodsType;
+    toggleRebootUsersMethods: toggleRebootUsersMethodsType;
   } = useAppContext();
 
   // создадим контекст методов
@@ -43,8 +51,9 @@ export function MethodsProvider({ children }) {
     if (userLoggedIn === true) {
       methodsUS(currentUser.email);
       //console.log("user current: " + currentUser.email);
+      toggleRebootUsersMethods(false);
     }
-  }, [userLoggedIn]);
+  }, [userLoggedIn, currentUser, rebootUsersMethods]);
 
   const value = {
     standardMethods,
