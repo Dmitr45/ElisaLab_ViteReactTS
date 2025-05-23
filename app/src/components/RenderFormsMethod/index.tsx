@@ -127,7 +127,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
     setStage(
       idArr.map((id, index) => {
         return {
-          id: idArr[index],
+          id: id,
           isEnabled: isEnabledArr[index],
           nameStage: nameStageArr[index],
           temperature: temperatureArr[index],
