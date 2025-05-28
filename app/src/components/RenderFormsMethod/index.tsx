@@ -12,6 +12,7 @@ import { RxRocket } from "react-icons/rx";
 import { VscSaveAs } from "react-icons/vsc";
 import { TbMessageQuestion } from "react-icons/tb";
 import { RiFolderUserLine } from "react-icons/ri";
+import { MdOutlineDeleteForever } from "react-icons/md";
 import { setUserMethod } from "../../fireBase/MethodsData/methods";
 
 type PropsMethod = {
@@ -138,13 +139,18 @@ export function RenderFormsMethod({ method }: PropsMethod) {
         };
       })
     );
+  }, [newIsEnabledArr, newTemperatureArr, newTimerArr]);
+
+  useEffect(() => {
+    const idNew = String(Date.now());
     setEDITEDmethod({
-      id: id,
+      id: idNew,
       name: name,
       type: type,
       stage: stage,
     });
-  }, [newIsEnabledArr, newTemperatureArr, newTimerArr, stage, EDITEDmethod]);
+  }, [newIsEnabledArr, newTemperatureArr, newTimerArr, stage]);
+
   //=========================================================================================
   // Сохраняем метод в EDITEDmethod
   return (
@@ -282,6 +288,24 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                   <RiFolderUserLine />
                 </button>
               )}
+            </div>
+            <div className={styles.button}>
+              <button
+                className={styles.buttonStart}
+                style={{ width: 100 + "%" }}
+                onClick={() => {
+                  if (id.length > 3) {
+                    console.log("Click: Удалить метод: " + id);
+                  } else {
+                    console.log(
+                      "Click errore: Стандартный метод нельзя удалить: " + id
+                    );
+                  }
+                }}
+              >
+                Delete method&nbsp;
+                <MdOutlineDeleteForever />
+              </button>
             </div>
             <div className={styles.button}>
               <button

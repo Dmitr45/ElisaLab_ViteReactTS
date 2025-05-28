@@ -1,11 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { IRouteMap } from "../RouteMaps/types";
 import { useAppContext } from "../../context/ContextProvider";
+import { toggleLastSeriesType } from "../../context/types";
 import { userIType } from "../UsersProfileData/types";
 import { togglePageActiveType } from "../../context/types";
 import { collection, getDocs } from "firebase/firestore";
 import { dataFireBase } from "../index";
 import { docSelection } from "../functions/funcDocSelection";
+
 //@ts-expect-error ???
 const HistoryContext = React.createContext();
 
@@ -29,6 +31,10 @@ export function HistoryProvider({ children }) {
 
   // создадим контекст истории
   const [historyArr, setHistoryArr] = useState<IRouteMap[]>([]);
+  const {
+    toggleLastSeries,
+  }: { lastSeries: lastSeriesType; toggleLastSeries: toggleLastSeriesType } =
+    useAppContext();
 
   //===========================================================================================================
   async function getHistory(email: string) {
@@ -42,8 +48,15 @@ export function HistoryProvider({ children }) {
       const usersHistory = docSelection(history.docs, email);
       //@ts-expect-error &&&
       const historyArr: IRouteMap[] = usersHistory.maps.map((doc) => doc);
-      console.log("getHistory:" + historyArr);
+      //@ts-expect-error &&&
+      const lSeries: lastSeriesType = usersHistory.coun.lastSeries;
+
       setHistoryArr(historyArr);
+      toggleLastSeries(lSeries);
+      console.log(
+        "getHistory: Маршрутные карты выполненных работ загружены, последняя серия № " +
+          lSeries
+      );
       return historyArr;
     } catch {
       console.log(`getHistory: Истории работ нет или вы не авторизованы`);

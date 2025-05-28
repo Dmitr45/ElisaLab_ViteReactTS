@@ -27,7 +27,7 @@ export async function getUser(email: string) {
       note: String(userDoc.note),
     };
 
-    console.log(userData);
+    console.log(userData.name + "!, ваш профайл найден и загружен");
     return userData;
   } catch {
     console.log(`getUser : Пользователь ${email} не найден`);

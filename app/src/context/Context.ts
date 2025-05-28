@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { NameObjType, MessageIType } from "./types";
+import { NameObjType, MessageIType, lestSeriesType } from "./types";
 import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
 import { IMethod } from "../fireBase/MethodsData/types";
@@ -42,7 +42,9 @@ export const useCreateAppContext = function (props: any) {
   useEffect(() => {
     if (userLoggedIn) {
       //console.clear();
-      console.log(`Вы авторизовались. Добрый день, ${userData?.name}!`);
+      console.log(
+        `  Добрый день, ${userData?.name}! Приложение ElisaLab готово к работе.`
+      );
     }
   }, [userLoggedIn, userData]);
 
@@ -143,41 +145,20 @@ export const useCreateAppContext = function (props: any) {
     }
   }, [messageSend]);
 
-  //Контекст для SimpleTimer =============================================================================
-  //localStorage.setItem(startTime_simpleTimer, Date.now().toString() );
-
-  // const [deltaSimpleTime, setDeltaSimpleTime] = useState<number>(
-  //   props.deltaTime || 5
-  // ); // на сколько минут таймер
-  // const toggleDeltaSimpleTime = useCallback((minut: number): void => {
-  //   setDeltaSimpleTime(minut);
-  // }, []);
-
-  // const [localStorageRefresh, setLocalStorageRefresh] = useState<number>(
-  //   props.localStorageRefresh || 0
-  // ); // на сколько минут таймер
-  // const toggLocalStorageRefresh = useCallback((msec: number): void => {
-  //   setLocalStorageRefresh(msec);
-  // }, []);
-
-  // const [timeSimpleRender, setTimeSimpleRenred] = useState<number>(
-  //   props.timeSimpleRender || 0
-  // ); // мин
-  // const toggTimeSimpleRenred = useCallback((min: number): void => {
-  //   setTimeSimpleRenred(min);
-  // }, []);
+  // Series =============================================================================
+  const [lastSeries, setLastSeries] = useState<lestSeriesType>(
+    props.lastSeries || 0
+  );
+  const toggleLastSeries = useCallback((lastSeries: lestSeriesType): void => {
+    setLastSeries(lastSeries);
+  }, []);
 
   //======Updating api data===============================================================================
   const [rebootUsersMethods, setRebootUsersMethods] = useState<boolean>(false);
   const toggleRebootUsersMethods = useCallback((bool: boolean): void => {
     setRebootUsersMethods(bool);
   }, []);
-  // const [rebootUsersHistory, setRebootUsersHistory] = useState<boolean>(false);
-  // const toggleRebootUsersHistory = useCallback((bool: boolean): void => {setRebootUsersHistory(bool);}, []);
-  // const [rebootUsersRouteMaps, setRebootUsersRouteMaps] = useState<boolean>(false);
-  // const toggleRebootUsersRouteMaps = useCallback((bool: boolean): void => {setRebootUsersRouteMaps(bool);}, []);
-  // const [rebootUsersProfile, setRebootUsersProfile] = useState<boolean>(false);
-  // const toggleRebootUsersProfile = useCallback((bool: boolean): void => {setRebootUsersProfile(bool);}, []);
+
   //======================================================================================================
   return {
     //==Users=========================
@@ -202,6 +183,10 @@ export const useCreateAppContext = function (props: any) {
     toggleMethodSelected,
     seriesMaps,
     toggleSeriesMaps,
+
+    //Series
+    lastSeries,
+    toggleLastSeries,
 
     // RebootData
     rebootUsersMethods,
