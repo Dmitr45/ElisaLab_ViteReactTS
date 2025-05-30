@@ -5,10 +5,11 @@ export interface IStageRouteMap {
   nameStage: string;
   temperature: number;
   time: number;
-  start: Timestamp;
+  start?: Timestamp;
   end?: Timestamp;
-  pause: number;
-  isFinished: boolean;
+  pause?: number;
+  isEnabled: boolean;
+  isFinished?: boolean;
 }
 
 export interface IRouteMap {
@@ -18,8 +19,4 @@ export interface IRouteMap {
   methodName: string;
   type: string;
   stage: IStageRouteMap[];
-}
-
-export interface ILastSeries {
-  lastSeries: number;
 }

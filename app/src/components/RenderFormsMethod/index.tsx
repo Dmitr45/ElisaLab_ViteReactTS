@@ -8,12 +8,18 @@ import {
   togglePageActiveType,
   toggleRebootUsersMethodsType,
 } from "../../context/types";
+import { setUpdateState } from "../../fireBase/runMethodsState/updateMaps";
+import { IRunMethodsState } from "../../fireBase/runMethodsState/types";
 import { RxRocket } from "react-icons/rx";
 import { VscSaveAs } from "react-icons/vsc";
 import { TbMessageQuestion } from "react-icons/tb";
 import { RiFolderUserLine } from "react-icons/ri";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { setUserMethod } from "../../fireBase/MethodsData/methods";
+import { setNewLastSeries } from "../../fireBase/LastSeries/setNewLastSeries";
+import { setNewHistory } from "../../fireBase/HistoryData/setNewHistory";
+import { IRouteMap, IStageRouteMap } from "../../fireBase/HistoryData/types";
+import { LastSeriesModerator } from "../../fireBase/LastSeries";
 
 type PropsMethod = {
   method: IMethod;
@@ -22,6 +28,7 @@ type PropsMethod = {
 export function RenderFormsMethod({ method }: PropsMethod) {
   const {
     //themeActive,
+    lastSeries,
     togglePageActive,
     userLoggedIn,
     currentUser,
@@ -29,6 +36,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
     toggleRebootUsersMethods,
   }: {
     themeActive: themeActiveType;
+    lastSeries: number;
     toggleMessage: toggleMessageType;
     togglePageActive: togglePageActiveType;
     userLoggedIn: boolean;
@@ -151,6 +159,55 @@ export function RenderFormsMethod({ method }: PropsMethod) {
     });
   }, [newIsEnabledArr, newTemperatureArr, newTimerArr, stage]);
 
+  //====Function start method================================================================
+  async function startMethod(
+    series: number = lastSeries,
+    email: string = currentUser.email
+  ) {
+    // Функция для запуска метода
+    const newSeries = series + 1;
+    const newStage: IStageRouteMap[] = stage.map((stage, index) => {
+      return {
+        nameStage: stage.nameStage,
+        temperature: temperatureArr[index],
+        time: timerArr[index],
+        id: stage.id,
+        isEnabled: false,
+      };
+    });
+    const newHistory: IRouteMap = {
+      series: newSeries,
+      idMethod: id,
+      isClosed: false,
+      methodName: EDITEDmethod.name,
+      type: EDITEDmethod.type,
+      stage: newStage,
+    };
+
+    const stateRun: IRunMethodsState = {
+      series: newSeries,
+      numberStage: 0,
+      start: Date.now(), // Используем текущее время
+
+      //start: serverTimestamp() as Timestamp, // Используем серверное время
+    };
+    try {
+      console.log("Click: Запуск метода: " + Date.now());
+      await setNewLastSeries(newSeries, email);
+      await setNewHistory(newSeries, newHistory, email);
+      await setUpdateState(newSeries, stateRun, email);
+      togglePageActive(15); // Переходим на страницу работы
+      toggleMessage({
+        type: "success",
+        message: "Method started successfully!",
+      });
+    } catch (error) {
+      toggleMessage({
+        type: "error",
+        message: "Error starting method: " + error,
+      });
+    }
+  }
   //=========================================================================================
   // Сохраняем метод в EDITEDmethod
   return (
@@ -312,11 +369,12 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                 className={styles.buttonStart}
                 style={{ width: 100 + "%" }}
                 onClick={() => {
-                  togglePageActive(6);
+                  startMethod();
                 }}
               >
-                Start method&nbsp;
-                <RxRocket />
+                Start work <RxRocket />
+                -№
+                <LastSeriesModerator />
               </button>
             </div>
           </div>

@@ -1,9 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
-import { NameObjType, MessageIType, lestSeriesType } from "./types";
+import { NameObjType, MessageIType, lastSeriesType } from "./types";
 import DarkTheme from "../components/Theme/DarkTheme.module.scss";
 import LightTheme from "../components/Theme/LightTheme.module.scss";
 import { IMethod } from "../fireBase/MethodsData/types";
-import { IRouteMap } from "../fireBase/RouteMaps/types";
+import { IRouteMap } from "../fireBase/HistoryData/types";
 import { authFireBase } from "../fireBase/index";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -145,14 +145,27 @@ export const useCreateAppContext = function (props: any) {
     }
   }, [messageSend]);
 
-  // Series =============================================================================
-  const [lastSeries, setLastSeries] = useState<lestSeriesType>(
+  //Work State ========================================================================================
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  const [lastSeries, setLastSeries] = useState<lastSeriesType>( // Последняя серия в истории пользователя
     props.lastSeries || 0
   );
-  const toggleLastSeries = useCallback((lastSeries: lestSeriesType): void => {
+  const toggleLastSeries = useCallback((lastSeries: lastSeriesType): void => {
     setLastSeries(lastSeries);
   }, []);
 
+  const [actualSeriesArr, setActualSeries] = useState<lastSeriesType[]>(
+    props.lastSeries || []
+  );
+  const toggleActualSeriesArr = useCallback(
+    (actualSeries: lastSeriesType[]): void => {
+      // Текущие активные серии пользователя
+      setActualSeries(actualSeries);
+    },
+    []
+  );
+
+  //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   //======Updating api data===============================================================================
   const [rebootUsersMethods, setRebootUsersMethods] = useState<boolean>(false);
   const toggleRebootUsersMethods = useCallback((bool: boolean): void => {
@@ -161,22 +174,23 @@ export const useCreateAppContext = function (props: any) {
 
   //======================================================================================================
   return {
-    //==Users=========================
+    //Users
     currentUser,
     userLoggedIn,
     loadingAuth,
     userData,
-    //================================
+
+    //Route && Styles
     darkThemeContext,
     toggleDarkThemeContext,
     themeActive,
     NameApp,
     pageActive,
     togglePageActive,
-    //====Error====
+
+    //Error
     messageSend,
     toggleMessage,
-    //=====SimpleTimer
 
     // Methods
     methodSelected,
@@ -185,14 +199,18 @@ export const useCreateAppContext = function (props: any) {
     toggleSeriesMaps,
 
     //Series
-    lastSeries,
+    lastSeries, // Последняя серия в истории пользователя
     toggleLastSeries,
+    actualSeriesArr, // Текущие активные серии пользователя
+    toggleActualSeriesArr,
 
-    // RebootData
+    //Work State
+
+    //RebootData
     rebootUsersMethods,
     toggleRebootUsersMethods,
 
-    //=====API
+    //API
     apiURL,
     authURL, // baseURL для запросов к серверу
   };

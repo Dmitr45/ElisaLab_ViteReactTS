@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
-import { IRouteMap } from "../RouteMaps/types";
+import { IRouteMap } from "./types.ts"; // Импортируем интерфейс IRouteMap
 import { useAppContext } from "../../context/ContextProvider";
-import { toggleLastSeriesType } from "../../context/types";
+
 import { userIType } from "../UsersProfileData/types";
-import { togglePageActiveType } from "../../context/types";
+import { togglePageActiveType, lastSeriesType } from "../../context/types";
 import { collection, getDocs } from "firebase/firestore";
 import { dataFireBase } from "../index";
 import { docSelection } from "../functions/funcDocSelection";
@@ -21,20 +21,18 @@ export function HistoryProvider({ children }) {
   const {
     currentUser,
     userLoggedIn,
+    lastSeries,
   }: //togglePageActive,
   {
     userLoggedIn: boolean;
     userData: userIType;
     currentUser: any;
     togglePageActive: togglePageActiveType;
+    lastSeries: lastSeriesType;
   } = useAppContext();
 
   // создадим контекст истории
   const [historyArr, setHistoryArr] = useState<IRouteMap[]>([]);
-  const {
-    toggleLastSeries,
-  }: { lastSeries: lastSeriesType; toggleLastSeries: toggleLastSeriesType } =
-    useAppContext();
 
   //===========================================================================================================
   async function getHistory(email: string) {
@@ -46,17 +44,13 @@ export function HistoryProvider({ children }) {
         `getHistory: Загрузил папки с законченными маршрутками:  ${history.docs.length}`
       );
       const usersHistory = docSelection(history.docs, email);
-      //@ts-expect-error &&&
-      const historyArr: IRouteMap[] = usersHistory.maps.map((doc) => doc);
-      //@ts-expect-error &&&
-      const lSeries: lastSeriesType = usersHistory.coun.lastSeries;
+      const historyArr: IRouteMap[] = [];
+      for (const key of Object.keys(usersHistory)) {
+        //@ts-expect-error &&&
+        historyArr.push(usersHistory[key][0]) as IRouteMap;
+      }
 
       setHistoryArr(historyArr);
-      toggleLastSeries(lSeries);
-      console.log(
-        "getHistory: Маршрутные карты выполненных работ загружены, последняя серия № " +
-          lSeries
-      );
       return historyArr;
     } catch {
       console.log(`getHistory: Истории работ нет или вы не авторизованы`);
@@ -70,7 +64,7 @@ export function HistoryProvider({ children }) {
     } else {
       console.log("Вы не авторизованы");
     }
-  }, [userLoggedIn, currentUser]);
+  }, [userLoggedIn, currentUser, lastSeries]);
 
   const value = {
     historyArr,

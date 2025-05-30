@@ -9,7 +9,8 @@ import style from "../styles.module.scss";
 import { RenderHistory } from "../../components/RenderHistory";
 // import { useEffect } from "react";
 import { useHistory } from "../../fireBase/HistoryData/HistoryProvider";
-import { IRouteMap } from "../../fireBase/RouteMaps/types";
+import { IRouteMap } from "../../fireBase/HistoryData/types";
+import { LastSeriesModerator } from "../../fireBase/LastSeries";
 //====================================================================================
 export function History() {
   const {
@@ -32,6 +33,11 @@ export function History() {
       <div className={style.page + " " + themeActive.page}>
         <div className={style.container}>
           <div className={style.pageTitle}>History</div>
+          <div>
+            <LastSeriesModerator />
+            <span> route maps found in your history</span>
+          </div>
+          {/* Компонент для получения последней серии */}
           <RenderHistory historyArr={historyArr} />
         </div>
       </div>

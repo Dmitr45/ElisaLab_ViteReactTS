@@ -1,5 +1,5 @@
 import { JSX, useEffect, useState } from "react";
-import { IRouteMap } from "../../fireBase/RouteMaps/types";
+import { IRouteMap } from "../../fireBase/HistoryData/types";
 import styles from "./styles.module.scss";
 import { useAppContext } from "../../context/ContextProvider";
 import {

@@ -17,20 +17,19 @@ export async function AddDocNewUser(UserEmail: string) {
       maps: [],
     });
     await setDoc(doc(dataFireBase, "historySeriesMaps", UserEmail), {
-      coun: { lastSeries: 0 },
-      maps: [
+      [String(1)]: [
         {
           idMethod: "example",
           isClosed: true,
           methodName: "You don't have a story yet, but this is an example.",
-          series: 0,
-          stage: [],
-          type: "none",
         },
       ],
     });
     await setDoc(doc(dataFireBase, "runSeriesMaps", UserEmail), {
-      maps: [],
+      [String(1)]: [],
+    });
+    await setDoc(doc(dataFireBase, "lastSeries", UserEmail), {
+      counter: 0,
     });
 
     console.log(
