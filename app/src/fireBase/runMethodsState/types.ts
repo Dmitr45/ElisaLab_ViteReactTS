@@ -1,5 +1,5 @@
 export interface IRunMethodsState {
   numberStage: number;
-  start: number;
+  start: number; // sec
   series: number;
 }

@@ -33,7 +33,7 @@ export const useCreateAppContext = function (props: any) {
       setUserData(await getUser(user.email));
     } else {
       //@ts-expect-error ???
-      setCurrentUser(null);
+      setCurrentUser({ email: "default@user.net" });
       setUserLoggedIn(false);
     }
     setLoadingAuth(false);

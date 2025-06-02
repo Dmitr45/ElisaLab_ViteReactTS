@@ -9,6 +9,7 @@ import { TbMessageQuestion } from "react-icons/tb";
 import { getDataState } from "../../fireBase/runMethodsState/getDataState";
 import { useEffect, useState } from "react";
 import { IRunMethodsState } from "../../fireBase/runMethodsState/types";
+import { RenderOneWork } from "../../components/RenderOneWork";
 
 export function WorkPage() {
   const {
@@ -22,18 +23,14 @@ export function WorkPage() {
     toggleMessage: toggleMessageType;
   } = useAppContext();
 
-  const [data, setData] = useState<IRunMethodsState[]>([
-    {
-      numberStage: 0,
-      start: 0,
-      series: 0,
-    },
-  ]);
+  const [data, setData] = useState<IRunMethodsState[]>([]);
 
   useEffect(() => {
     if (currentUser) {
       getDataState(currentUser.email).then((data) => {
-        setData(data || []);
+        if (data !== null && data.length > 0) {
+          setData(data);
+        }
       });
     }
   }, []);
@@ -43,29 +40,25 @@ export function WorkPage() {
       <div className={styles.page + " " + themeActive.page}>
         <div className={styles.container}>
           <div className={styles.pageTitle}>Work</div>
-
-          {"Series№  " +
-            data[0].series +
-            " |  " +
-            "Stage :  " +
-            (data[0].numberStage + 1) +
-            " |  " +
-            "Начало :  " +
-            new Date(data[0].start * 10).toLocaleString()}
-
-          <div>
-            <div className={styles.methodTitle}>
-              You don't have any protocol running.
+          {data.length > 0 ? (
+            data.map((oneWork) => {
+              return <RenderOneWork ObjWork={oneWork} />;
+            })
+          ) : (
+            <div>
+              <div className={styles.methodTitle}>
+                You don't have any protocol running.
+              </div>
+              <button
+                onClick={() => {
+                  togglePageActive(11);
+                }}
+              >
+                Select method&nbsp;
+                <TbMessageQuestion />
+              </button>
             </div>
-            <button
-              onClick={() => {
-                togglePageActive(11);
-              }}
-            >
-              Select method&nbsp;
-              <TbMessageQuestion />
-            </button>
-          </div>
+          )}
         </div>
       </div>
     </div>

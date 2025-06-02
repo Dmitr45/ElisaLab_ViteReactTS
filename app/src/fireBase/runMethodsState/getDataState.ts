@@ -16,9 +16,11 @@ export async function getDataState(email: string) {
     const workArr: IRunMethodsState[] = [];
     for (const key of Object.keys(RunData)) {
       //@ts-expect-error &&&
-      workArr.push(RunData[key][0]) as IRouteMap;
+      const objWork: IRunMethodsState = RunData[key][0];
+      if (objWork?.series > 0) {
+        workArr.push(objWork);
+      }
     }
-
     //console.log("RunData: " + workArr[0].numberStage);
     return workArr;
   } catch {

@@ -22,11 +22,13 @@ export async function AddDocNewUser(UserEmail: string) {
           idMethod: "example",
           isClosed: true,
           methodName: "You don't have a story yet, but this is an example.",
+          stage: [],
+          type: "none",
         },
       ],
     });
     await setDoc(doc(dataFireBase, "runSeriesMaps", UserEmail), {
-      [String(1)]: [],
+      [String(0)]: [],
     });
     await setDoc(doc(dataFireBase, "lastSeries", UserEmail), {
       counter: 0,
