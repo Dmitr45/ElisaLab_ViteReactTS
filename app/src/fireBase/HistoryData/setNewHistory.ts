@@ -4,7 +4,7 @@ import { IRouteMap } from "./types.ts";
 
 export async function setNewHistory(
   series: number,
-  history: IRouteMap,
+  RoutMap: IRouteMap,
   UserEmail: string
 ): Promise<boolean> {
   // Функция для добавления или обновления счетчика последних серий
@@ -12,18 +12,15 @@ export async function setNewHistory(
     await updateDoc(doc(dataFireBase, "historySeriesMaps", UserEmail), {
       [String(series)]: [
         {
-          idMethod: history.idMethod,
-          methodName: history.methodName,
-          type: history.type,
-          isClosed: history.isClosed,
-          stage: history.stage,
-          //   stage: history.stage.map((stage) => ({
-          //     id: stage.id,
-          //     nameStage: stage.nameStage,
-          //     time: stage.time,
-          //     temperature: stage.temperature,
-          //     isEnabled: stage.isEnabled,
-          //   })),
+          idMethod: RoutMap.idMethod,
+          methodName: RoutMap.methodName,
+          type: RoutMap.type,
+          isClosed: RoutMap.isClosed,
+          stages: RoutMap.stages,
+          nameStages: RoutMap.nameStages,
+          times: RoutMap.times,
+          start: RoutMap.start,
+          temperatures: RoutMap.temperatures,
         },
       ],
     });

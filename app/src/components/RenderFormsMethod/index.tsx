@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IMethod, IStage } from "../../fireBase/MethodsData/types";
+import { IMethod } from "../../fireBase/MethodsData/types";
 import styles from "./styles.module.scss";
 import { useAppContext } from "../../context/ContextProvider";
 import {
@@ -18,7 +18,7 @@ import { MdOutlineDeleteForever } from "react-icons/md";
 import { setUserMethod } from "../../fireBase/MethodsData/methods";
 import { setNewLastSeries } from "../../fireBase/LastSeries/setNewLastSeries";
 import { setNewHistory } from "../../fireBase/HistoryData/setNewHistory";
-import { IRouteMap, IStageRouteMap } from "../../fireBase/HistoryData/types";
+import { IRouteMap } from "../../fireBase/HistoryData/types";
 import { LastSeriesModerator } from "../../fireBase/LastSeries";
 
 type PropsMethod = {
@@ -49,17 +49,22 @@ export function RenderFormsMethod({ method }: PropsMethod) {
     id: "",
     name: "",
     type: "",
-    stage: [
-      {
-        id: "",
-        isEnabled: false,
-        nameStage: "",
-        temperature: 0,
-        time: 0,
-      },
-    ],
+    stages: [true, true, true, true],
+    nameStages: ["", "", "", ""],
+    temperatures: [0, 0, 0, 0],
+    times: [0, 0, 0, 0],
   });
   // Options of the method=========================================================================
+  // export interface IMethod {
+  //   id: string;
+  //   name: string;
+  //   type: string;
+  //   stages: boolean[];
+  //   nameStages: string[];
+  //   temperature: number[];
+  //   time: number[];
+  // }
+
   const [id, setId] = useState<string>("none");
   const [name, setName] = useState<string>(
     "The method is not selected. Please select the standard or your method."
@@ -68,86 +73,43 @@ export function RenderFormsMethod({ method }: PropsMethod) {
   useEffect(() => {
     setName(newName);
   }, [newName]);
+
   const [type, setType] = useState<string>("");
-  const [stage, setStage] = useState<IStage[]>([]);
+  const [stages, setStages] = useState<boolean[]>([]); // Массив stages [true],[true], [true]
+  const [newStages, toggleStages] = useState<boolean[]>(stages);
+  useEffect(() => {
+    setStages(newStages);
+  }, [newStages]);
 
-  // Stages of the method=====================================================================
-  const [idArr, setIdArr] = useState<string[]>([]); // Массив id [id],[id], [id]
-  //const [newIdArr] = useState<string[]>(idArr);
+  const [nameStages, setNameStages] = useState<string[]>([]); // Массив nameStages [nameStage],[nameStage], [nameStage]
 
-  const [isEnabledArr, setIsEnabledArr] = useState<boolean[]>([]); // Массив чекбоксов включения [isEnabled],[isEnabled], [isEnabled]
-  const [newIsEnabledArr, toggleIsEnabledArr] =
-    useState<boolean[]>(isEnabledArr);
+  const [temperatures, setTemperatures] = useState<number[]>([]); // Массив temperature [temperature],[temperature], [temperature]
+  const [newTemperatures, toggleTemperatures] =
+    useState<number[]>(temperatures);
+  useEffect(() => {
+    setTemperatures(newTemperatures);
+  }, [newTemperatures]);
 
-  const [nameStageArr, setNameStageArr] = useState<string[]>([]); // Массив nameStage [nameStage],[nameStage], [nameStage]
-  //const [newNameStageArr] = useState<string[]>(nameStageArr);
+  const [times, setTimes] = useState<number[]>([]); // Массив time [time],[time], [time]
+  const [newTimes, toggleTimes] = useState<number[]>(times);
+  useEffect(() => {
+    setTimes(newTimes);
+  }, [newTimes]);
 
-  const [temperatureArr, setTemperatureArr] = useState<number[]>([]); // Массив температуры [temperature],[temperature], [temperature]
-  const [newTemperatureArr, toggleTemperatureArr] =
-    useState<number[]>(temperatureArr);
-
-  const [timerArr, setTimerArr] = useState<number[]>([]); // Массив таймеров [time],[time], [time]
-  const [newTimerArr, toggleTimerArr] = useState<number[]>(timerArr);
-
-  //=========================================================================================
   // Получаем метод из props
   useEffect(() => {
     if (method !== undefined) {
       setId(method.id);
       setName(method.name);
       setType(method.type);
-      setStage(method.stage);
-      setIdArr(
-        // Соберем все id в один массив
-        method.stage.map((stage) => {
-          return stage.id;
-        })
-      );
-      toggleIsEnabledArr(
-        // Соберем все isEnabled в один массив
-        method.stage.map((stage) => {
-          return stage.isEnabled;
-        })
-      );
-      setNameStageArr(
-        // Соберем все nameStage в один массив
-        method.stage.map((stage) => {
-          return stage.nameStage;
-        })
-      );
-      toggleTemperatureArr(
-        // Соберем все temperature в один массив
-        method.stage.map((stage) => {
-          return stage.temperature;
-        })
-      );
-      toggleTimerArr(
-        // Соберем все time в один массив
-        method.stage.map((stage) => {
-          return stage.time;
-        })
-      );
+      setStages(method.stages);
+      setNameStages(method.nameStages);
+      setTemperatures(method.temperatures);
+      setTimes(method.times);
     }
   }, [method]);
 
   //===Отслеживаем изменения======================================================================================
-
-  useEffect(() => {
-    setIsEnabledArr(newIsEnabledArr);
-    setTemperatureArr(newTemperatureArr);
-    setTimerArr(newTimerArr);
-    setStage(
-      idArr.map((id, index) => {
-        return {
-          id: id,
-          isEnabled: isEnabledArr[index],
-          nameStage: nameStageArr[index],
-          temperature: temperatureArr[index],
-          time: timerArr[index],
-        };
-      })
-    );
-  }, [newIsEnabledArr, newTemperatureArr, newTimerArr]);
 
   useEffect(() => {
     const idNew = String(Date.now());
@@ -155,49 +117,53 @@ export function RenderFormsMethod({ method }: PropsMethod) {
       id: idNew,
       name: name,
       type: type,
-      stage: stage,
+      stages: stages,
+      nameStages: nameStages,
+      temperatures: temperatures,
+      times: times,
     });
-  }, [newIsEnabledArr, newTemperatureArr, newTimerArr, stage]);
+  }, [temperatures, times, stages, name]);
 
-  //====Function start method================================================================
+  //  ====Function start method================================================================
   async function startMethod(
     series: number = lastSeries,
     email: string = currentUser.email,
-    times: number[] = timerArr
+    times: number[] = EDITEDmethod.times,
+    stages: boolean[] = EDITEDmethod.stages,
+    nameStages: string[] = EDITEDmethod.nameStages,
+    temperatures: number[] = EDITEDmethod.temperatures
   ) {
     // Функция для запуска метода
     const newSeries = series + 1;
-    const newStage: IStageRouteMap[] = stage.map((stage, index) => {
-      return {
-        nameStage: stage.nameStage,
-        temperature: temperatureArr[index],
-        time: timerArr[index],
-        id: stage.id,
-        isEnabled: false,
-      };
-    });
+
     const newHistory: IRouteMap = {
       series: newSeries,
       idMethod: id,
       isClosed: false,
       methodName: EDITEDmethod.name,
       type: EDITEDmethod.type,
-      stage: newStage,
+      stages: stages,
+      nameStages: nameStages,
+      temperatures: temperatures,
+      times: times,
+      start: [Date.now(), 0, 0, 0],
     };
 
     const stateRun: IRunMethodsState = {
       series: newSeries,
-      numberStage: 0,
-      start: Date.now(), // Используем текущее время
-      times: timerArr,
-
-      //start: serverTimestamp() as Timestamp, // Используем серверное время
+      methodName: EDITEDmethod.name,
+      type: EDITEDmethod.type,
+      stages: stages,
+      nameStages: nameStages,
+      temperatures: temperatures,
+      times: times,
+      start: [Date.now(), 0, 0, 0],
     };
     try {
       console.log("Click: Запуск метода: " + Date.now());
       await setNewLastSeries(newSeries, email);
       await setNewHistory(newSeries, newHistory, email);
-      await setUpdateState(newSeries, stateRun, email, times);
+      await setUpdateState(newSeries, stateRun, email);
       togglePageActive(15); // Переходим на страницу работы
       toggleMessage({
         type: "success",
@@ -240,28 +206,29 @@ export function RenderFormsMethod({ method }: PropsMethod) {
           </div>
           <br />({type})
           <br />
-          {method.stage.map((stage, index) => {
+          {method.stages.map((stage, index) => {
+            console.log(
+              "RenderFormsMethod: index = " + index + " stage = " + stage
+            );
             return (
               <div key={index} className={styles.stage}>
                 <div className={styles.stageTitle}>
-                  Stage{index + 1}: <br /> <b>{stage.nameStage}</b>
+                  Stage{index + 1}: <br /> <b>{nameStages[index]}</b>
                 </div>
                 <div className={styles.isEnabled}>
                   <input
                     type="checkbox"
                     key={index + "3000"}
-                    checked={isEnabledArr[index]}
+                    checked={stages[index]}
                     onChange={(event) => {
-                      const arr = isEnabledArr.map(
-                        (elem: boolean, i: number) => {
-                          if (i === index) {
-                            return Boolean(event.target.checked);
-                          } else {
-                            return Boolean(elem);
-                          }
+                      const arr = stages.map((elem: boolean, i: number) => {
+                        if (i === index) {
+                          return Boolean(event.target.checked);
+                        } else {
+                          return Boolean(elem);
                         }
-                      );
-                      toggleIsEnabledArr(arr);
+                      });
+                      toggleStages(arr);
                     }}
                   ></input>
                 </div>
@@ -274,16 +241,16 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                       width: 100 + "%",
                       textAlign: "center",
                     }}
-                    value={timerArr[index]}
+                    value={times[index]}
                     onChange={(event) => {
-                      const arr = timerArr.map((elem: number, i: number) => {
+                      const arr = times.map((elem: number, i: number) => {
                         if (i === index) {
                           return Number(event.target.value);
                         } else {
                           return Number(elem);
                         }
                       });
-                      toggleTimerArr(arr);
+                      toggleTimes(arr);
                     }}
                   ></input>
                   <br />
@@ -298,9 +265,9 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                       width: 100 + "%",
                       textAlign: "center",
                     }}
-                    value={temperatureArr[index]}
+                    value={temperatures[index]}
                     onChange={(event) => {
-                      const arr = temperatureArr.map(
+                      const arr = temperatures.map(
                         (elem: number, i: number) => {
                           if (i === index) {
                             return Number(event.target.value);
@@ -309,7 +276,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                           }
                         }
                       );
-                      toggleTemperatureArr(arr);
+                      toggleTemperatures(arr);
                     }}
                   ></input>
                   <br />

@@ -1,22 +1,24 @@
-import { doc, updateDoc, Timestamp } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { dataFireBase } from "../index";
 import { IRunMethodsState } from "./types.ts";
 
 export async function setUpdateState(
   series: number,
-  state: IRunMethodsState,
-  UserEmail: string,
-  times: number[]
+  RoutMap: IRunMethodsState,
+  UserEmail: string
 ): Promise<boolean> {
   // Функция для добавления или обновления счетчика последних серий
   try {
     await updateDoc(doc(dataFireBase, "runSeriesMaps", UserEmail), {
       [String(series)]: [
         {
-          numberStage: state.numberStage,
-          start: new Timestamp(state.start / 1000, 0),
-          series: series,
-          times: times,
+          methodName: RoutMap.methodName,
+          type: RoutMap.type,
+          stages: RoutMap.stages,
+          nameStages: RoutMap.nameStages,
+          times: RoutMap.times,
+          start: RoutMap.start,
+          temperatures: RoutMap.temperatures,
         },
       ],
     });

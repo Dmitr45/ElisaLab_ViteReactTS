@@ -1,6 +1,10 @@
 export interface IRunMethodsState {
-  numberStage: number;
-  start: number; // sec
-  series: number;
+  methodName: string;
+  nameStages: string[];
+  stages: boolean[]; // true - stage is done
   times: number[];
+  temperatures: number[]; // °C
+  start: number[]; // sec
+  series: number;
+  type: string; // "roasting" | "curing" | "drying"
 }

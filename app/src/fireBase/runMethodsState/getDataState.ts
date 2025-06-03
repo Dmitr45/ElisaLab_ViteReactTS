@@ -17,7 +17,7 @@ export async function getDataState(email: string) {
     for (const key of Object.keys(RunData)) {
       //@ts-expect-error &&&
       const objWork: IRunMethodsState = RunData[key][0];
-      if (objWork?.series > 0) {
+      if (objWork) {
         workArr.push(objWork);
       }
     }

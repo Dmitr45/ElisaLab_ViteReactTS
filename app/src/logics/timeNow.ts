@@ -1,5 +1,5 @@
 export function Time(
-  secStart: number = 0,
+  milStart: number = 0,
   deltaMin: number = 30
 ): {
   hoursNow: number;
@@ -10,9 +10,19 @@ export function Time(
   secRevers: number;
 } {
   // =====NOW============================================================
-  const milStart = secStart * 1000;
+
   const msecEnd = milStart + deltaMin * 60000;
+  // console.log(
+  //   "msecStart = " +
+  //     milStart +
+  //     " + " +
+  //     " deltaMin =" +
+  //     deltaMin * 60000 +
+  //     "===== " +
+  //     msecEnd
+  // );
   let msecNow: number = Date.now();
+
   let deltaMsec = msecEnd - msecNow;
 
   const offset = new Date().getTimezoneOffset();

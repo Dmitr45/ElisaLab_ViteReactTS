@@ -12,16 +12,20 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
     Math.floor(Date.now() / 1000)
   );
 
+  const [stageActive] = useState<number>(() => {
+    return ObjWork.stages.indexOf(true);
+  });
+
   useEffect(() => {
-    console.log("ObjWork.start =" + new Date(ObjWork.start));
-    setTimeStart(Math.floor(ObjWork.start * 1000));
-    setDeltaMin(ObjWork.times[ObjWork.numberStage]);
+    console.log("ObjWork.start =" + new Date(ObjWork.start[stageActive]));
+    setTimeStart(Math.floor(ObjWork.start[stageActive]));
+    setDeltaMin(ObjWork.times[stageActive]); // Convert minutes to min
   }, []);
 
   useInterval(() => {
     if (
-      Time(ObjWork.start, deltaMin).hourRevers === 0 &&
-      Time(ObjWork.start, deltaMin).minRevers === 0 &&
+      Time(ObjWork.start[stageActive], deltaMin).hourRevers === 0 &&
+      Time(ObjWork.start[stageActive], deltaMin).minRevers === 0 &&
       Time(timeStart, deltaMin).secRevers === 0
     ) {
       console.log("FINISH !!!!");
@@ -39,13 +43,18 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
   return (
     <div className={styles.oneWork}>
       <div className={styles.oneWorkInfo}>
-        Route map series №{ObjWork.series} Current stage:
-        {ObjWork.numberStage + 1}
+        <h2>{ObjWork.methodName}</h2>
+        Current stage:{stageActive + 1} {ObjWork.nameStages[stageActive]}
+        <p>Type work: {ObjWork.type}</p>
+        <p>
+          Temperature: {ObjWork.temperatures[stageActive]}°C; Time:{" "}
+          {ObjWork.times[stageActive]} min
+        </p>
       </div>
       <div className={styles.oneWorkTimer}>{timer}</div>
       <div className={styles.Management}>
         <div className={styles.oneWorkButton}>Next stage</div>
-        <div className={styles.oneWorkButton}>Pause</div>
+        <p></p>
         <div className={styles.oneWorkButton}>Delete work</div>
       </div>
     </div>

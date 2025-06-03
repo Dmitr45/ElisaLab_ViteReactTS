@@ -7,7 +7,6 @@ import {
   toggleMessageType,
   togglePageActiveType,
 } from "../../context/types";
-import { TimestampToLine } from "../../logics/timestampToDate";
 
 type propsHistory = {
   historyArr: IRouteMap[];
@@ -35,7 +34,7 @@ export function RenderHistory({ historyArr }: propsHistory): JSX.Element {
       <div className={styles.tableHistory}>
         {Arr.map((elem, index) => (
           <div
-            key={index}
+            key={elem.nameStages[index]}
             className={
               styles.tableHistoryElem + " " + themeActive.borderWishHover
             }
@@ -43,16 +42,15 @@ export function RenderHistory({ historyArr }: propsHistory): JSX.Element {
             <h2>{elem.methodName}</h2>
             <p>id Method: {elem.idMethod}</p>
             <p>type work: {elem.type}</p>
-            {elem.stage.map((eSt, index) => (
+            {elem.stages.map((eSt, index) => (
               <>
+                {console.log("eSt: " + eSt)}
                 <p>
-                  Stage №{index + 1}: <b>{eSt.nameStage}</b>
+                  Stage №{index + 1}: <b>{elem.nameStages[index]}</b>
                 </p>
-                <p>Temperature: {eSt.temperature}°C</p>
-                <p>Time: {eSt.time} min</p>
-                <p>Pause: {eSt.pause} min</p>
-                <p>Start work: {eSt.start ? TimestampToLine(eSt.start) : ""}</p>
-                <p>Finish work: {eSt.end ? TimestampToLine(eSt.end) : ""}</p>
+                <p>Temperature: {elem.temperatures[index]}°C</p>
+                <p>Time: {elem.times[index]} min</p>
+                <p>Start work: {elem.start[index] ? elem.start[index] : ""}</p>
               </>
             ))}
           </div>
