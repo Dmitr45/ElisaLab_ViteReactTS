@@ -1,0 +1,23 @@
+.oneWork {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100px;
+  margin-top: 20px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  &Info {
+    flex: 1 0 200px;
+  }
+  &Timer {
+    flex: 1 0 200px;
+    font-size: 24px;
+  }
+  &Management {
+    flex: 1 0 200px;
+  }
+  &Button {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

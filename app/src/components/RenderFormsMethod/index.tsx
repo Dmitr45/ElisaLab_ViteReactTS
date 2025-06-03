@@ -162,7 +162,8 @@ export function RenderFormsMethod({ method }: PropsMethod) {
   //====Function start method================================================================
   async function startMethod(
     series: number = lastSeries,
-    email: string = currentUser.email
+    email: string = currentUser.email,
+    times: number[] = timerArr
   ) {
     // Функция для запуска метода
     const newSeries = series + 1;
@@ -188,6 +189,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
       series: newSeries,
       numberStage: 0,
       start: Date.now(), // Используем текущее время
+      times: timerArr,
 
       //start: serverTimestamp() as Timestamp, // Используем серверное время
     };
@@ -195,7 +197,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
       console.log("Click: Запуск метода: " + Date.now());
       await setNewLastSeries(newSeries, email);
       await setNewHistory(newSeries, newHistory, email);
-      await setUpdateState(newSeries, stateRun, email);
+      await setUpdateState(newSeries, stateRun, email, times);
       togglePageActive(15); // Переходим на страницу работы
       toggleMessage({
         type: "success",

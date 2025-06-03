@@ -5,7 +5,8 @@ import { IRunMethodsState } from "./types.ts";
 export async function setUpdateState(
   series: number,
   state: IRunMethodsState,
-  UserEmail: string
+  UserEmail: string,
+  times: number[]
 ): Promise<boolean> {
   // Функция для добавления или обновления счетчика последних серий
   try {
@@ -15,6 +16,7 @@ export async function setUpdateState(
           numberStage: state.numberStage,
           start: new Timestamp(state.start / 1000, 0),
           series: series,
+          times: times,
         },
       ],
     });

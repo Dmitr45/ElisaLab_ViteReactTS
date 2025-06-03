@@ -10,6 +10,8 @@ import { getDataState } from "../../fireBase/runMethodsState/getDataState";
 import { useEffect, useState } from "react";
 import { IRunMethodsState } from "../../fireBase/runMethodsState/types";
 import { RenderOneWork } from "../../components/RenderOneWork";
+import useInterval from "use-interval";
+import { Time } from "../../logics/timeNow";
 
 export function WorkPage() {
   const {
@@ -24,6 +26,7 @@ export function WorkPage() {
   } = useAppContext();
 
   const [data, setData] = useState<IRunMethodsState[]>([]);
+  const [timeNow, setTimeNow] = useState(<span> 00: 00: 00</span>);
 
   useEffect(() => {
     if (currentUser) {
@@ -35,11 +38,25 @@ export function WorkPage() {
     }
   }, []);
 
+  useInterval(() => {
+    setTimeNow(
+      <span>
+        {" "}
+        {Time().hoursNow} : {Time().minNow} : {Time().secNow}{" "}
+      </span>
+    );
+  }, 1000);
+
   return (
     <div className={themeActive.section}>
       <div className={styles.page + " " + themeActive.page}>
         <div className={styles.container}>
-          <div className={styles.pageTitle}>Work</div>
+          <div className={styles.pageTitle}>
+            Work
+            <div className={styles.time} style={{ fontSize: 16 }}>
+              Time: {timeNow}
+            </div>
+          </div>
           {data.length > 0 ? (
             data.map((oneWork) => {
               return <RenderOneWork ObjWork={oneWork} />;
