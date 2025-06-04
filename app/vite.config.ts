@@ -38,8 +38,9 @@ const manifest: Partial<ManifestOptions> | false = {
   orientation: "portrait",
   display: "standalone",
   lang: " en_US",
-  name: "ElisaLab",
+  name: "ElisaLab - Enzyme Immunoassay (ELISA) in the app",
   short_name: "ElisaLab",
+  id: "/",
   start_url: "https://elisalab.ru/",
   scope: "https://elisalab.ru/",
   description:
