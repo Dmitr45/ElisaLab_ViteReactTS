@@ -172,6 +172,11 @@ export const useCreateAppContext = function (props: any) {
     setRebootUsersMethods(bool);
   }, []);
 
+  const [rebootWorkPage, setRebootWorkPage] = useState<boolean>(false);
+  const toggleRebootWorkPage = useCallback((bool: boolean): void => {
+    setRebootWorkPage(bool);
+  }, []);
+
   //======================================================================================================
   return {
     //Users
@@ -209,6 +214,8 @@ export const useCreateAppContext = function (props: any) {
     //RebootData
     rebootUsersMethods,
     toggleRebootUsersMethods,
+    rebootWorkPage,
+    toggleRebootWorkPage,
 
     //API
     apiURL,

@@ -32,5 +32,7 @@ export type localStorageRefreshType = number;
 export type toggLocalStorageRefreshType = { (msec: number): number };
 export type rebootUsersMethodsType = { bool: boolean };
 export type toggleRebootUsersMethodsType = { (bool: boolean): boolean };
+export type rebootWorkPageType = { bool: boolean };
+export type toggleRebootWorkPageType = { (bool: boolean): boolean };
 export type lastSeriesType = number;
 export type toggleLastSeriesType = { (coun: number): number };

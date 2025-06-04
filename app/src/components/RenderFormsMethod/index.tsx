@@ -157,7 +157,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
       nameStages: nameStages,
       temperatures: temperatures,
       times: times,
-      start: [Date.now(), 0, 0, 0],
+      start: [Date.now(), Date.now(), Date.now(), Date.now()],
     };
     try {
       console.log("Click: Запуск метода: " + Date.now());
@@ -207,9 +207,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
           <br />({type})
           <br />
           {method.stages.map((stage, index) => {
-            console.log(
-              "RenderFormsMethod: index = " + index + " stage = " + stage
-            );
+            console.log(stage ? "" : " ");
             return (
               <div key={index} className={styles.stage}>
                 <div className={styles.stageTitle}>

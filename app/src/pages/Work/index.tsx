@@ -4,29 +4,42 @@ import {
   themeActiveType,
   toggleMessageType,
   togglePageActiveType,
+  rebootWorkPageType,
+  toggleRebootWorkPageType,
 } from "../../context/types";
 import { TbMessageQuestion } from "react-icons/tb";
 import { getDataState } from "../../fireBase/runMethodsState/getDataState";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IRunMethodsState } from "../../fireBase/runMethodsState/types";
 import { RenderOneWork } from "../../components/RenderOneWork";
 import useInterval from "use-interval";
-import { Time } from "../../logics/timeNow";
+import useForceUpdate from "use-force-update";
 
 export function WorkPage() {
   const {
     themeActive,
     togglePageActive,
     currentUser,
+    rebootWorkPage,
+    toggleRebootWorkPage,
   }: {
     themeActive: themeActiveType;
     togglePageActive: togglePageActiveType;
     currentUser: any;
     toggleMessage: toggleMessageType;
+    rebootWorkPage: rebootWorkPageType;
+    toggleRebootWorkPage: toggleRebootWorkPageType;
   } = useAppContext();
 
   const [data, setData] = useState<IRunMethodsState[]>([]);
   const [timeNow, setTimeNow] = useState(<span> 00: 00: 00</span>);
+  const forceUpdate = useForceUpdate();
+
+  const MapsArr = useCallback(() => {
+    return data.map((oneWork) => {
+      return <RenderOneWork ObjWork={oneWork} />;
+    });
+  }, [data, rebootWorkPage]);
 
   useEffect(() => {
     if (currentUser) {
@@ -36,15 +49,13 @@ export function WorkPage() {
         }
       });
     }
-  }, []);
+    MapsArr();
+    toggleRebootWorkPage(false);
+    forceUpdate();
+  }, [rebootWorkPage]);
 
   useInterval(() => {
-    setTimeNow(
-      <span>
-        {" "}
-        {Time().hoursNow} : {Time().minNow} : {Time().secNow}{" "}
-      </span>
-    );
+    setTimeNow(<span> {new Date().toLocaleTimeString()}</span>);
   }, 1000);
 
   return (
@@ -58,9 +69,7 @@ export function WorkPage() {
             </div>
           </div>
           {data.length > 0 ? (
-            data.map((oneWork) => {
-              return <RenderOneWork ObjWork={oneWork} />;
-            })
+            <div>{MapsArr()}</div>
           ) : (
             <div>
               <div className={styles.methodTitle}>

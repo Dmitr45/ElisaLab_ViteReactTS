@@ -12,6 +12,7 @@ export async function setUpdateState(
     await updateDoc(doc(dataFireBase, "runSeriesMaps", UserEmail), {
       [String(series)]: [
         {
+          series: RoutMap.series,
           methodName: RoutMap.methodName,
           type: RoutMap.type,
           stages: RoutMap.stages,
