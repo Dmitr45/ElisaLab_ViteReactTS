@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import { ManifestOptions, VitePWA } from "vite-plugin-pwa";
 
 const manifest: Partial<ManifestOptions> | false = {
-  theme_color: "#ffffff",
+  theme_color: "#cf2069",
   background_color: "#ffffff",
   icons: [
     {
@@ -36,9 +36,10 @@ const manifest: Partial<ManifestOptions> | false = {
     },
   ],
   orientation: "portrait",
-  display: "minimal-ui", // Display mode for the PWA
+  display: "standalone", // Display mode for the PWA
   display_override: ["minimal-ui", "standalone"], // Override display modes
-  lang: " en_US",
+  lang: "en-US", // Language of the PWA
+  dir: "ltr", // Text direction
   name: "ElisaLab - Enzyme Immunoassay (ELISA) in the app",
   short_name: "ElisaLab",
   id: "/",
