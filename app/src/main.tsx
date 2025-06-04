@@ -7,6 +7,11 @@ import "./index.scss";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer.tsx";
 import { Routing } from "./context/Routing/index.tsx";
+import { registerSW } from "virtual:pwa-register";
+// Register the service worker for PWA functionality
+registerSW({
+  immediate: true, // Register the service worker immediately
+});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
