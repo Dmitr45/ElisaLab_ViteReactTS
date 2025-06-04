@@ -1,11 +1,11 @@
 .oneWork {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-items: center;
   align-items: center;
   width: 100%;
-  min-height: 100px;
-  margin-top: 20px;
+  min-height: calc(100% - 25px);
   border-radius: 20px;
   border: 1px solid transparent;
   padding: 20px;
@@ -15,13 +15,38 @@
   }
   &Timer {
     flex: 1 0 200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     font-size: 24px;
+    font-weight: 800;
+    text-align: center;
+    @media (width < 1200px) {
+    }
+    @media (width < 900px) {
+    }
+    @media (width < 600px) {
+      flex: 1 0 100%;
+    }
   }
   &Management {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     flex: 1 0 200px;
+    justify-content: space-around;
+    @media (width < 1200px) {
+    }
+    @media (width < 900px) {
+    }
+    @media (width < 600px) {
+      flex: 1 0 100%;
+      flex-direction: row;
+    }
   }
+
   &Button {
     cursor: pointer;
+    width: 120px;
     margin: 5px;
     padding: 5px;
     text-decoration: underline;

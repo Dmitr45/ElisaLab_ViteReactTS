@@ -100,7 +100,7 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
         </p>
       </div>
       <div className={styles.oneWorkTimer}>{timer}</div>
-      <div className={styles.Management}>
+      <div className={styles.oneWorkManagement}>
         <div
           className={styles.oneWorkButton + " " + themeActive.borderWishHover}
         >
