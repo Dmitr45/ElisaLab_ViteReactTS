@@ -36,7 +36,8 @@ const manifest: Partial<ManifestOptions> | false = {
     },
   ],
   orientation: "portrait",
-  display: "standalone",
+  display: "minimal-ui", // Display mode for the PWA
+  display_override: ["minimal-ui", "standalone"], // Override display modes
   lang: " en_US",
   name: "ElisaLab - Enzyme Immunoassay (ELISA) in the app",
   short_name: "ElisaLab",
