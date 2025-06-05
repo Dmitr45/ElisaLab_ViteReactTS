@@ -53,6 +53,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
     nameStages: ["", "", "", ""],
     temperatures: [0, 0, 0, 0],
     times: [0, 0, 0, 0],
+    shaking: [0, 0, 0, 0],
   });
   // Options of the method=========================================================================
   // export interface IMethod {
@@ -63,6 +64,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
   //   nameStages: string[];
   //   temperature: number[];
   //   time: number[];
+  //   shaking: number[];
   // }
 
   const [id, setId] = useState<string>("none");
@@ -96,6 +98,12 @@ export function RenderFormsMethod({ method }: PropsMethod) {
     setTimes(newTimes);
   }, [newTimes]);
 
+  const [shaking, setShaking] = useState<number[]>([]); // Массив time [time],[time], [time]
+  const [newShaking, toggleShaking] = useState<number[]>(shaking);
+  useEffect(() => {
+    setShaking(newShaking);
+  }, [newShaking]);
+
   // Получаем метод из props
   useEffect(() => {
     if (method !== undefined) {
@@ -106,6 +114,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
       setNameStages(method.nameStages);
       setTemperatures(method.temperatures);
       setTimes(method.times);
+      setShaking(method.shaking);
     }
   }, [method]);
 
@@ -121,8 +130,9 @@ export function RenderFormsMethod({ method }: PropsMethod) {
       nameStages: nameStages,
       temperatures: temperatures,
       times: times,
+      shaking: shaking,
     });
-  }, [temperatures, times, stages, name]);
+  }, [temperatures, times, stages, name, shaking]);
 
   //  ====Function start method================================================================
   async function startMethod(
@@ -131,7 +141,8 @@ export function RenderFormsMethod({ method }: PropsMethod) {
     times: number[] = EDITEDmethod.times,
     stages: boolean[] = EDITEDmethod.stages,
     nameStages: string[] = EDITEDmethod.nameStages,
-    temperatures: number[] = EDITEDmethod.temperatures
+    temperatures: number[] = EDITEDmethod.temperatures,
+    shaking: number[] = EDITEDmethod.shaking
   ) {
     // Функция для запуска метода
     const newSeries = series + 1;
@@ -146,6 +157,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
       nameStages: nameStages,
       temperatures: temperatures,
       times: times,
+      shaking: shaking,
       start: [Date.now(), 0, 0, 0],
     };
 
@@ -157,6 +169,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
       nameStages: nameStages,
       temperatures: temperatures,
       times: times,
+      shaking: shaking,
       start: [Date.now(), Date.now(), Date.now(), Date.now()],
     };
     try {
@@ -279,6 +292,30 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                   ></input>
                   <br />
                   Temperature, °C
+                </div>
+                <div className={styles.stageShaking}>
+                  <input
+                    type="number"
+                    key={index + "2000"}
+                    style={{
+                      height: 30,
+                      width: 100 + "%",
+                      textAlign: "center",
+                    }}
+                    value={shaking[index]}
+                    onChange={(event) => {
+                      const arr = shaking.map((elem: number, i: number) => {
+                        if (i === index) {
+                          return Number(event.target.value);
+                        } else {
+                          return Number(elem);
+                        }
+                      });
+                      toggleShaking(arr);
+                    }}
+                  ></input>
+                  <br />
+                  Shaking 650 or 700, RPM
                 </div>
               </div>
             );

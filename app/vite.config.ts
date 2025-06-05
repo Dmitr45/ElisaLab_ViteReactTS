@@ -22,14 +22,14 @@ const manifest: Partial<ManifestOptions> | false = {
   screenshots: [
     {
       src: "/screenshots/desktop.png",
-      sizes: "2284x1331",
+      sizes: "1712x966",
       form_factor: "wide",
       type: "image/png",
       label: "Main desktop screen of ElisaLab app",
     },
     {
       src: "/screenshots/mobile.png",
-      sizes: "384x841",
+      sizes: "257x438",
       form_factor: "narrow",
       type: "image/png",
       label: "Main mobile screen of ElisaLab app",

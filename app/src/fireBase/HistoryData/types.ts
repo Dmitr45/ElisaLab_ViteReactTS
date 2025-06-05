@@ -9,4 +9,5 @@ export interface IRouteMap {
   temperatures: number[];
   times: number[];
   start: number[];
+  shaking: number[];
 }

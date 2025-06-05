@@ -8,4 +8,5 @@ export interface IMethod {
   nameStages: string[];
   temperatures: number[];
   times: number[];
+  shaking: number[];
 }
