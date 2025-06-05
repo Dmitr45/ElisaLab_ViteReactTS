@@ -14,13 +14,18 @@
 
   &Title {
     flex: 0 0 200px;
+    text-align: center;
   }
   &Temperature {
-    flex: 1 1 200px;
+    flex: 1 0 150px;
     text-align: center;
   }
   &Time {
-    flex: 1 1 200px;
+    flex: 1 0 150px;
+    text-align: center;
+  }
+  &Shaking {
+    flex: 1 0 150px;
     text-align: center;
   }
 }

@@ -252,11 +252,13 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                       width: 100 + "%",
                       textAlign: "center",
                     }}
-                    value={times[index]}
+                    value={
+                      index === 0 ? Math.floor(times[index] / 60) : times[index]
+                    }
                     onChange={(event) => {
                       const arr = times.map((elem: number, i: number) => {
                         if (i === index) {
-                          return Number(event.target.value);
+                          return Number(event.target.value) * 60;
                         } else {
                           return Number(elem);
                         }
@@ -265,7 +267,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                     }}
                   ></input>
                   <br />
-                  Time, min
+                  {index === 0 ? "Time, hour" : "Time, min"}
                 </div>
                 <div className={styles.stageTemperature}>
                   <input
@@ -315,7 +317,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                     }}
                   ></input>
                   <br />
-                  Shaking 650 or 700, RPM
+                  Shaking, RPM
                 </div>
               </div>
             );
