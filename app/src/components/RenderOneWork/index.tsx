@@ -35,7 +35,6 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
 
   const [timer, setTimer] = useState(<></>);
   const [deltaMin, setDeltaMin] = useState<number>();
-
   const [timeStart, setTimeStart] = useState<number>(
     Math.floor(Date.now() / 1000)
   );
@@ -44,6 +43,8 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
     return ObjWork.stages.indexOf(true);
   });
 
+  const [borderWork, setBorderWork] = useState(themeActive.borderNormal); // borderNormal vs borderAlert
+
   useEffect(() => {
     console.log("ObjWork.start =" + new Date(ObjWork.start[stageActive]));
     setTimeStart(Math.floor(ObjWork.start[stageActive]));
@@ -51,13 +52,20 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
   }, []);
 
   useInterval(() => {
+    const ObjTimes = Time(ObjWork.start[stageActive], deltaMin);
     if (
-      Time(ObjWork.start[stageActive], deltaMin).hourRevers === 0 &&
-      Time(ObjWork.start[stageActive], deltaMin).minRevers === 0 &&
-      Time(timeStart, deltaMin).secRevers === 0
+      ObjTimes.hourRevers === 0 &&
+      ObjTimes.minRevers === 0 &&
+      ObjTimes.secRevers === 0
     ) {
-      console.log("FINISH !!!!");
+      if (borderWork === themeActive.borderNormal) {
+        setBorderWork(themeActive.borderAlert);
+        console.log("FINISH !!!!");
+      }
     } else {
+      if (borderWork === themeActive.borderAlert) {
+        setBorderWork(themeActive.borderNormal);
+      }
       setTimer(
         <div>
           {Time(timeStart, deltaMin).hourRevers} :{" "}
@@ -136,9 +144,9 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
   }
 
   return (
-    <div className={styles.oneWork}>
+    <div>
       {ObjWork.series !== 0 ? (
-        <>
+        <div className={styles.oneWork + " " + borderWork}>
           <div className={styles.oneWorkInfo}>
             <h2>{ObjWork.methodName}</h2>
             Current stage:{stageActive + 1} {ObjWork.nameStages[stageActive]}
@@ -177,7 +185,7 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
               Delete work
             </div>
           </div>
-        </>
+        </div>
       ) : null}
     </div>
   );

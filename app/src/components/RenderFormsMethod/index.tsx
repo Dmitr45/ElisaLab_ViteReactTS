@@ -258,7 +258,11 @@ export function RenderFormsMethod({ method }: PropsMethod) {
                     onChange={(event) => {
                       const arr = times.map((elem: number, i: number) => {
                         if (i === index) {
-                          return Number(event.target.value) * 60;
+                          if (index === 0) {
+                            return Number(event.target.value) * 60;
+                          } else {
+                            return Number(event.target.value);
+                          }
                         } else {
                           return Number(elem);
                         }

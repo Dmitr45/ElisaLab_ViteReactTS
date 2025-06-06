@@ -45,8 +45,8 @@ export function Time(
     hoursNow: hoursNow,
     minNow: minNow,
     secNow: secNow,
-    hourRevers: hourRevers >= 0 ? hourRevers : 0,
-    minRevers: minRevers >= 0 ? minRevers : 0,
-    secRevers: secRevers >= 0 ? secRevers : 0,
+    hourRevers: hourRevers > 0 ? hourRevers : 0,
+    minRevers: minRevers > 0 ? minRevers : 0,
+    secRevers: secRevers > 0 ? secRevers : 0,
   };
 }

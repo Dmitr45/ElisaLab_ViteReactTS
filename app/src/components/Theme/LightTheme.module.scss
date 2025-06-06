@@ -227,3 +227,13 @@
     color: var(--color);
   }
 }
+
+.borderNormal {
+  border: 2px solid var(--color);
+  border-radius: 20px;
+}
+
+.borderAlert {
+  border: 2px solid var(--highColor);
+  border-radius: 20px;
+}

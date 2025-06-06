@@ -56,6 +56,11 @@ export function WorkPage() {
     forceUpdate();
   }, [rebootWorkPage]);
 
+  useEffect(() => {
+    toggleRebootWorkPage(false);
+    forceUpdate();
+  }, [rebootWorkPage]);
+
   useInterval(() => {
     setTimeNow(<span> {new Date().toLocaleTimeString()}</span>);
   }, 1000);
