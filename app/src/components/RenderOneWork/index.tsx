@@ -8,7 +8,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { useAppContext } from "../../context/ContextProvider";
 import { setUpdateState } from "../../fireBase/runMethodsState/updateMaps";
 import useSound from "use-sound";
-import finishAlert from "../sound/Finish.mp3";
+import finishAlert from "/sound/Finish.mp3";
 
 import {
   themeActiveType,
