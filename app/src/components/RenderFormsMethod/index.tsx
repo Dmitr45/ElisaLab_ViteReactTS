@@ -170,7 +170,7 @@ export function RenderFormsMethod({ method }: PropsMethod) {
       temperatures: temperatures,
       times: times,
       shaking: shaking,
-      start: [Date.now(), Date.now(), Date.now(), Date.now()],
+      start: [Date.now(), Date.now(), Date.now(), Date.now(), Date.now()],
     };
     try {
       console.log("Click: Запуск метода: " + Date.now());

@@ -7,6 +7,8 @@ import { GrChapterNext } from "react-icons/gr";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useAppContext } from "../../context/ContextProvider";
 import { setUpdateState } from "../../fireBase/runMethodsState/updateMaps";
+import useSound from "use-sound";
+import finishAlert from "../sound/Finish.mp3";
 
 import {
   themeActiveType,
@@ -33,6 +35,8 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
     rebootWorkPage: rebootWorkPageType;
   } = useAppContext();
 
+  const [play, { stop }] = useSound(finishAlert);
+
   const [timer, setTimer] = useState(<></>);
   const [deltaMin, setDeltaMin] = useState<number>();
   const [timeStart, setTimeStart] = useState<number>(
@@ -53,6 +57,14 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
 
   useInterval(() => {
     const ObjTimes = Time(ObjWork.start[stageActive], deltaMin);
+    if (
+      ObjTimes.hourRevers === 0 &&
+      ObjTimes.minRevers === 0 &&
+      ObjTimes.secRevers === 5
+    ) {
+      play();
+    }
+
     if (
       ObjTimes.hourRevers === 0 &&
       ObjTimes.minRevers === 0 &&
@@ -77,6 +89,7 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
   }, 1000);
 
   async function NextStage() {
+    stop();
     try {
       console.log(
         "Click: Следующий этап в работе по маршрутной карте серии: " +
@@ -97,7 +110,7 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
           temperatures: ObjWork.temperatures,
           times: ObjWork.times,
           shaking: ObjWork.shaking,
-          start: ObjWork.start,
+          start: [Date.now(), Date.now(), Date.now(), Date.now(), Date.now()],
         },
         currentUser.email
       );
@@ -111,6 +124,7 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
   }
 
   async function Delete() {
+    stop();
     try {
       console.log(
         "Click: Остановить работу по маршрутной карте серии: " + ObjWork.series
