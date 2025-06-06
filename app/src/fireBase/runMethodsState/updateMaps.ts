@@ -20,6 +20,7 @@ export async function setUpdateState(
           times: RoutMap.times,
           start: RoutMap.start,
           temperatures: RoutMap.temperatures,
+          shaking: RoutMap.shaking,
         },
       ],
     });

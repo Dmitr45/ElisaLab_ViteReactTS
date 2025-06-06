@@ -37,7 +37,9 @@ export function WorkPage() {
 
   const MapsArr = useCallback(() => {
     return data.map((oneWork) => {
-      return <RenderOneWork ObjWork={oneWork} />;
+      if (oneWork.series !== 0) {
+        return <RenderOneWork ObjWork={oneWork} />;
+      }
     });
   }, [data, rebootWorkPage]);
 

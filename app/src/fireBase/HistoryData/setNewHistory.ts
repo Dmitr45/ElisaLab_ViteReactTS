@@ -21,6 +21,7 @@ export async function setNewHistory(
           times: RoutMap.times,
           start: RoutMap.start,
           temperatures: RoutMap.temperatures,
+          shaking: RoutMap.shaking,
         },
       ],
     });

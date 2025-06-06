@@ -6,7 +6,7 @@ import styles from "./styles.module.scss";
 import { GrChapterNext } from "react-icons/gr";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useAppContext } from "../../context/ContextProvider";
-import { deleteMaps } from "../../fireBase/runMethodsState/deleteMaps";
+import { setUpdateState } from "../../fireBase/runMethodsState/updateMaps";
 
 import {
   themeActiveType,
@@ -68,16 +68,63 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
     }
   }, 1000);
 
+  async function NextStage() {
+    try {
+      console.log(
+        "Click: Следующий этап в работе по маршрутной карте серии: " +
+          ObjWork.series
+      );
+      const newStages: boolean[] = ObjWork.stages.map((stage, index) =>
+        index === stageActive ? false : stage
+      );
+
+      await setUpdateState(
+        ObjWork.series,
+        {
+          series: ObjWork.series,
+          methodName: ObjWork.methodName,
+          type: ObjWork.type,
+          stages: newStages,
+          nameStages: ObjWork.nameStages,
+          temperatures: ObjWork.temperatures,
+          times: ObjWork.times,
+          shaking: ObjWork.shaking,
+          start: ObjWork.start,
+        },
+        currentUser.email
+      );
+      toggleRebootWorkPage(true);
+    } catch (error) {
+      toggleMessage({
+        type: "error",
+        message: "Error delete maps: " + error,
+      });
+    }
+  }
+
   async function Delete() {
     try {
       console.log(
         "Click: Остановить работу по маршрутной карте серии: " + ObjWork.series
       );
-      await deleteMaps(ObjWork.series, currentUser.email).finally(() => {
-        toggleMessage({
-          type: "success",
-          message: "Maps delete successfully!",
-        });
+      await setUpdateState(
+        ObjWork.series,
+        {
+          series: 0,
+          methodName: "",
+          type: "",
+          stages: [],
+          nameStages: [],
+          temperatures: [],
+          times: [],
+          shaking: [],
+          start: [],
+        },
+        currentUser.email
+      );
+      toggleMessage({
+        type: "success",
+        message: "Work series: " + ObjWork.series + " was stopped",
       });
       toggleRebootWorkPage(true);
     } catch (error) {
@@ -90,34 +137,48 @@ export function RenderOneWork({ ObjWork }: { ObjWork: IRunMethodsState }) {
 
   return (
     <div className={styles.oneWork}>
-      <div className={styles.oneWorkInfo}>
-        <h2>{ObjWork.methodName}</h2>
-        Current stage:{stageActive + 1} {ObjWork.nameStages[stageActive]}
-        <p>Type work: {ObjWork.type}</p>
-        <p>
-          Temperature: {ObjWork.temperatures[stageActive]}°C; Time:{" "}
-          {ObjWork.times[stageActive]} min
-        </p>
-      </div>
-      <div className={styles.oneWorkTimer}>{timer}</div>
-      <div className={styles.oneWorkManagement}>
-        <div
-          className={styles.oneWorkButton + " " + themeActive.borderWishHover}
-        >
-          <GrChapterNext style={{ fontSize: 32 }} />
-          <br />
-          Next stage
-        </div>
-        <div
-          className={styles.oneWorkButton + " " + themeActive.borderWishHover}
-          onClick={() => {
-            Delete();
-          }}
-        >
-          <RiDeleteBin5Line style={{ fontSize: 32 }} /> <br />
-          Delete work
-        </div>
-      </div>
+      {ObjWork.series !== 0 ? (
+        <>
+          <div className={styles.oneWorkInfo}>
+            <h2>{ObjWork.methodName}</h2>
+            Current stage:{stageActive + 1} {ObjWork.nameStages[stageActive]}
+            <p>Type work: {ObjWork.type}</p>
+            <p>
+              Temperature: {ObjWork.temperatures[stageActive]}°C
+              <br />
+              Time: {ObjWork.times[stageActive]} min <br />
+              Shaking: {ObjWork.shaking[stageActive]} RPM
+              <br />
+            </p>
+          </div>
+          <div className={styles.oneWorkTimer}>{timer}</div>
+          <div className={styles.oneWorkManagement}>
+            <div
+              className={
+                styles.oneWorkButton + " " + themeActive.borderWishHover
+              }
+              onClick={() => {
+                NextStage();
+              }}
+            >
+              <GrChapterNext style={{ fontSize: 32 }} />
+              <br />
+              Next stage
+            </div>
+            <div
+              className={
+                styles.oneWorkButton + " " + themeActive.borderWishHover
+              }
+              onClick={() => {
+                Delete();
+              }}
+            >
+              <RiDeleteBin5Line style={{ fontSize: 32 }} /> <br />
+              Delete work
+            </div>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
