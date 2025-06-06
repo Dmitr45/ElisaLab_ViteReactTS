@@ -1,4 +1,4 @@
-import style from "./styles.module.scss";
+import style from "../styles.module.scss";
 import { useAppContext } from "../../context/ContextProvider";
 import { NameAppType, NameObjType, themeActiveType } from "../../context/types";
 
