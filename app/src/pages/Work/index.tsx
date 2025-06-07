@@ -35,31 +35,61 @@ export function WorkPage() {
   const [timeNow, setTimeNow] = useState(<span> 00: 00: 00</span>);
   const forceUpdate = useForceUpdate();
 
-  const MapsArr = useCallback(() => {
-    return data.map((oneWork) => {
-      if (oneWork.series !== 0) {
-        return <RenderOneWork ObjWork={oneWork} />;
-      }
-    });
-  }, [data, rebootWorkPage]);
+  const NotWork = (
+    <div>
+      <div className={styles.methodTitle}>
+        You don't have any protocol running.
+      </div>
+      <button
+        onClick={() => {
+          togglePageActive(11);
+        }}
+      >
+        Select method&nbsp;
+        <TbMessageQuestion />
+      </button>
+    </div>
+  );
+
+  const [mapsArr, setMapsArr] = useState([NotWork]);
+  const [nextStepCoun, setNextStepCoun] = useState(0);
 
   useEffect(() => {
     if (currentUser) {
       getDataState(currentUser.email).then((data) => {
         if (data !== null && data.length > 0) {
           setData(data);
+          setNextStepCoun(nextStepCoun + 1);
+          toggleRebootWorkPage(false);
         }
       });
     }
-    MapsArr();
-    toggleRebootWorkPage(false);
+    console.log("WorkPage useEffect rebootWorkPage: ", rebootWorkPage);
     forceUpdate();
   }, [rebootWorkPage]);
 
   useEffect(() => {
-    toggleRebootWorkPage(false);
+    setMapsArr(() => {
+      if (data.length === 0) {
+        return [NotWork];
+      } else {
+        const works = data.filter((oneWork) => oneWork.series !== 0);
+        if (works[0]) {
+          return works.map((oneWork) => {
+            return <RenderOneWork ObjWork={oneWork} />;
+          });
+        } else {
+          return [NotWork];
+        }
+      }
+    });
     forceUpdate();
-  }, [rebootWorkPage]);
+  }, [data, nextStepCoun]);
+
+  const Render = useCallback(() => {
+    return mapsArr;
+  }, [mapsArr, nextStepCoun]);
+  // Update the time every second
 
   useInterval(() => {
     setTimeNow(<span> {new Date().toLocaleTimeString()}</span>);
@@ -75,23 +105,9 @@ export function WorkPage() {
               Time: {timeNow}
             </div>
           </div>
-          {data.length > 0 ? (
-            <div>{MapsArr()}</div>
-          ) : (
-            <div>
-              <div className={styles.methodTitle}>
-                You don't have any protocol running.
-              </div>
-              <button
-                onClick={() => {
-                  togglePageActive(11);
-                }}
-              >
-                Select method&nbsp;
-                <TbMessageQuestion />
-              </button>
-            </div>
-          )}
+          <div>
+            <Render />
+          </div>
         </div>
       </div>
     </div>
