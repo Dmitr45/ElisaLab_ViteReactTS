@@ -14,6 +14,22 @@ export function Navigation() {
       {/* <div onClick={()=>{togglePageActive(0)}} className={themeActive.logo}>{Title.name}<span>{Title.span}</span></div> */}
       <div
         onClick={() => {
+          togglePageActive(17);
+        }}
+        className={style.pageTitle + " " + themeActive.link}
+      >
+        Install application
+      </div>
+      <div
+        onClick={() => {
+          togglePageActive(18);
+        }}
+        className={style.pageTitle + " " + themeActive.link}
+      >
+        Instruction Manual
+      </div>
+      <div
+        onClick={() => {
           togglePageActive(16);
         }}
         className={style.pageTitle + " " + themeActive.link}

@@ -16,6 +16,8 @@ import { History } from "../../pages/History";
 import { LoaderPD } from "../../pages/Loader";
 import { WorkPage } from "../../pages/Work";
 import { AboutELISA } from "../../pages/AboutELISA";
+import { AboutInstall } from "../../pages/AboutInstall";
+import { Manual } from "../../pages/Manual";
 
 export function Routing() {
   const { userLoggedIn } = useAppContext();
@@ -42,6 +44,8 @@ export function Routing() {
     <LoaderPD />, //14
     <WorkPage />, //15
     <AboutELISA />, //16
+    <AboutInstall />, //17
+    <Manual />, //18
   ];
 
   return <div className={themeActive.section}>{pagesArr[pageActive]}</div>;
